@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+        
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar {
+            background: white;
+            min-height: calc(100vh - 56px);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 250px;
+            padding-top: 20px;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .upload-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 2px dashed #ddd;
+            transition: border-color 0.3s;
+        }
+        
+        .upload-card:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .book-table {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .sidebar-item {
+            padding: 12px 20px;
+            margin: 5px 15px;
+            border-radius: 8px;
+            color: #333;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-item:hover, .sidebar-item.active {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .sidebar-item i {
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .badge-custom {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+		
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+			
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-shop"></i> Library Dashboard
+            </a>
+			
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+			
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" title="Home">
+                            <i class="bi bi-house-door"></i> Home
+                        </a>
+                    </li>
+					
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile" title="Profile">
+                            <i class="bi bi-person-circle"></i> Manage Account
+                        </a>
+                    </li>
+					
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person"></i> 
+                            <span sec:authentication="name"></span>
+                        </a>
+						
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/profile"><i class="bi bi-gear"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" class="d-inline">
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="bi bi-box-arrow-right"></i> Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar d-none d-md-block">
+        <div class="sidebar-header px-3 mb-4">
+            <h5 class="text-muted"><i class="bi bi-layout-sidebar"></i> MENU</h5>
+        </div>
+        
+        <a href="#dashboard" class="sidebar-item active">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+        <a href="#books" class="sidebar-item">
+            <i class="bi bi-box-seam"></i> Books
+        </a>
+        <a href="#analytics" class="sidebar-item">
+            <i class="bi bi-graph-up"></i> Analytics
+        </a>
+        <a href="#reports" class="sidebar-item">
+            <i class="bi bi-file-earmark-bar-graph"></i> Reports
+        </a>
+        <a href="#settings" class="sidebar-item">
+            <i class="bi bi-gear"></i> Settings
+        </a>
+        
+        <div class="mt-5 px-3">
+            <h6 class="text-muted mb-3">QUICK STATS</h6>
+            <div class="d-flex justify-content-between mb-2">
+                <small>Books:</small>
+                <span class="badge bg-primary" th:text="${totalBooks}">0</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+                <small>Categories:</small>
+                <span class="badge bg-success" th:text="${categoryCounts}">0</span>
+            </div>
+            <div class="d-flex justify-content-between">
+                <small>Today's Sales:</small>
+                <span class="badge bg-warning" id="totalValue"> </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Welcome Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 mb-1">Welcome back, <span sec:authentication="name"></span>!👋</h1>
+						                                                  <!-- window + . choose emoji--> 
+                        <p class="text-muted">Here's what's happening with your library today.</p>
+                    </div>
+                    <div>
+                        <span class="badge-custom">
+                            <i class="bi bi-calendar-check"></i> 
+                            <span id="currentDate"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards (Update with Real Data) -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">TOTAL BOOKS</h6>
+                            <h3 class="mb-0" th:text="${totalBooks}">0</h3>
+							<small class="text-success"><i class="bi bi-arrow-up"></i> 12% from last month</small>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="bi bi-box"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">ACTIVE CATEGORIES</h6>
+                            <h3 class="mb-0" th:text="${categoryCounts}">0</h3>
+                            <small class="text-info">3 new this month</small>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="bi bi-tags"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">TOTAL SALES</h6>
+                            <h3 class="mb-0">$12,450</h3>
+                            <small class="text-success"><i class="bi bi-arrow-up"></i> 18% growth</small>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted">LOW STOCK</h6>
+                            <h3 class="mb-0">5</h3>
+                            <small class="text-danger">Need restocking</small>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts and Upload Section -->
+        <div class="row mb-4">
+            <!-- Pie Chart -->
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h5 class="mb-3"><i class="bi bi-pie-chart"></i> Books by Category</h5>
+                    <div style="height: 300px;">
+						<canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Excel Upload -->
+            <div class="col-md-6">
+                <div class="upload-card text-center">
+                    <div class="mb-4">
+                        <i class="bi bi-file-earmark-excel" style="font-size: 3rem; color: #1d6f42;"></i>
+                    </div>
+                    <h5>Upload Book Excel File</h5>
+                    <p class="text-muted mb-4">Upload your Excel file to update book list</p>
+                    
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <input type="file" class="form-control" id="excelFile" accept=".xlsx,.xls,.csv">
+                            <div class="form-text">Supported formats: .xlsx, .xls, .csv</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button type="button" class="btn btn-primary" onclick="uploadFile()">
+                                <i class="bi bi-upload"></i> Upload Excel
+                            </button>
+							<button type="button" class="btn btn-outline-secondary" onclick="downloadTemplate()">
+							    <i class="bi bi-download"></i> Download Template
+							</button>
+                        </div>
+                    </form>
+                    
+                    <div id="uploadProgress" class="mt-3" style="display: none;">
+                        <div class="progress">
+                            <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                                 role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <small id="progressText" class="text-muted">Uploading...</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Books Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="book-table">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5><i class="bi bi-table"></i> Recent Books</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary me-2">
+                                <i class="bi bi-filter"></i> Filter
+                            </button>
+                            <button class="btn btn-sm btn-primary">
+                                <i class="bi bi-plus-circle"></i> Add Book
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="booksTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+									<th>Book Code</th>
+                                    <th>Book Name</th>
+                                    <th>Author</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+							<!--tbody id="booksTableBody">
+							            Data will be loaded here
+							</tbody-->
+							<tbody>
+								<!-- If no books -->
+								<tr th:if="${books.empty}">
+									<td colspan="8" class="text-center text-muted">
+										<i class="bi bi-inbox"></i> No books found
+									</td>
+								</tr>
+														                        
+								<!-- Books list -->
+								<tr th:each="book,iter : ${books}" th:class="${iter.odd} ? 'table-light' : ''">
+									<td th:text="${iter.index + 1 + (currentPage - 1) * pageSize}"></td>
+									<td>
+										<strong th:text="${book.bookCode}"></strong>
+									</td>
+
+									<td th:text="${book.bookName}"></td>
+									<td th:text="${book.author}"></td>
+									<td>
+										<span class="badge bg-info" th:text="${book.category}"></span>
+									</td>
+									<td th:text="${book.quantity}"></td>
+									<td>
+										<span th:switch="${book.status}" class="badge">
+											<span th:case="AVAILABLE" class="badge bg-success">AVAILABLE</span>
+											<span th:case="CHECKED_OUT" class="badge bg-warning">CHECKED_OUT</span>
+											<span th:case="ON_HOLD" class="badge bg-danger">ON_HOLD</span>
+											<span th:case="WITHDRAWN" class="badge bg-danger">WITHDRAWN</span>
+											<span th:case="*" class="badge bg-secondary" th:text="${book.status}"></span>
+										</span>
+									</td>
+									<td>
+										<button class="btn btn-sm btn-outline-primary" onclick="">
+											<i class="bi bi-eye"></i>
+										</button>
+										<button class="btn btn-sm btn-outline-warning" onclick="">
+											<i class="bi bi-pencil"></i>
+										</button>
+										<button class="btn btn-sm btn-outline-danger" th:onclick="'deleteBook(\'' + ${book.id} + '\')'">
+											<i class="bi bi-trash"></i>
+										</button>
+									</td>
+								</tr>
+							</thbody>														
+						</table>
+                    </div>
+					<!--  ......................pagination start...................... -->
+								
+					<div th:if="${totalPages > 1}" class="pagination justify-content-center">
+						<div class="btn-group btn-group-sm">
+					        <a th:href="@{/dashboard(page=${currentPage - 1}, size=${pageSize}, search=${search})}" 
+					           class="btn btn-outline-primary" 
+					           th:classappend="${currentPage == 1} ? 'disabled' : ''">
+					            <i class="bi bi-chevron-left"></i> Previous
+					        </a>
+					        
+					        <button class="btn btn-primary disabled">
+					            Page <span th:text="${currentPage}"></span> of <span th:text="${totalPages}"></span>
+					        </button>
+					        
+					        <a th:href="@{/dashboard(page=${currentPage + 1}, size=${pageSize}, search=${search})}" 
+					           class="btn btn-outline-primary" 
+					           th:classappend="${currentPage == totalPages} ? 'disabled' : ''">
+					            Next <i class="bi bi-chevron-right"></i>
+					        </a>
+					    </div>
+						&nbsp; &nbsp;
+					    <div>
+					        <select class="form-select form-select-sm d-inline-block w-auto" 
+					                onchange="location.href='/dashboard?page=1&size=' + this.value">
+					            <option value="5" th:selected="${pageSize == 5}">5 per page</option>
+					            <option value="10" th:selected="${pageSize == 10}">10 per page</option>
+					        </select>
+					    </div>
+					</div>
+
+
+					<!--  ......................pagination stop...................... -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-5 pt-3 text-center text-muted">
+            <p>© 2026 Library Dashboard. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	    const data = /*[[${categoryData}]]*/ {};
+	    console.log("Data received:", data);
+	    
+	    let chartLabels = [];
+	    let chartData = [];
+	    
+	    /*if (data && typeof data === 'object') {
+	        if (Array.isArray(data)) {
+	            // Array ဆိုရင်
+	            chartLabels = data.map(item => {
+	                // item က object လား string လား
+	                if (typeof item === 'object') {
+	                    return item.name || item.category || 'Unknown';
+	                }
+	                return item;
+	            });
+	            chartData = data.map(item => {
+	                if (typeof item === 'object') {
+	                    return item.count || item.value || 0;
+	                }
+	                return 1;
+	            });
+	        } else {
+	            // Object/Map ဆိုရင်
+	            chartLabels = Object.keys(data);
+	            chartData = Object.values(data);
+	        }
+	    }*/
+		/*chartLabels = Object.keys(data);
+		chartData = Object.values(data);
+		
+	    console.log("Will use labels:", chartLabels);
+	    console.log("Will use data:", chartData);
+	    
+	    // Draw Chart
+	    const canvas = document.getElementById('categoryChart');
+	    if (canvas) {
+	        const ctx = canvas.getContext('2d');
+	        new Chart(ctx, {
+	            type: 'pie',
+	            data: {
+	                labels: chartLabels,
+	                datasets: [{
+	                    data: chartData,
+	                    backgroundColor: [
+	                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+	                        '#9966FF', '#FF9F40', '#C9CBCF'
+	                    ]
+	                }]
+	            }
+	        });
+	    } else {
+	        console.error("Canvas element not found!");
+	    }
+	/*]]>*/
+	</script>
+	
+    <script>
+        //Set current date
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+        
+        //Initialize Pie Chart
+		//chartLabels = Object.keys(data);
+		//chartData = Object.values(data);
+        const ctx = document.getElementById('categoryChart').getContext('2d');
+		
+        const categoryChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                //labels: ['Electronics', 'Clothing', 'Footwear', 'Books', 'Home & Kitchen'],
+				labels: Object.keys(data),
+                datasets: [{
+                    //data: [35, 25, 20, 10, 10],
+					data:Object.values(data),
+                    backgroundColor: [
+                        '#667eea',
+                        '#764ba2',
+                        '#10b981',
+                        '#f59e0b',
+                        '#ef4444',
+						'#27D3F5',
+						'#FEEBE7',
+						'#B027F5'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                        }
+                    }
+                }
+            }
+        });
+		
+
+		// Initialize chart on page load
+		document.addEventListener('DOMContentLoaded', function() {
+		    initializeOrUpdateChart();
+		});
+        
+        // Make sidebar responsive
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('d-none');
+        } 
+		
+		// File upload function
+		async function uploadFile() {
+		    const fileInput = document.getElementById('excelFile');
+		    const progressDiv = document.getElementById('uploadProgress');
+		    const progressBar = document.getElementById('progressBar');
+		    const progressText = document.getElementById('progressText');
+		    
+		    if (!fileInput.files.length) {
+		        showToast('Please select an Excel file to upload.', 'warning');
+		        return;
+		    }
+		    
+		    const formData = new FormData();
+		    formData.append('file', fileInput.files[0]);
+		    
+		    // Show progress bar
+		    progressDiv.style.display = 'block';
+		    progressBar.style.width = '0%';
+		    progressText.textContent = 'Uploading...';
+		    
+		    try {
+		        const response = await fetch('/api/upload-excel', {
+		            method: 'POST',
+		            body: formData
+		        });
+		        
+		        const result = await response.json();
+		        
+		        if (result.success) {
+		            progressBar.style.width = '100%';
+		            progressBar.classList.remove('progress-bar-animated', 'progress-bar-striped');
+		            progressBar.classList.add('bg-success');
+		            progressText.textContent = 'Upload complete!';
+		            
+		            // Show success message with details
+		            const data = result.data;
+		            const message = `
+		                File processed successfully!<br>
+		                Total Rows: ${data.totalRows}<br>
+		                Success: ${data.successCount} | Errors: ${data.errorCount}
+		            `;
+		            
+		            showToast(message, 'success');
+		            
+		            // Refresh books table after 2 seconds
+		            setTimeout(() => {
+		                loadBooks();
+		                updateDashboardStats();
+		                progressDiv.style.display = 'none';
+		                // Reset file input
+		                fileInput.value = '';
+		            }, 2000);
+		            
+		        } else {
+		            progressBar.classList.add('bg-danger');
+		            progressText.textContent = 'Upload failed!';
+		            showToast(result.message, 'error');
+		        }
+		        
+		    } catch (error) {
+		        console.error('Upload error:', error);
+		        progressBar.classList.add('bg-danger');
+		        progressText.textContent = 'Upload failed!';
+		        showToast('Error uploading file: ' + error.message, 'error');
+		    } finally {
+		        setTimeout(() => {
+		            progressDiv.style.display = 'none';
+		            progressBar.classList.remove('bg-success', 'bg-danger');
+		            progressBar.classList.add('progress-bar-animated', 'progress-bar-striped');
+		            progressBar.style.width = '0%';
+		        }, 3000);
+		    }
+		}
+
+		// Download template
+		function downloadTemplate() {
+		    window.location.href = '/api/download-template';
+		}
+
+		//Update dashboard statistics
+		async function updateDashboardStats() {
+		    try {
+		        const response = await fetch('/api/books/stats'); //You need to create this endpoint
+		        const stats = await response.json();
+		        
+		        // Update stats cards
+		        document.querySelector('#totalbooks').textContent = stats.totalBooks || '0';
+				document.querySelector('#categoryCounts').textContent = stats.CategoryCounts || '0';
+		        document.querySelector('#totalCategories').textContent = stats.totalCategories || '0';
+		        document.querySelector('#totalValue').textContent = 
+		            stats.totalValue ? `$${parseFloat(stats.totalValue).toFixed(2)}` : '$0.00';
+		        document.querySelector('#lowStockCount').textContent = stats.lowStockCount || '0';
+		        
+		        // Update chart
+		        updateChart(stats.categoryData);
+		        
+		    } catch (error) {
+		        console.error('Error updating stats:', error);
+		    }
+		}
+
+		
+		// Toast notification function
+		function showToast(message, type = 'info') {
+		    // Create toast container if not exists
+		    let toastContainer = document.getElementById('toastContainer');
+		    if (!toastContainer) {
+		        toastContainer = document.createElement('div');
+		        toastContainer.id = 'toastContainer';
+		        toastContainer.style.cssText = `
+		            position: fixed;
+		            top: 20px;
+		            right: 20px;
+		            z-index: 9999;
+		        `;
+		        document.body.appendChild(toastContainer);
+		    }
+		    
+		    const toastId = 'toast-' + Date.now();
+		    const backgroundColor = type === 'success' ? '#10b981' : 
+		                           type === 'error' ? '#ef4444' : 
+		                           type === 'warning' ? '#f59e0b' : '#3b82f6';
+		    
+		    const toast = document.createElement('div');
+		    toast.id = toastId;
+		    toast.style.cssText = `
+		        background: white;
+		        border-left: 4px solid ${backgroundColor};
+		        padding: 15px 20px;
+		        margin-bottom: 10px;
+		        border-radius: 8px;
+		        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+		        min-width: 300px;
+		        animation: slideIn 0.3s ease;
+		    `;
+		    
+		    toast.innerHTML = `
+		        <div class="d-flex justify-content-between align-items-center">
+		            <div>
+		                <strong style="color: ${backgroundColor}">
+		                    ${type.charAt(0).toUpperCase() + type.slice(1)}
+		                </strong>
+		                <div class="mt-1">${message}</div>
+		            </div>
+		            <button type="button" class="btn-close" onclick="document.getElementById('${toastId}').remove()"></button>
+		        </div>
+		    `;
+		    
+		    toastContainer.appendChild(toast);
+		    
+		    // Auto remove after 5 seconds
+		    setTimeout(() => {
+		        if (document.getElementById(toastId)) {
+		            toast.style.animation = 'slideOut 0.3s ease';
+		            setTimeout(() => toast.remove(), 300);
+		        }
+		    }, 5000);
+		}
+
+		// Add CSS animations
+		const style = document.createElement('style');
+		style.textContent = `
+		    @keyframes slideIn {
+		        from {
+		            transform: translateX(100%);
+		            opacity: 0;
+		        }
+		        to {
+		            transform: translateX(0);
+		            opacity: 1;
+		        }
+		    }
+		    @keyframes slideOut {
+		        from {
+		            transform: translateX(0);
+		            opacity: 1;
+		        }
+		        to {
+		            transform: translateX(100%);
+		            opacity: 0;
+		        }
+		    }
+		`;
+		document.head.appendChild(style);
+
+		// Initialize on page load
+		document.addEventListener('DOMContentLoaded', function() {
+		    loadBooks();
+		    updateDashboardStats();
+		});
+		
+    </script>
+</body>
+</html>
