@@ -1,6 +1,8 @@
 package com.oodd.library.controller;
 
 import com.oodd.library.model.Book;
+import com.oodd.library.model.User;
+import com.oodd.library.repository.UserRepository;
 import com.oodd.library.service.ExcelService;
 import com.oodd.library.service.BookService;
 
@@ -11,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
-public class BookController {
+ public class BookController {
  
  @Autowired
  private ExcelService excelService;
@@ -30,10 +34,25 @@ public class BookController {
  @Autowired
  private BookService bookService;
  
+ @Autowired
+ private UserRepository userRepository;
+ 
+ private User currentUser() {
+     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+     if (auth == null || !auth.isAuthenticated() || auth.getName() == null) {
+         return null;
+     }
+     return userRepository.findByEmail(auth.getName()).orElse(null);
+ }
+ 
  @GetMapping("/dashboard")
  public String dashboard(@RequestParam(defaultValue = "1") int page,
 	     @RequestParam(defaultValue = "5") int size,
 	     @RequestParam(required = false) String search,Model model) {
+     User user = currentUser();
+     model.addAttribute("user", user);
+     model.addAttribute("isAdmin", user != null && user.getRole() == User.UserRole.ADMIN);
+     
      // Get dashboard statistics
      Map<String, Object> stats = bookService.getDashboardStatistics();
      model.addAttribute("stats", stats);

@@ -146,7 +146,7 @@
                     </li>
 					
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile" title="Profile">
+                        <a class="nav-link" th:href="@{/profile}" title="Profile">
                             <i class="bi bi-person-circle"></i> Manage Account
                         </a>
                     </li>
@@ -155,11 +155,11 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
                            data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person"></i> 
-                            <span sec:authentication="name"></span>
+                            <span th:text="${user != null and !#strings.isEmpty(user.firstName) ? user.firstName : (user != null ? user.username : '')}"></span>
                         </a>
 						
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/profile"><i class="bi bi-gear"></i> Settings</a></li>
+                            <li><a class="dropdown-item" th:href="@{/profile}"><i class="bi bi-gear"></i> Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form th:action="@{/logout}" method="post" class="d-inline">
@@ -187,10 +187,10 @@
         <a href="#books" class="sidebar-item">
             <i class="bi bi-box-seam"></i> Books
         </a>
-        <a href="#analytics" class="sidebar-item">
+        <a href="#analytics" class="sidebar-item" th:if="${isAdmin}">
             <i class="bi bi-graph-up"></i> Analytics
         </a>
-        <a href="#reports" class="sidebar-item">
+        <a href="#reports" class="sidebar-item" th:if="${isAdmin}">
             <i class="bi bi-file-earmark-bar-graph"></i> Reports
         </a>
         <a href="#settings" class="sidebar-item">
@@ -207,7 +207,7 @@
                 <small>Categories:</small>
                 <span class="badge bg-success" th:text="${categoryCounts}">0</span>
             </div>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between" th:if="${isAdmin}">
                 <small>Today's Sales:</small>
                 <span class="badge bg-warning" id="totalValue"> </span>
             </div>
@@ -221,7 +221,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h1 class="h3 mb-1">Welcome back, <span sec:authentication="name"></span>!👋</h1>
+                        <h1 class="h3 mb-1">Welcome back, <span th:text="${user != null and !#strings.isEmpty(user.firstName) ? user.firstName : (user != null ? user.username : 'Guest')}"></span>!👋</h1>
 						                                                  <!-- window + . choose emoji--> 
                         <p class="text-muted">Here's what's happening with your library today.</p>
                     </div>
@@ -267,7 +267,7 @@
                 </div>
             </div>
 			
-            <div class="col-md-3">
+            <div class="col-md-3" th:if="${isAdmin}">
                 <div class="stat-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -282,7 +282,7 @@
                 </div>
             </div>
 			
-            <div class="col-md-3">
+            <div class="col-md-3" th:classappend="${!isAdmin} ? 'col-md-4' : ''">
                 <div class="stat-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -298,8 +298,8 @@
             </div>
         </div>
 
-        <!-- Charts and Upload Section -->
-        <div class="row mb-4">
+        <!-- Charts and Upload Section (Admin only) -->
+        <div class="row mb-4" th:if="${isAdmin}">
             <!-- Pie Chart -->
             <div class="col-md-6">
                 <div class="chart-container">
@@ -356,7 +356,7 @@
                             <button class="btn btn-sm btn-outline-primary me-2">
                                 <i class="bi bi-filter"></i> Filter
                             </button>
-                            <button class="btn btn-sm btn-primary">
+                            <button class="btn btn-sm btn-primary" th:if="${isAdmin}">
                                 <i class="bi bi-plus-circle"></i> Add Book
                             </button>
                         </div>
@@ -421,7 +421,7 @@
 										</button>
 									</td>
 								</tr>
-							</thbody>														
+							</tbody>														
 						</table>
                     </div>
 					<!--  ......................pagination start...................... -->
@@ -534,9 +534,10 @@
         document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
         
         //Initialize Pie Chart
-		//chartLabels = Object.keys(data);
-		//chartData = Object.values(data);
-        const ctx = document.getElementById('categoryChart').getContext('2d');
+		const categoryCanvas = document.getElementById('categoryChart');
+		if (!categoryCanvas) { /* non-admin: chart not rendered */ }
+		else {
+        const ctx = categoryCanvas.getContext('2d');
 		
         const categoryChart = new Chart(ctx, {
             type: 'pie',
@@ -574,6 +575,7 @@
                 }
             }
         });
+		}
 		
 
 		// Initialize chart on page load

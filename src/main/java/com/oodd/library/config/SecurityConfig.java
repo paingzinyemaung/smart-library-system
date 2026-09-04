@@ -2,6 +2,7 @@ package com.oodd.library.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -70,11 +71,14 @@ private final UserRepository userRepository;
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
         	.authorizeHttpRequests(authz -> authz
-                .requestMatchers("/", "/register", "/api/register", "/login", 
-                			   "/api/products", "/api/products/**",
-                               "/api/download-template",
-                               "/css/**", "/js/**", "/images/**").permitAll()
-                .anyRequest().authenticated()
+                 .requestMatchers("/", "/register", "/api/register", "/login", 
+                 			   "/api/products", "/api/products/**",
+                   "/css/**", "/js/**", "/images/**").permitAll()
+                 .requestMatchers(HttpMethod.POST, "/api/upload-excel").hasRole("ADMIN")
+                 .requestMatchers(HttpMethod.GET, "/api/download-template").hasRole("ADMIN")
+                 .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
+                 .requestMatchers("/dashboard", "/profile").authenticated()
+                 .anyRequest().authenticated()
             ).formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/api/login")

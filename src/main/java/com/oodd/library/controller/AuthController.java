@@ -42,6 +42,16 @@ public class AuthController {
         return "register";
     }
     
+    @GetMapping("/profile")
+    public String showProfilePage(java.security.Principal principal, Model model) {
+        User user = principal == null ? null
+                : userService.findByEmail(principal.getName()).orElse(null);
+        model.addAttribute("user", user);
+        model.addAttribute("isAdmin", user != null && user.getRole() == User.UserRole.ADMIN);
+        model.addAttribute("borrowHistory", java.util.List.of());
+        return "profile";
+    }
+    
 	/*
 	 * @GetMapping("/dashboard") public String showDashboard() { return "dashboard";
 	 * }
