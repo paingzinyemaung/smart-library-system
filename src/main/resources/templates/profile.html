@@ -183,7 +183,7 @@
                             </tr>
                             <tr th:each="rec, iter : ${borrowHistory}" class="border-b border-white/5 hover:bg-white/5 transition">
                                 <td class="px-5 sm:px-8 py-3.5 text-indigo-300/70" th:text="${iter.count}">1</td>
-                                <td class="px-4 py-3.5 font-semibold text-white" th:text="${rec.book?.bookName}">Book</td>
+                                    <td class="px-4 py-3.5 font-semibold text-white" th:text="${rec.book?.title}">Book</td>
                                 <td class="px-4 py-3.5 text-indigo-200/80" th:text="${rec.issueDate}">Issue</td>
                                 <td class="px-4 py-3.5 text-indigo-200/80" th:text="${rec.dueDate}">Due</td>
                                 <td class="px-4 py-3.5 text-indigo-200/80" th:text="${rec.returnDate}">Return</td>

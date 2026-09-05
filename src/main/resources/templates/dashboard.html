@@ -16,7 +16,8 @@
                     fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
                     animation: {
                         'fade-up': 'fadeUp .6s cubic-bezier(.22,1,.36,1) both',
-                        'toast-in': 'toastIn .35s cubic-bezier(.22,1,.36,1) both'
+                        'toast-in': 'toastIn .35s cubic-bezier(.22,1,.36,1) both',
+                        'modal-in': 'modalIn .3s cubic-bezier(.22,1,.36,1) both'
                     },
                     keyframes: {
                         fadeUp: {
@@ -26,6 +27,10 @@
                         toastIn: {
                             '0%': { opacity: '0', transform: 'translateX(120%)' },
                             '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        modalIn: {
+                            '0%': { opacity: '0', transform: 'scale(.96) translateY(12px)' },
+                            '100%': { opacity: '1', transform: 'scale(1) translateY(0)' }
                         }
                     }
                 }
@@ -126,15 +131,15 @@
                 <p class="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-300/70">Quick Stats</p>
                 <div class="flex items-center justify-between mb-2 gap-3">
                     <small class="text-indigo-200/80">Books:</small>
-                    <span class="shrink-0 inline-flex items-center rounded-full bg-indigo-500/25 ring-1 ring-indigo-300/40 px-2.5 py-0.5 text-xs font-bold text-indigo-100" th:text="${totalBooks}">0</span>
+                    <span class="shrink-0 inline-flex items-center rounded-full bg-indigo-500/25 ring-1 ring-indigo-300/40 px-2.5 py-0.5 text-xs font-bold text-indigo-100" th:text="${stats.totalBooks}">0</span>
                 </div>
                 <div class="flex items-center justify-between mb-2 gap-3">
                     <small class="text-indigo-200/80">Categories:</small>
-                    <span class="shrink-0 inline-flex items-center rounded-full bg-emerald-500/25 ring-1 ring-emerald-300/40 px-2.5 py-0.5 text-xs font-bold text-emerald-100" th:text="${categoryCounts}">0</span>
+                    <span class="shrink-0 inline-flex items-center rounded-full bg-emerald-500/25 ring-1 ring-emerald-300/40 px-2.5 py-0.5 text-xs font-bold text-emerald-100" th:text="${stats.activeCategories}">0</span>
                 </div>
-                <div class="flex items-center justify-between gap-3" th:if="${isAdmin}">
-                    <small class="text-indigo-200/80">Today's Sales:</small>
-                    <span class="shrink-0 inline-flex items-center rounded-full bg-amber-500/25 ring-1 ring-amber-300/40 px-2.5 py-0.5 text-xs font-bold text-amber-100" id="totalValue">—</span>
+                <div class="flex items-center justify-between gap-3">
+                    <small class="text-indigo-200/80">Low Stock:</small>
+                    <span class="shrink-0 inline-flex items-center rounded-full bg-amber-500/25 ring-1 ring-amber-300/40 px-2.5 py-0.5 text-xs font-bold text-amber-100" th:text="${stats.lowStockCount}">0</span>
                 </div>
             </div>
         </div>
@@ -232,10 +237,10 @@
                     <div class="flex items-start justify-between gap-3">
                         <div class="min-w-0">
                             <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Total Books</p>
-                            <p class="mt-1 text-2xl sm:text-3xl font-black" id="statTotalBooks" th:text="${totalBooks}">0</p>
+                            <p class="mt-1 text-2xl sm:text-3xl font-black" id="statTotalBooks" th:text="${stats.totalBooks}">0</p>
                             <p class="mt-1 text-[11px] font-medium text-emerald-300 flex items-center gap-1">
                                 <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5"/></svg>
-                                from catalogue
+                                titles in catalogue
                             </p>
                         </div>
                         <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-indigo-400/90 to-indigo-600/90 ring-1 ring-white/25 flex items-center justify-center">
@@ -248,7 +253,7 @@
                     <div class="flex items-start justify-between gap-3">
                         <div class="min-w-0">
                             <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Active Categories</p>
-                            <p class="mt-1 text-2xl sm:text-3xl font-black" id="statCategories" th:text="${categoryCounts}">0</p>
+                            <p class="mt-1 text-2xl sm:text-3xl font-black" id="statCategories" th:text="${stats.activeCategories}">0</p>
                             <p class="mt-1 text-[11px] font-medium text-sky-300">across the shelf inventory</p>
                         </div>
                         <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-emerald-400/90 to-teal-600/90 ring-1 ring-white/25 flex items-center justify-center">
@@ -257,18 +262,15 @@
                     </div>
                 </div>
 
-                <div class="glass rounded-3xl ring-1 ring-white/15 p-5 hover:ring-amber-300/40 hover:-translate-y-0.5 transition-all duration-300" th:if="${isAdmin}">
+                <div class="glass rounded-3xl ring-1 ring-white/15 p-5 hover:ring-sky-300/40 hover:-translate-y-0.5 transition-all duration-300">
                     <div class="flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Total Sales</p>
-                            <p class="mt-1 text-2xl sm:text-3xl font-black" id="statTotalValue">$12,450</p>
-                            <p class="mt-1 text-[11px] font-medium text-emerald-300 flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5"/></svg>
-                                18% growth
-                            </p>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Total Copies</p>
+                            <p class="mt-1 text-2xl sm:text-3xl font-black" id="statTotalCopies" th:text="${stats.totalQuantity}">0</p>
+                            <p class="mt-1 text-[11px] font-medium text-sky-300">physical units in stock</p>
                         </div>
-                        <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-amber-400/90 to-orange-600/90 ring-1 ring-white/25 flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.074.879 4.243 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                        <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-sky-400/90 to-cyan-600/90 ring-1 ring-white/25 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"/></svg>
                         </div>
                     </div>
                 </div>
@@ -277,8 +279,10 @@
                     <div class="flex items-start justify-between gap-3">
                         <div class="min-w-0">
                             <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Low Stock</p>
-                            <p class="mt-1 text-2xl sm:text-3xl font-black" id="statLowStock" th:text="${#lists.size(lowStockBooks)}">0</p>
-                            <p class="mt-1 text-[11px] font-medium text-rose-300">need restocking</p>
+                            <p class="mt-1 text-2xl sm:text-3xl font-black" id="statLowStock" th:text="${stats.lowStockCount}">0</p>
+                            <p class="mt-1 text-[11px] font-medium text-rose-300">
+                                need restocking · <span id="statOutOfStock" th:text="${stats.outOfStockCount}">0</span> out of stock
+                            </p>
                         </div>
                         <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-rose-400/90 to-red-600/90 ring-1 ring-white/25 flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg>
@@ -306,7 +310,7 @@
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
                     </div>
                     <h3 class="text-base sm:text-lg font-bold">Upload Book Excel File</h3>
-                    <p class="mt-1 text-xs sm:text-sm text-indigo-200/70 mb-4">Upload your Excel file to bulk-update the book list</p>
+                    <p class="mt-1 text-xs sm:text-sm text-indigo-200/70 mb-4">Bulk import books from .xlsx or .csv · columns: Book Code, Title, Author, Category, Quantity</p>
 
                     <form id="uploadForm" enctype="multipart/form-data" class="w-full max-w-sm">
                         <div class="glass-input rounded-2xl px-3 py-2.5 mb-1 text-left">
@@ -347,11 +351,13 @@
                         Recent Books
                     </h3>
                     <div class="flex items-center gap-2">
-                        <button class="rounded-xl ring-1 ring-white/25 px-4 py-2 text-xs sm:text-sm font-semibold text-indigo-100 hover:bg-white/10 hover:text-white transition flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"/></svg>
-                            Filter
+                        <button th:if="${isAdmin}" onclick="openCategoryModal()"
+                                class="rounded-xl ring-1 ring-white/25 px-4 py-2 text-xs sm:text-sm font-semibold text-indigo-100 hover:bg-white/10 hover:text-white transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.425a18.095 18.095 0 0 0 5.223-5.223c.447-.827.274-1.908-.425-2.607L10.952 3.66A2.25 2.25 0 0 0 9.36 3h-.001Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z"/></svg>
+                            Categories
                         </button>
-                        <button class="rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-2 text-xs sm:text-sm font-bold shadow-lg shadow-indigo-900/50 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-900/40 transition-all flex items-center gap-2" th:if="${isAdmin}">
+                        <button th:if="${isAdmin}" onclick="openBookModal()"
+                                class="rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-2 text-xs sm:text-sm font-bold shadow-lg shadow-indigo-900/50 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-900/40 transition-all flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
                             Add Book
                         </button>
@@ -364,7 +370,7 @@
                             <tr class="text-[11px] uppercase tracking-wider text-indigo-300/80 border-y border-white/10 bg-white/5">
                                 <th class="px-3 py-3 font-bold">#</th>
                                 <th class="px-3 py-3 font-bold whitespace-nowrap">Book Code</th>
-                                <th class="px-3 py-3 font-bold">Book Name</th>
+                                <th class="px-3 py-3 font-bold">Title</th>
                                 <th class="px-3 py-3 font-bold">Author</th>
                                 <th class="px-3 py-3 font-bold">Category</th>
                                 <th class="px-3 py-3 font-bold whitespace-nowrap">Quantity</th>
@@ -383,34 +389,36 @@
                             </tr>
 
                             <!-- Books list -->
-                            <tr th:each="book,iter : ${books}" class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <tr th:each="book,iter : ${books}" class="border-b border-white/5 hover:bg-white/5 transition-colors"
+                                th:classappend="${book.status != null and book.status.name() == 'LOW_STOCK'} ? 'bg-amber-500/10' : (${book.status != null and book.status.name() == 'OUT_OF_STOCK'} ? 'bg-rose-500/10' : '')">
                                 <td class="px-3 py-3.5 text-indigo-300/70" th:text="${iter.index + 1 + (currentPage - 1) * pageSize}"></td>
                                 <td class="px-3 py-3.5 whitespace-nowrap">
                                     <span class="font-mono text-xs font-bold rounded-lg bg-indigo-500/20 ring-1 ring-indigo-300/30 px-2 py-1 text-indigo-100" th:text="${book.bookCode}"></span>
                                 </td>
-                                <td class="px-3 py-3.5 font-semibold text-white max-w-56 truncate" th:text="${book.bookName}"></td>
+                                <td class="px-3 py-3.5 font-semibold text-white max-w-56 truncate" th:text="${book.title}"></td>
                                 <td class="px-3 py-3.5 text-indigo-200/80 max-w-44 truncate" th:text="${book.author}"></td>
                                 <td class="px-3 py-3.5">
-                                    <span class="inline-flex items-center rounded-full bg-sky-500/20 ring-1 ring-sky-300/40 px-2.5 py-0.5 text-[11px] font-bold text-sky-100 whitespace-nowrap" th:text="${book.category}"></span>
+                                    <span class="inline-flex items-center rounded-full bg-sky-500/20 ring-1 ring-sky-300/40 px-2.5 py-0.5 text-[11px] font-bold text-sky-100 whitespace-nowrap" th:text="${book.category != null ? book.category.name : 'Uncategorized'}"></span>
                                 </td>
-                                <td class="px-3 py-3.5 font-semibold text-indigo-100" th:text="${book.quantity}"></td>
+                                <td class="px-3 py-3.5 font-semibold"
+                                    th:classappend="${book.status != null and book.status.name() == 'LOW_STOCK'} ? 'text-amber-300' : (${book.status != null and book.status.name() == 'OUT_OF_STOCK'} ? 'text-rose-300' : 'text-indigo-100')"
+                                    th:text="${book.quantity}"></td>
                                 <td class="px-3 py-3.5" th:switch="${book.status != null ? book.status.name() : ''}">
                                     <span th:case="'AVAILABLE'" class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 ring-1 ring-emerald-300/40 px-2.5 py-0.5 text-[11px] font-bold text-emerald-100 whitespace-nowrap">● AVAILABLE</span>
-                                    <span th:case="'CHECKED_OUT'" class="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 ring-1 ring-amber-300/40 px-2.5 py-0.5 text-[11px] font-bold text-amber-100 whitespace-nowrap">● CHECKED OUT</span>
-                                    <span th:case="'ON_HOLD'" class="inline-flex items-center gap-1.5 rounded-full bg-violet-500/20 ring-1 ring-violet-300/40 px-2.5 py-0.5 text-[11px] font-bold text-violet-100 whitespace-nowrap">● ON HOLD</span>
-                                    <span th:case="'WITHDRAWN'" class="inline-flex items-center gap-1.5 rounded-full bg-rose-500/20 ring-1 ring-rose-300/40 px-2.5 py-0.5 text-[11px] font-bold text-rose-100 whitespace-nowrap">● WITHDRAWN</span>
+                                    <span th:case="'LOW_STOCK'" class="inline-flex items-center gap-1.5 rounded-full bg-amber-500/25 ring-1 ring-amber-300/50 px-2.5 py-0.5 text-[11px] font-bold text-amber-100 whitespace-nowrap animate-pulse">⚠ LOW STOCK</span>
+                                    <span th:case="'OUT_OF_STOCK'" class="inline-flex items-center gap-1.5 rounded-full bg-rose-500/20 ring-1 ring-rose-300/40 px-2.5 py-0.5 text-[11px] font-bold text-rose-100 whitespace-nowrap">✕ OUT OF STOCK</span>
                                     <span th:case="*" class="inline-flex items-center gap-1.5 rounded-full bg-slate-500/20 ring-1 ring-slate-300/40 px-2.5 py-0.5 text-[11px] font-bold text-slate-100 whitespace-nowrap" th:text="${book.status}"></span>
                                 </td>
                                 <td class="px-3 py-3.5 whitespace-nowrap">
-                                    <button class="p-2 rounded-xl ring-1 ring-white/15 text-indigo-200 hover:bg-white/10 hover:text-white transition" title="View">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
-                                    </button>
-                                    <button class="p-2 rounded-xl ring-1 ring-white/15 text-amber-200 hover:bg-amber-500/15 hover:text-amber-100 transition" title="Edit" th:if="${isAdmin}">
+                                    <button th:attr="data-id=${book.id}" onclick="openBookModal(this.dataset.id)"
+                                            class="p-2 rounded-xl ring-1 ring-white/15 text-amber-200 hover:bg-amber-500/15 hover:text-amber-100 transition" title="Edit" th:if="${isAdmin}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"/></svg>
                                     </button>
-                                    <button class="p-2 rounded-xl ring-1 ring-white/15 text-rose-200 hover:bg-rose-500/15 hover:text-rose-100 transition" title="Delete" th:if="${isAdmin}" th:onclick="'deleteBook(\'' + ${book.id} + '\')'">
+                                    <button th:attr="data-id=${book.id}" onclick="deleteBook(this.dataset.id)"
+                                            class="p-2 rounded-xl ring-1 ring-white/15 text-rose-200 hover:bg-rose-500/15 hover:text-rose-100 transition" title="Delete" th:if="${isAdmin}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg>
                                     </button>
+                                    <span th:unless="${isAdmin}" class="inline-flex items-center rounded-full bg-slate-500/15 ring-1 ring-slate-300/25 px-2.5 py-0.5 text-[11px] font-semibold text-slate-300">read-only</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -451,10 +459,132 @@
         </main>
     </div>
 
+    <!-- ============ ADD / EDIT BOOK MODAL ============ -->
+    <div id="bookModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeBookModal()"></div>
+        <div class="relative glass rounded-3xl ring-1 ring-white/15 shadow-2xl shadow-indigo-950/70 w-full max-w-lg p-5 sm:p-7 animate-modal-in max-h-[90dvh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="flex items-center gap-2 text-lg font-bold" id="bookModalTitle">Add Book</h3>
+                <button type="button" onclick="closeBookModal()" class="p-2 rounded-xl text-indigo-200 hover:bg-white/10 hover:text-white transition" aria-label="Close">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <form id="bookForm" onsubmit="saveBook(event)" class="space-y-4">
+                <input type="hidden" id="bookId">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="bookCode">Book Code *</label>
+                        <div class="glass-input rounded-2xl">
+                            <input type="text" id="bookCode" required placeholder="e.g. B001"
+                                   class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="bookQuantity">Quantity *</label>
+                        <div class="glass-input rounded-2xl">
+                            <input type="number" id="bookQuantity" required min="0" value="1"
+                                   class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40"
+                                   oninput="previewStatus(this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="bookTitle">Title *</label>
+                    <div class="glass-input rounded-2xl">
+                        <input type="text" id="bookTitle" required placeholder="Book title"
+                               class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="bookAuthor">Author</label>
+                    <div class="glass-input rounded-2xl">
+                        <input type="text" id="bookAuthor" placeholder="Author name"
+                               class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="bookCategory">Category *</label>
+                    <div class="glass-input rounded-2xl">
+                        <select id="bookCategory" required
+                                class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white [&>option]:text-slate-900">
+                            <option value="" disabled selected>Select a category…</option>
+                            <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                        </select>
+                    </div>
+                    <p class="mt-1 text-[11px] text-indigo-300/60">Need a new one? Use the Categories manager.</p>
+                </div>
+
+                <div class="flex items-center justify-between gap-3 pt-2">
+                    <span id="statusPreview" class="inline-flex items-center gap-1.5 rounded-full bg-slate-500/20 ring-1 ring-slate-300/40 px-2.5 py-0.5 text-[11px] font-bold text-slate-100">Status auto-calculated</span>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="closeBookModal()"
+                                class="rounded-2xl ring-1 ring-white/25 px-4 py-2 text-sm font-semibold text-indigo-100 hover:bg-white/10 transition">Cancel</button>
+                        <button type="submit" id="bookSubmitBtn"
+                                class="rounded-2xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-5 py-2 text-sm font-bold shadow-lg shadow-indigo-900/50 hover:-translate-y-0.5 transition-all">Save Book</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============ CATEGORY MANAGER MODAL ============ -->
+    <div id="categoryModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCategoryModal()"></div>
+        <div class="relative glass rounded-3xl ring-1 ring-white/15 shadow-2xl shadow-indigo-950/70 w-full max-w-lg p-5 sm:p-7 animate-modal-in max-h-[90dvh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="flex items-center gap-2 text-lg font-bold">Manage Categories</h3>
+                <button type="button" onclick="closeCategoryModal()" class="p-2 rounded-xl text-indigo-200 hover:bg-white/10 hover:text-white transition" aria-label="Close">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <form id="categoryForm" onsubmit="saveCategory(event)" class="space-y-3 mb-5">
+                <input type="hidden" id="categoryId">
+                <div class="glass-input rounded-2xl">
+                    <input type="text" id="categoryName" required placeholder="Category name (e.g. Programming)"
+                           class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
+                </div>
+                <div class="glass-input rounded-2xl">
+                    <input type="text" id="categoryDescription" placeholder="Short description (optional)"
+                           class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
+                </div>
+                <div class="flex items-center justify-end gap-2">
+                    <button type="button" id="categoryCancelEdit" onclick="resetCategoryForm()" class="hidden rounded-2xl ring-1 ring-white/25 px-4 py-2 text-sm font-semibold text-indigo-100 hover:bg-white/10 transition">Cancel</button>
+                    <button type="submit" id="categorySubmitBtn"
+                            class="rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-2 text-sm font-bold shadow-lg shadow-emerald-900/40 hover:-translate-y-0.5 transition-all">Add Category</button>
+                </div>
+            </form>
+
+            <p class="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-300/70">Existing Categories</p>
+            <ul class="space-y-2">
+                <li th:if="${categories.empty}" class="rounded-2xl ring-1 ring-white/10 px-4 py-3 text-sm text-indigo-200/70 text-center">No categories yet.</li>
+                <li th:each="cat : ${categories}"
+                    class="flex items-center justify-between gap-3 rounded-2xl ring-1 ring-white/10 bg-white/5 px-4 py-2.5">
+                    <div class="min-w-0">
+                        <p class="truncate text-sm font-semibold text-white" th:text="${cat.name}"></p>
+                        <p class="truncate text-[11px] text-indigo-200/60" th:text="${cat.description != null and !#strings.isEmpty(cat.description) ? cat.description : '—'}"></p>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button type="button" th:attr="data-id=${cat.id},data-name=${cat.name},data-desc=${cat.description != null ? cat.description : ''}"
+                                onclick="editCategory(this.dataset)" class="p-2 rounded-xl ring-1 ring-white/15 text-amber-200 hover:bg-amber-500/15 transition" title="Edit category">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"/></svg>
+                        </button>
+                        <button type="button" th:attr="data-id=${cat.id},data-name=${cat.name}"
+                                onclick="deleteCategory(this.dataset)" class="p-2 rounded-xl ring-1 ring-white/15 text-rose-200 hover:bg-rose-500/15 transition" title="Delete category">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script th:inline="javascript">
     /*<![CDATA[*/
         const categoryData = /*[[${categoryData}]]*/ {};
+        const isAdmin = /*[[${isAdmin}]]*/ false;
     /*]]>*/
     </script>
 
@@ -553,6 +683,169 @@
             setTimeout(function () { if (document.getElementById(toastId)) toast.remove(); }, 5000);
         }
 
+        // ===== Modal helpers =====
+        function showModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function hideModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') { closeBookModal(); closeCategoryModal(); }
+        });
+
+        // ===== Add / Edit Book modal =====
+        function previewStatus(quantity) {
+            const badge = document.getElementById('statusPreview');
+            const q = parseInt(quantity, 10);
+            let label, cls;
+            if (isNaN(q) || q <= 0) {
+                label = 'Will be: OUT OF STOCK'; cls = 'bg-rose-500/20 ring-rose-300/40 text-rose-100';
+            } else if (q <= 5) {
+                label = 'Will be: LOW STOCK'; cls = 'bg-amber-500/25 ring-amber-300/50 text-amber-100';
+            } else {
+                label = 'Will be: AVAILABLE'; cls = 'bg-emerald-500/20 ring-emerald-300/40 text-emerald-100';
+            }
+            badge.className = 'inline-flex items-center gap-1.5 rounded-full ring-1 px-2.5 py-0.5 text-[11px] font-bold ' + cls;
+            badge.textContent = label;
+        }
+
+        function openBookModal(bookId) {
+            if (!isAdmin) { showToast('Only librarians (admins) can manage books.', 'warning'); return; }
+            const form = document.getElementById('bookForm');
+            form.reset();
+            document.getElementById('bookId').value = '';
+            document.getElementById('bookModalTitle').textContent = bookId ? 'Edit Book' : 'Add Book';
+            document.getElementById('bookSubmitBtn').textContent = bookId ? 'Update Book' : 'Save Book';
+            previewStatus('1');
+
+            if (bookId) {
+                fetch('/api/books/' + bookId)
+                    .then(function (r) { if (!r.ok) throw new Error('Book not found'); return r.json(); })
+                    .then(function (b) {
+                        document.getElementById('bookId').value = b.id;
+                        document.getElementById('bookCode').value = b.bookCode || '';
+                        document.getElementById('bookTitle').value = b.title || '';
+                        document.getElementById('bookAuthor').value = b.author || '';
+                        document.getElementById('bookQuantity').value = b.quantity != null ? b.quantity : 0;
+                        if (b.category && b.category.id) document.getElementById('bookCategory').value = b.category.id;
+                        previewStatus(b.quantity);
+                        showModal('bookModal');
+                    })
+                    .catch(function (err) { showToast('Error loading book: ' + err.message, 'error'); });
+            } else {
+                showModal('bookModal');
+            }
+        }
+        function closeBookModal() { hideModal('bookModal'); }
+
+        function saveBook(event) {
+            event.preventDefault();
+            if (!isAdmin) { showToast('Only librarians (admins) can manage books.', 'warning'); return; }
+
+            const id = document.getElementById('bookId').value;
+            const payload = {
+                bookCode: document.getElementById('bookCode').value.trim(),
+                title: document.getElementById('bookTitle').value.trim(),
+                author: document.getElementById('bookAuthor').value.trim(),
+                quantity: parseInt(document.getElementById('bookQuantity').value, 10),
+                categoryId: parseInt(document.getElementById('bookCategory').value, 10)
+            };
+
+            fetch(id ? '/api/books/' + id : '/api/books', {
+                method: id ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+            .then(function (res) {
+                if (res.ok && res.data.success) {
+                    closeBookModal();
+                    showToast(res.data.message, 'success');
+                    setTimeout(function () { window.location.reload(); }, 1200);
+                } else {
+                    showToast(res.data.message || 'Something went wrong', 'error');
+                }
+            })
+            .catch(function (err) { showToast('Error saving book: ' + err.message, 'error'); });
+        }
+
+        // ===== Category manager modal =====
+        function openCategoryModal() {
+            if (!isAdmin) { showToast('Only librarians (admins) can manage categories.', 'warning'); return; }
+            resetCategoryForm();
+            showModal('categoryModal');
+        }
+        function closeCategoryModal() { hideModal('categoryModal'); }
+
+        function resetCategoryForm() {
+            document.getElementById('categoryForm').reset();
+            document.getElementById('categoryId').value = '';
+            document.getElementById('categorySubmitBtn').textContent = 'Add Category';
+            document.getElementById('categoryCancelEdit').classList.add('hidden');
+        }
+
+        function editCategory(dataset) {
+            document.getElementById('categoryId').value = dataset.id;
+            document.getElementById('categoryName').value = dataset.name;
+            document.getElementById('categoryDescription').value = dataset.desc || '';
+            document.getElementById('categorySubmitBtn').textContent = 'Update Category';
+            document.getElementById('categoryCancelEdit').classList.remove('hidden');
+            document.getElementById('categoryName').focus();
+        }
+
+        function saveCategory(event) {
+            event.preventDefault();
+            if (!isAdmin) { showToast('Only librarians (admins) can manage categories.', 'warning'); return; }
+
+            const id = document.getElementById('categoryId').value;
+            const payload = {
+                name: document.getElementById('categoryName').value.trim(),
+                description: document.getElementById('categoryDescription').value.trim()
+            };
+
+            fetch(id ? '/api/categories/' + id : '/api/categories', {
+                method: id ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+            .then(function (res) {
+                if (res.ok && res.data.success) {
+                    closeCategoryModal();
+                    showToast(res.data.message, 'success');
+                    setTimeout(function () { window.location.reload(); }, 1200);
+                } else {
+                    showToast(res.data.message || 'Something went wrong', 'error');
+                }
+            })
+            .catch(function (err) { showToast('Error saving category: ' + err.message, 'error'); });
+        }
+
+        function deleteCategory(dataset) {
+            if (!isAdmin) { showToast('Only librarians (admins) can manage categories.', 'warning'); return; }
+            if (!confirm('Delete category "' + dataset.name + '"?')) return;
+
+            fetch('/api/categories/' + dataset.id, { method: 'DELETE' })
+            .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+            .then(function (res) {
+                if (res.ok && res.data.success) {
+                    closeCategoryModal();
+                    showToast(res.data.message, 'success');
+                    setTimeout(function () { window.location.reload(); }, 1200);
+                } else {
+                    showToast(res.data.message || 'Something went wrong', 'error');
+                }
+            })
+            .catch(function (err) { showToast('Error deleting category: ' + err.message, 'error'); });
+        }
+
         // ===== Excel upload =====
         async function uploadFile() {
             const fileInput = document.getElementById('excelFile');
@@ -577,16 +870,29 @@
                 const response = await fetch('/api/upload-excel', { method: 'POST', body: formData });
                 const result = await response.json();
 
+                if (response.status === 403) {
+                    progressBar.className = 'h-full w-full rounded-full bg-gradient-to-r from-rose-500 to-red-500 transition-all duration-300';
+                    progressText.textContent = 'Upload failed!';
+                    showToast('Access denied: only admins can upload files.', 'error');
+                    return;
+                }
+
                 if (result.success) {
                     progressBar.style.width = '100%';
                     progressBar.className = 'h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-300';
                     progressText.textContent = 'Upload complete!';
 
                     const d = result.data;
-                    showToast('File processed successfully! Total Rows: ' + d.totalRows +
-                              ' | Success: ' + d.successCount + ' | Errors: ' + d.errorCount, 'success');
+                    let msg = 'Import complete! Rows: ' + d.totalRows +
+                              ' | Added/Updated: ' + d.successCount +
+                              ' | Errors: ' + d.errorCount;
+                    if (d.errors && d.errors.length) {
+                        msg += '<br>' + d.errors.slice(0, 5).join('<br>');
+                        if (d.errors.length > 5) msg += '<br>…and ' + (d.errors.length - 5) + ' more';
+                    }
+                    showToast(msg, 'success');
 
-                    setTimeout(function () { window.location.reload(); }, 2000);
+                    setTimeout(function () { window.location.reload(); }, 2500);
                 } else {
                     progressBar.className = 'h-full w-full rounded-full bg-gradient-to-r from-rose-500 to-red-500 transition-all duration-300';
                     progressText.textContent = 'Upload failed!';
@@ -609,6 +915,7 @@
 
         // Delete book
         async function deleteBook(id) {
+            if (!isAdmin) { showToast('Only librarians (admins) can delete books.', 'warning'); return; }
             if (!confirm('Delete this book? This action cannot be undone.')) return;
             try {
                 const response = await fetch('/api/books/' + id, { method: 'DELETE' });
@@ -635,12 +942,10 @@
                     if (el && value !== undefined && value !== null) el.textContent = value;
                 };
                 set('statTotalBooks', stats.totalBooks);
+                set('statCategories', stats.activeCategories);
+                set('statTotalCopies', stats.totalQuantity);
                 set('statLowStock', stats.lowStockCount);
-                set('statTotalValue', stats.totalValue != null ? '$' + parseFloat(stats.totalValue).toFixed(2) : null);
-                const todaySales = document.getElementById('totalValue');
-                if (todaySales) {
-                    todaySales.textContent = stats.totalValue != null ? '$' + parseFloat(stats.totalValue).toFixed(2) : '$0.00';
-                }
+                set('statOutOfStock', stats.outOfStockCount);
             } catch (error) {
                 console.error('Error updating stats:', error);
             }

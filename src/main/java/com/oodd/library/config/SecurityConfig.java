@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,7 @@ import com.oodd.library.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     
 private final UserRepository userRepository;
@@ -70,13 +72,15 @@ private final UserRepository userRepository;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        	.authorizeHttpRequests(authz -> authz
-                 .requestMatchers("/", "/register", "/api/register", "/login", 
-                 			   "/api/products", "/api/products/**",
-                   "/css/**", "/js/**", "/images/**").permitAll()
-                 .requestMatchers(HttpMethod.POST, "/api/upload-excel").hasRole("ADMIN")
+         .authorizeHttpRequests(authz -> authz
+                 .requestMatchers("/", "/register", "/api/register", "/login",
+                    "/css/**", "/js/**", "/images/**").permitAll()
+                 // RBAC: mutations are ADMIN only, ROLE_USER gets read-only access
+                 .requestMatchers(HttpMethod.GET, "/api/books/**", "/api/books", "/api/categories/**", "/api/categories").authenticated()
+                 .requestMatchers(HttpMethod.POST, "/api/books", "/api/books/**", "/api/categories", "/api/categories/**", "/api/upload-excel").hasRole("ADMIN")
+                 .requestMatchers(HttpMethod.PUT, "/api/books/**", "/api/categories/**").hasRole("ADMIN")
+                 .requestMatchers(HttpMethod.DELETE, "/api/books/**", "/api/categories/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.GET, "/api/download-template").hasRole("ADMIN")
-                 .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
                  .requestMatchers("/dashboard", "/profile").authenticated()
                  .anyRequest().authenticated()
             ).formLogin(form -> form

@@ -12,22 +12,22 @@
 ## Phase 1: UI/UX Modernization & Full Responsiveness
 
 - [x] Modernize `login.html` and `register.html` with clean glassmorphic/sleek design.
-- [ ] Make all pages (Dashboard, Auth, Tables, Forms) 100% responsive (Mobile, Tablet, Desktop).
-- [ ] Add Toast Notifications (Success/Error alerts) for user actions.
-- [ ] Improve UI layout with side navigation, modern icons, and dynamic statistics cards.
+- [x] Make all pages (Dashboard, Auth, Tables, Forms) 100% responsive (Mobile, Tablet, Desktop).
+- [x] Add Toast Notifications (Success/Error alerts) for user actions.
+- [x] Improve UI layout with side navigation, modern icons, and dynamic statistics cards.
 
 ## Phase 2: Role-Based Access & User Profile Management
 
 - [x] Implement User Roles (`ROLE_ADMIN`, `ROLE_MEMBER` / `ROLE_STUDENT`).
-- [ ] Create User Profile page (View borrowed history, update profile details).
+- [x] Create User Profile page (View borrowed history, update profile details).
 - [x] Restrict Admin-only features (Excel upload, book creation, issue/return management).
 
 ## Phase 3: Book & Category Management System
 
-- [ ] Full CRUD operations for Books (Add, Edit, View, Delete).
-- [ ] Category Management (Create/Edit categories, assign books to categories).
-- [ ] Backend processing for Bulk Book Upload via Excel (`.xlsx`, `.csv`).
-- [ ] Low-stock alert automation (Highlight books with quantity < threshold).
+- [x] Full CRUD operations for Books (Add, Edit, View, Delete).
+- [x] Category Management (Create/Edit categories, assign books to categories).
+- [x] Backend processing for Bulk Book Upload via Excel (`.xlsx`, `.csv`).
+- [x] Low-stock alert automation (Highlight books with quantity < threshold).
 
 ## Phase 4: OODD Core Business Logic (Book Issuing, Returning & Fines)
 
