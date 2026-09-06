@@ -3,6 +3,7 @@ package com.oodd.library.controller;
 import com.oodd.library.dto.BookRequest;
 import com.oodd.library.model.Book;
 import com.oodd.library.model.Category;
+import com.oodd.library.model.DigitalResource;
 import com.oodd.library.model.User;
 import com.oodd.library.repository.UserRepository;
 import com.oodd.library.service.BookService;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +76,16 @@ public class BookController {
     public String dashboard(@RequestParam(defaultValue = "1") int page,
                             @RequestParam(defaultValue = "5") int size,
                             @RequestParam(required = false) String search,
+                            @RequestParam(required = false) Long category,
+                            @RequestParam(required = false) String status,
+                            @RequestParam(defaultValue = "all") String type,
+                            @RequestParam(defaultValue = "1") int rpage,
+                            @RequestParam(defaultValue = "6") int rsize,
+                            @RequestParam(required = false) String rsearch,
+                            @RequestParam(required = false) Long rcategory,
                             Model model) {
+        page = Math.max(page, 1);
+        rpage = Math.max(rpage, 1);
         User user = currentUser();
         model.addAttribute("user", user);
         model.addAttribute("isAdmin", user != null && user.getRole() == User.UserRole.ADMIN);
@@ -95,22 +106,87 @@ public class BookController {
         // Books by category for the chart
         model.addAttribute("categoryData", bookService.getBooksByCategory());
 
-        // Digital resources (PDF e-books) for the Resources section
-        model.addAttribute("resources", digitalResourceService.getAllResources());
+        // Category dropdown data for the Add/Edit Book modal + catalog filters
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
 
-        // Pagination + search
-        Page<Book> bookPage = bookService.getBooksWithPagination(page, size, search);
+        // ---- Advanced catalog search (server-side filter + pagination) ----
+        Book.BookStatus statusFilter = parseStatus(status);
+        Page<Book> bookPage = bookService.searchBooks(page, size, search, category, statusFilter, null);
+
+        boolean showBooks = !"digital".equalsIgnoreCase(type);
+        boolean showResources = !"physical".equalsIgnoreCase(type);
+
+        // ---- Digital resources: own server-side search + pagination ----
+        Page<DigitalResource> resourcePage = digitalResourceService
+                .searchResourcesPaged(rpage, rsize, rsearch, rcategory);
+
         model.addAttribute("books", bookPage.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("pageSize", size);
+        model.addAttribute("pageSize", bookPage.getSize());
         model.addAttribute("totalPages", bookPage.getTotalPages());
         model.addAttribute("totalBooks", bookPage.getTotalElements());
         model.addAttribute("search", search);
+        model.addAttribute("filterCategory", category);
+        model.addAttribute("filterStatus", status);
+        model.addAttribute("bookFiltersActive",
+                (search != null && !search.isBlank()) || category != null || (status != null && !status.isBlank()));
+        model.addAttribute("catalogType", type);
+        model.addAttribute("showBooks", showBooks);
+        model.addAttribute("showResources", showResources);
+        model.addAttribute("pageNumbers", pageWindow(page, bookPage.getTotalPages()));
 
-        // Category dropdown data for the Add/Edit Book modal
-        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("resources", resourcePage.getContent());
+        model.addAttribute("rCurrentPage", Math.max(rpage, 1));
+        model.addAttribute("rPageSize", resourcePage.getSize());
+        model.addAttribute("rTotalPages", resourcePage.getTotalPages());
+        model.addAttribute("rTotalElements", resourcePage.getTotalElements());
+        model.addAttribute("rSearch", rsearch);
+        model.addAttribute("rFilterCategory", rcategory);
+        model.addAttribute("rFiltersActive",
+                (rsearch != null && !rsearch.isBlank()) || rcategory != null);
+        model.addAttribute("rPageNumbers", pageWindow(rpage, resourcePage.getTotalPages()));
 
         return "dashboard";
+    }
+
+    private Book.BookStatus parseStatus(String status) {
+        if (status == null || status.isBlank() || "ALL".equalsIgnoreCase(status)) {
+            return null;
+        }
+        try {
+            return Book.BookStatus.valueOf(status.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Builds a compact pagination window as page numbers where 0 marks an
+     * ellipsis gap (e.g. [1, 0, 4, 5, 6, 0, 20] renders as 1 … 4 5 6 … 20).
+     */
+    private List<Integer> pageWindow(int current, int totalPages) {
+        List<Integer> pages = new ArrayList<>();
+        if (totalPages <= 0) {
+            return pages;
+        }
+        int window = 2;
+        int start = Math.max(1, current - window);
+        int end = Math.min(totalPages, current + window);
+        pages.add(1);
+        if (start > 2) {
+            pages.add(0);
+        }
+        for (int p = Math.max(2, start); p <= Math.min(totalPages - 1, end); p++) {
+            pages.add(p);
+        }
+        if (end < totalPages - 1) {
+            pages.add(0);
+        }
+        if (totalPages > 1) {
+            pages.add(totalPages);
+        }
+        return pages;
     }
 
     // ------------------------- Book REST API -------------------------
@@ -119,6 +195,45 @@ public class BookController {
     @ResponseBody
     public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(bookService.getAllBooks());
+    }
+
+    /**
+     * Advanced catalog search used by the dashboard's dynamic filter bar.
+     * Returns a serializable page projection (no lazy entity graphs) so the
+     * front-end can re-render the table + pagination without a full reload.
+     */
+    @GetMapping("/api/books/search")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> searchBooks(@RequestParam(defaultValue = "1") int page,
+                                                            @RequestParam(defaultValue = "5") int size,
+                                                            @RequestParam(required = false) String search,
+                                                            @RequestParam(required = false) Long category,
+                                                            @RequestParam(required = false) String status,
+                                                            @RequestParam(required = false) String sort) {
+        Book.BookStatus statusFilter = parseStatus(status);
+        Page<Book> result = bookService.searchBooks(page, size, search, category, statusFilter, sort);
+
+        List<Map<String, Object>> rows = result.getContent().stream().map(b -> {
+            Map<String, Object> row = new HashMap<>();
+            row.put("id", b.getId());
+            row.put("bookCode", b.getBookCode());
+            row.put("title", b.getTitle());
+            row.put("author", b.getAuthor());
+            row.put("isbn", b.getIsbn());
+            row.put("quantity", b.getQuantity());
+            row.put("status", b.getStatus() != null ? b.getStatus().name() : null);
+            row.put("category", b.getCategory() != null ? b.getCategory().getName() : "Uncategorized");
+            row.put("categoryId", b.getCategory() != null ? b.getCategory().getId() : null);
+            return row;
+        }).toList();
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("content", rows);
+        body.put("page", page);
+        body.put("size", result.getSize());
+        body.put("totalPages", result.getTotalPages());
+        body.put("totalElements", result.getTotalElements());
+        return ResponseEntity.ok(body);
     }
 
     @GetMapping("/api/books/stats")
@@ -199,6 +314,7 @@ public class BookController {
         book.setBookCode(request.getBookCode());
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());
+        book.setIsbn(request.getIsbn());
         book.setQuantity(request.getQuantity());
         Category category = new Category();
         category.setId(request.getCategoryId());

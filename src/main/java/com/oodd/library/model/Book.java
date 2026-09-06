@@ -30,6 +30,9 @@ public class Book {
     @Column(name = "author")
     private String author;
 
+    @Column(name = "isbn", length = 20)
+    private String isbn;
+
     @NotNull(message = "Quantity is required")
     @Min(value = 0, message = "Quantity cannot be negative")
     @Column(name = "quantity", nullable = false)
@@ -40,7 +43,7 @@ public class Book {
     private BookStatus status;
 
     @NotNull(message = "Category is required")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id")
     private Category category;
 

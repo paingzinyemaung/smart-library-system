@@ -51,9 +51,9 @@
 
 ## Phase 6: Advanced Search, Dynamic Filtering & Pagination
 
-- [ ] Dynamic Search bar (Search by Title, Author, Book Code, ISBN).
-- [ ] Multi-criteria Filter (Filter by Category, Availability Status, Digital vs Physical).
-- [ ] Backend Server-side Pagination for large book tables.
+- [x] Dynamic Search bar (Search by Title, Author, Book Code, ISBN).
+- [x] Multi-criteria Filter (Filter by Category, Availability Status, Digital vs Physical).
+- [x] Backend Server-side Pagination for large book tables.
 
 ## Phase 7: Analytics, Reports & Final System Polish
 

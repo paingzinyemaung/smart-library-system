@@ -465,12 +465,37 @@
                 </div>
             </div>
 
+            <!-- Catalog view toggle (Physical books vs Digital resources) -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div class="glass inline-flex items-center rounded-2xl ring-1 ring-white/15 p-1 gap-1" role="tablist" aria-label="Catalogue view">
+                    <a th:href="@{/dashboard(size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rsize=${rPageSize})}"
+                       role="tab" aria-selected="${catalogType == 'all'}" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold rounded-xl transition flex items-center gap-1.5"
+                       th:classappend="${catalogType == 'all'} ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-900/40' : 'text-indigo-100 hover:bg-white/10'">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+                        All
+                    </a>
+                    <a th:href="@{/dashboard(type='physical',size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus})}"
+                       role="tab" aria-selected="${catalogType == 'physical'}" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold rounded-xl transition flex items-center gap-1.5"
+                       th:classappend="${catalogType == 'physical'} ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-900/40' : 'text-indigo-100 hover:bg-white/10'">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+                        Physical
+                    </a>
+                    <a th:href="@{/dashboard(type='digital',rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
+                       role="tab" aria-selected="${catalogType == 'digital'}" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold rounded-xl transition flex items-center gap-1.5"
+                       th:classappend="${catalogType == 'digital'} ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-900/40' : 'text-indigo-100 hover:bg-white/10'">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                        Digital
+                    </a>
+                </div>
+            </div>
+
             <!-- Books Table -->
-            <div id="books" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6">
+            <div id="books" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6" th:if="${showBooks}">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
-                        Recent Books
+                        Book Catalogue
+                        <span class="inline-flex items-center rounded-full bg-indigo-500/25 ring-1 ring-indigo-300/40 px-2.5 py-0.5 text-[11px] font-bold text-indigo-100" th:text="${totalBooks}">0</span>
                     </h3>
                     <div class="flex items-center gap-2">
                         <button th:if="${isAdmin}" onclick="openCategoryModal()"
@@ -486,14 +511,67 @@
                     </div>
                 </div>
 
+                <!-- Catalogue filter toolbar (server-side search + dynamic filters) -->
+                <form method="get" action="/dashboard" id="bookFilterForm" class="mb-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-3">
+                    <input type="hidden" name="type" th:value="${catalogType}">
+                    <input type="hidden" name="rsize" th:value="${rPageSize}">
+                    <div class="lg:col-span-5 sm:col-span-2">
+                        <label for="search" class="sr-only">Search catalogue</label>
+                        <div class="glass-input rounded-xl flex items-center gap-2 px-3 py-2">
+                            <svg class="w-4 h-4 text-indigo-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+                            <input type="text" id="search" name="search" th:value="${search}"
+                                   placeholder="Search title, author, code or ISBN…" autocomplete="off"
+                                   class="bg-transparent outline-none text-xs sm:text-sm text-white placeholder-indigo-200/40 w-full">
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3">
+                        <label for="category" class="sr-only">Filter by category</label>
+                        <select id="category" name="category" aria-label="Filter books by category"
+                                class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 w-full [&>option]:text-slate-900">
+                            <option value="">All categories</option>
+                            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                                    th:selected="${filterCategory != null and filterCategory == c.id}"></option>
+                        </select>
+                    </div>
+                    <div class="lg:col-span-2">
+                        <label for="status" class="sr-only">Filter by availability</label>
+                        <select id="status" name="status" aria-label="Filter books by availability status"
+                                class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 w-full [&>option]:text-slate-900">
+                            <option value="" th:selected="${filterStatus == null or filterStatus == ''}">Any status</option>
+                            <option value="AVAILABLE" th:selected="${filterStatus == 'AVAILABLE'}">Available</option>
+                            <option value="LOW_STOCK" th:selected="${filterStatus == 'LOW_STOCK'}">Low stock</option>
+                            <option value="OUT_OF_STOCK" th:selected="${filterStatus == 'OUT_OF_STOCK'}">Out of stock</option>
+                        </select>
+                    </div>
+                    <div class="lg:col-span-1">
+                        <label for="size" class="sr-only">Rows per page</label>
+                        <select id="size" name="size" aria-label="Books per page"
+                                class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 w-full [&>option]:text-slate-900">
+                            <option value="5" th:selected="${pageSize == 5}">5</option>
+                            <option value="10" th:selected="${pageSize == 10}">10</option>
+                            <option value="25" th:selected="${pageSize == 25}">25</option>
+                            <option value="50" th:selected="${pageSize == 50}">50</option>
+                        </select>
+                    </div>
+                    <div class="lg:col-span-1 flex items-center gap-2">
+                        <button type="submit" aria-label="Apply catalogue filters"
+                                class="flex-1 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-3 py-2 text-xs font-bold shadow-lg shadow-indigo-900/40 hover:-translate-y-0.5 transition-all">
+                            Go
+                        </button>
+                        <a th:if="${bookFiltersActive}" href="/dashboard" aria-label="Clear all catalogue filters"
+                           class="rounded-xl ring-1 ring-white/20 px-2.5 py-2 text-xs font-semibold text-indigo-100 hover:bg-white/10 transition" title="Clear filters">✕</a>
+                    </div>
+                </form>
+
                 <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
-                    <table class="w-full min-w-[860px] text-left text-sm" id="booksTable">
+                    <table class="w-full min-w-[900px] text-left text-sm" id="booksTable">
                         <thead>
                             <tr class="text-[11px] uppercase tracking-wider text-indigo-300/80 border-y border-white/10 bg-white/5">
                                 <th class="px-3 py-3 font-bold">#</th>
                                 <th class="px-3 py-3 font-bold whitespace-nowrap">Book Code</th>
                                 <th class="px-3 py-3 font-bold">Title</th>
                                 <th class="px-3 py-3 font-bold">Author</th>
+                                <th class="px-3 py-3 font-bold whitespace-nowrap">ISBN</th>
                                 <th class="px-3 py-3 font-bold">Category</th>
                                 <th class="px-3 py-3 font-bold whitespace-nowrap">Quantity</th>
                                 <th class="px-3 py-3 font-bold">Status</th>
@@ -503,7 +581,7 @@
                         <tbody>
                             <!-- If no books -->
                             <tr th:if="${books.empty}">
-                                <td colspan="8" class="px-3 py-12 text-center">
+                                <td colspan="9" class="px-3 py-12 text-center">
                                     <svg class="mx-auto w-12 h-12 text-indigo-300/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.94c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.94m16.5 0a2.25 2.25 0 0 0-1.872-2.181 48.058 48.058 0 0 0-6.606-.419 48.058 48.058 0 0 0-6.606.419A2.25 2.25 0 0 0 3.75 14.15m16.5 0v-2.157"/></svg>
                                     <p class="mt-3 font-semibold text-indigo-100">No books found</p>
                                     <p class="mt-1 text-xs text-indigo-300/70">Upload an Excel file or add books to get started.</p>
@@ -519,6 +597,7 @@
                                 </td>
                                 <td class="px-3 py-3.5 font-semibold text-white max-w-56 truncate" th:text="${book.title}"></td>
                                 <td class="px-3 py-3.5 text-indigo-200/80 max-w-44 truncate" th:text="${book.author}"></td>
+                                <td class="px-3 py-3.5 whitespace-nowrap font-mono text-[11px] text-indigo-200/70" th:text="${!#strings.isEmpty(book.isbn)} ? ${book.isbn} : '—'"></td>
                                 <td class="px-3 py-3.5">
                                     <span class="inline-flex items-center rounded-full bg-sky-500/20 ring-1 ring-sky-300/40 px-2.5 py-0.5 text-[11px] font-bold text-sky-100 whitespace-nowrap" th:text="${book.category != null ? book.category.name : 'Uncategorized'}"></span>
                                 </td>
@@ -553,47 +632,58 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
-                <div th:if="${totalPages > 1}" class="mt-4 flex flex-wrap items-center justify-center gap-3">
-                    <div class="inline-flex items-center rounded-2xl ring-1 ring-white/15 bg-white/5 p-1">
-                        <a th:href="@{/dashboard(page=${currentPage - 1}, size=${pageSize}, search=${search})}"
-                           class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition flex items-center gap-1"
-                           th:classappend="${currentPage == 1} ? 'opacity-40 pointer-events-none' : ''">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
-                            Prev
-                        </a>
-                        <span class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold text-white">
-                            <span th:text="${currentPage}"></span> / <span th:text="${totalPages}"></span>
-                        </span>
-                        <a th:href="@{/dashboard(page=${currentPage + 1}, size=${pageSize}, search=${search})}"
-                           class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition flex items-center gap-1"
-                           th:classappend="${currentPage == totalPages} ? 'opacity-40 pointer-events-none' : ''">
-                            Next
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
-                        </a>
+                <!-- Pagination (numbered, dynamic) -->
+                <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+                    <p class="text-[11px] sm:text-xs text-indigo-300/70">
+                        Showing <b class="text-indigo-100" th:text="${#lists.isEmpty(books)} ? 0 : ${(currentPage - 1) * pageSize + 1}">1</b>–<b class="text-indigo-100" th:text="${(currentPage - 1) * pageSize + #lists.size(books)}">5</b>
+                        of <b class="text-indigo-100" th:text="${totalBooks}">0</b> books
+                    </p>
+                    <div th:if="${totalPages > 1}" class="inline-flex flex-wrap items-center rounded-2xl ring-1 ring-white/15 bg-white/5 p-1 gap-0.5">
+                        <a th:href="@{/dashboard(page=${currentPage - 1},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},type=${catalogType})}"
+                           class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
+                           th:classappend="${currentPage <= 1} ? 'opacity-40 pointer-events-none' : ''" aria-label="Previous page">‹</a>
+                        <th:block th:each="p : ${pageNumbers}">
+                            <span th:if="${p == 0}" class="px-2 py-1.5 text-xs text-indigo-300/50">…</span>
+                            <a th:unless="${p == 0}"
+                               th:href="@{/dashboard(page=${p},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},type=${catalogType})}"
+                               th:text="${p}"
+                               class="min-w-[2rem] text-center px-2 py-1.5 text-xs font-bold rounded-xl transition"
+                               th:classappend="${p == currentPage} ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow' : 'text-indigo-100 hover:bg-white/10'"></a>
+                        </th:block>
+                        <a th:href="@{/dashboard(page=${currentPage + 1},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},type=${catalogType})}"
+                           class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
+                           th:classappend="${currentPage >= totalPages} ? 'opacity-40 pointer-events-none' : ''" aria-label="Next page">›</a>
                     </div>
-                    <select aria-label="Books per page" class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 [&>option]:text-slate-900"
-                            onchange="location.href='/dashboard?page=1&size=' + this.value">
-                        <option value="5" th:selected="${pageSize == 5}">5 per page</option>
-                        <option value="10" th:selected="${pageSize == 10}">10 per page</option>
-                    </select>
                 </div>
             </div>
 
             <!-- Digital Resources (PDF / E-Books) -->
-            <div id="resources" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8">
+            <div id="resources" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8" th:if="${showResources}">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-fuchsia-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
                         Digital Resources
-                        <span class="inline-flex items-center rounded-full bg-fuchsia-500/25 ring-1 ring-fuchsia-300/40 px-2.5 py-0.5 text-[11px] font-bold text-fuchsia-100" th:text="${#lists.size(resources)}">0</span>
+                        <span class="inline-flex items-center rounded-full bg-fuchsia-500/25 ring-1 ring-fuchsia-300/40 px-2.5 py-0.5 text-[11px] font-bold text-fuchsia-100" th:text="${rTotalElements}">0</span>
                     </h3>
                     <div class="flex flex-wrap items-center gap-2">
                         <div class="glass-input rounded-xl flex items-center gap-2 px-3 py-2">
                             <svg class="w-4 h-4 text-indigo-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
-                            <input type="text" id="resourceSearch" aria-label="Search PDF resources" placeholder="Search PDFs…" oninput="filterResources()"
+                            <input type="text" id="resourceSearch" aria-label="Search PDF resources" th:value="${rSearch}"
+                                   placeholder="Search PDFs…" autocomplete="off"
                                    class="bg-transparent outline-none text-xs sm:text-sm text-white placeholder-indigo-200/40 w-36 sm:w-48">
                         </div>
+                        <select id="resourceCategoryFilter" aria-label="Filter PDFs by category"
+                                class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 [&>option]:text-slate-900">
+                            <option value="">All categories</option>
+                            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                                    th:selected="${rFilterCategory != null and rFilterCategory == c.id}"></option>
+                        </select>
+                        <select id="resourceSizeFilter" aria-label="PDFs per page"
+                                class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 [&>option]:text-slate-900">
+                            <option value="6" th:selected="${rPageSize == 6}">6</option>
+                            <option value="9" th:selected="${rPageSize == 9}">9</option>
+                            <option value="12" th:selected="${rPageSize == 12}">12</option>
+                        </select>
                         <button th:if="${isAdmin}" onclick="openUploadModal()"
                                 class="rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-2 text-xs sm:text-sm font-bold shadow-lg shadow-indigo-900/50 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-900/40 transition-all flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/></svg>
@@ -605,8 +695,11 @@
                 <!-- Empty state -->
                 <div th:if="${#lists.isEmpty(resources)}" id="resourcesEmpty" class="rounded-2xl ring-1 ring-white/10 bg-white/5 px-4 py-12 text-center">
                     <svg class="mx-auto w-12 h-12 text-indigo-300/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
-                    <p class="mt-3 font-semibold text-indigo-100">No digital resources yet</p>
-                    <p class="mt-1 text-xs text-indigo-300/70" th:text="${isAdmin} ? 'Upload PDF e-books with the “Upload PDF” button above.' : 'PDF e-books uploaded by the librarian will appear here.'"></p>
+                    <p class="mt-3 font-semibold text-indigo-100" th:text="${rFiltersActive} ? 'No PDF resources match your filters' : 'No digital resources yet'">No digital resources yet</p>
+                    <p class="mt-1 text-xs text-indigo-300/70">
+                        <span th:if="${rFiltersActive}">Try a different search term or <a href="/dashboard" class="underline hover:text-indigo-100">clear the filters</a>.</span>
+                        <span th:unless="${rFiltersActive}" th:text="${isAdmin} ? 'Upload PDF e-books with the “Upload PDF” button above.' : 'PDF e-books uploaded by the librarian will appear here.'"></span>
+                    </p>
                 </div>
 
                 <!-- Resource cards -->
@@ -650,9 +743,29 @@
                         </div>
                     </div>
                 </div>
-                <p id="resourceNoMatch" class="hidden mt-4 rounded-2xl ring-1 ring-white/10 bg-white/5 px-4 py-6 text-center text-sm text-indigo-200/70">
-                    No PDF resources match your search.
-                </p>
+                <!-- Resource pagination (numbered, server-side) -->
+                <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+                    <p class="text-[11px] sm:text-xs text-indigo-300/70">
+                        Page <b class="text-indigo-100" th:text="${rCurrentPage}">1</b> of <b class="text-indigo-100" th:text="${rTotalPages}">1</b>
+                        · <b class="text-indigo-100" th:text="${rTotalElements}">0</b> PDF(s)
+                    </p>
+                    <div th:if="${rTotalPages > 1}" class="inline-flex flex-wrap items-center rounded-2xl ring-1 ring-white/15 bg-white/5 p-1 gap-0.5">
+                        <a th:href="@{/dashboard(type=${catalogType},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rpage=${rCurrentPage - 1},rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
+                           class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
+                           th:classappend="${rCurrentPage <= 1} ? 'opacity-40 pointer-events-none' : ''" aria-label="Previous page">‹</a>
+                        <th:block th:each="p : ${rPageNumbers}">
+                            <span th:if="${p == 0}" class="px-2 py-1.5 text-xs text-indigo-300/50">…</span>
+                            <a th:unless="${p == 0}"
+                               th:href="@{/dashboard(type=${catalogType},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rpage=${p},rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
+                               th:text="${p}"
+                               class="min-w-[2rem] text-center px-2 py-1.5 text-xs font-bold rounded-xl transition"
+                               th:classappend="${p == rCurrentPage} ? 'bg-gradient-to-r from-fuchsia-500 to-rose-500 text-white shadow' : 'text-indigo-100 hover:bg-white/10'"></a>
+                        </th:block>
+                        <a th:href="@{/dashboard(type=${catalogType},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rpage=${rCurrentPage + 1},rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
+                           class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
+                           th:classappend="${rCurrentPage >= rTotalPages} ? 'opacity-40 pointer-events-none' : ''" aria-label="Next page">›</a>
+                    </div>
+                </div>
             </div>
 
             <!-- Footer -->
@@ -703,6 +816,13 @@
                     <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="bookAuthor">Author</label>
                     <div class="glass-input rounded-2xl">
                         <input type="text" id="bookAuthor" placeholder="Author name"
+                               class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="bookISBN">ISBN</label>
+                    <div class="glass-input rounded-2xl">
+                        <input type="text" id="bookISBN" placeholder="e.g. 978-0132350884" maxlength="20"
                                class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
                     </div>
                 </div>
@@ -1132,6 +1252,7 @@
                         document.getElementById('bookCode').value = b.bookCode || '';
                         document.getElementById('bookTitle').value = b.title || '';
                         document.getElementById('bookAuthor').value = b.author || '';
+                        document.getElementById('bookISBN').value = b.isbn || '';
                         document.getElementById('bookQuantity').value = b.quantity != null ? b.quantity : 0;
                         if (b.category && b.category.id) document.getElementById('bookCategory').value = b.category.id;
                         previewStatus(b.quantity);
@@ -1153,6 +1274,7 @@
                 bookCode: document.getElementById('bookCode').value.trim(),
                 title: document.getElementById('bookTitle').value.trim(),
                 author: document.getElementById('bookAuthor').value.trim(),
+                isbn: document.getElementById('bookISBN').value.trim(),
                 quantity: parseInt(document.getElementById('bookQuantity').value, 10),
                 categoryId: parseInt(document.getElementById('bookCategory').value, 10)
             };
@@ -1590,18 +1712,27 @@
             hideModal('pdfViewerModal');
         }
 
-        function filterResources() {
-            const q = document.getElementById('resourceSearch').value.trim().toLowerCase();
-            const cards = document.querySelectorAll('#resourceGrid .resource-card');
-            let visible = 0;
-            cards.forEach(function (card) {
-                const meta = card.getAttribute('data-meta') || '';
-                const show = !q || meta.indexOf(q) !== -1;
-                card.classList.toggle('hidden', !show);
-                if (show) visible++;
+        // ===== Server-driven resource filtering (keeps book filters intact) =====
+        function buildDashboardUrl(overrides) {
+            const params = new URLSearchParams(window.location.search);
+            Object.keys(overrides).forEach(function (k) {
+                const v = overrides[k];
+                if (v === '' || v === null || v === undefined) params.delete(k);
+                else params.set(k, v);
             });
-            const noMatch = document.getElementById('resourceNoMatch');
-            if (noMatch) noMatch.classList.toggle('hidden', visible !== 0 || cards.length === 0);
+            params.delete('rpage'); // reset resource page on filter change
+            return '/dashboard?' + params.toString();
+        }
+
+        function applyResourceFilters() {
+            const search = document.getElementById('resourceSearch');
+            const cat = document.getElementById('resourceCategoryFilter');
+            const size = document.getElementById('resourceSizeFilter');
+            window.location.href = buildDashboardUrl({
+                rsearch: search ? search.value.trim() : '',
+                rcategory: cat ? cat.value : '',
+                rsize: size ? size.value : '6'
+            });
         }
 
         function deleteResource(id, title) {
@@ -1642,8 +1773,44 @@
             }
         }
 
+        // Wire real-time (debounced) search + auto-submit filter controls
+        function wireCatalogFilters() {
+            const bookForm = document.getElementById('bookFilterForm');
+            if (bookForm) {
+                const bookSearch = document.getElementById('search');
+                let bookTimer;
+                if (bookSearch) {
+                    bookSearch.addEventListener('input', function () {
+                        clearTimeout(bookTimer);
+                        bookTimer = setTimeout(function () { bookForm.submit(); }, 600);
+                    });
+                }
+                ['category', 'status', 'size'].forEach(function (id) {
+                    const el = document.getElementById(id);
+                    if (el) el.addEventListener('change', function () { bookForm.submit(); });
+                });
+            }
+
+            const resSearch = document.getElementById('resourceSearch');
+            let resTimer;
+            if (resSearch) {
+                resSearch.addEventListener('input', function () {
+                    clearTimeout(resTimer);
+                    resTimer = setTimeout(applyResourceFilters, 600);
+                });
+                resSearch.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') { e.preventDefault(); applyResourceFilters(); }
+                });
+            }
+            ['resourceCategoryFilter', 'resourceSizeFilter'].forEach(function (id) {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('change', applyResourceFilters);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             updateDashboardStats();
+            wireCatalogFilters();
             const circSel = document.getElementById('circPageSize');
             if (circSel) circSel.addEventListener('change', function () { circPage = 1; circRender(); });
             circRender();

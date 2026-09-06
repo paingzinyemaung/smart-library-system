@@ -4,8 +4,14 @@ import com.oodd.library.model.Category;
 import com.oodd.library.model.DigitalResource;
 import com.oodd.library.repository.CategoryRepository;
 import com.oodd.library.repository.DigitalResourceRepository;
+import com.oodd.library.spec.DigitalResourceSpecifications;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,7 +55,7 @@ public class DigitalResourceService {
 
     @Transactional(readOnly = true)
     public List<DigitalResource> getAllResources() {
-        return resourceRepository.findAllByOrderByUploadDateDesc();
+        return resourceRepository.findAllWithCategory();
     }
 
     @Transactional(readOnly = true)
@@ -58,6 +64,18 @@ public class DigitalResourceService {
             return getAllResources();
         }
         return resourceRepository.searchResources(search.trim());
+    }
+
+    /**
+     * Server-side paginated resource search with dynamic text + category filters.
+     */
+    @Transactional(readOnly = true)
+    public Page<DigitalResource> searchResourcesPaged(int page, int size, String search, Long categoryId) {
+        int safeSize = (size <= 0) ? 6 : Math.min(size, 50);
+        Pageable pageable = PageRequest.of(Math.max(page - 1, 0), safeSize,
+                Sort.by(Sort.Direction.DESC, "uploadDate").and(Sort.by(Sort.Direction.DESC, "id")));
+        Specification<DigitalResource> spec = DigitalResourceSpecifications.filtered(search, categoryId);
+        return resourceRepository.findAll(spec, pageable);
     }
 
     @Transactional(readOnly = true)

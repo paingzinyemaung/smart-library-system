@@ -39,7 +39,7 @@ public class DigitalResource {
     @Column(name = "upload_date", nullable = false)
     private LocalDateTime uploadDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 

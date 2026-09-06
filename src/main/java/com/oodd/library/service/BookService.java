@@ -4,10 +4,12 @@ import com.oodd.library.model.Book;
 import com.oodd.library.model.Category;
 import com.oodd.library.repository.BookRepository;
 import com.oodd.library.repository.CategoryRepository;
+import com.oodd.library.spec.BookSpecifications;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +30,7 @@ public class BookService {
 
     @Transactional(readOnly = true)
     public List<Book> getAllBooks() {
-        return bookRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return bookRepository.findAllWithCategory();
     }
 
     @Transactional(readOnly = true)
@@ -37,13 +39,48 @@ public class BookService {
                 .orElseThrow(() -> new IllegalArgumentException("Book not found with id: " + id));
     }
 
+    /**
+     * Server-side paginated catalogue query with multi-field text search
+     * (title / author / book code / ISBN) plus optional category and stock
+     * status filters. Sorting is applied at the database level via Pageable.
+     */
+    @Transactional(readOnly = true)
+    public Page<Book> searchBooks(int page, int size, String search, Long categoryId,
+                                  Book.BookStatus status, String sort) {
+        Sort sorting = buildSort(sort);
+        Pageable pageable = PageRequest.of(Math.max(page - 1, 0), clampSize(size), sorting);
+        Specification<Book> spec = BookSpecifications.filtered(search, categoryId, status);
+        return bookRepository.findAll(spec, pageable);
+    }
+
     @Transactional(readOnly = true)
     public Page<Book> getBooksWithPagination(int page, int size, String search) {
-        Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Sort.Direction.DESC, "id"));
-        if (search == null || search.isBlank()) {
-            return bookRepository.findAll(pageable);
+        return searchBooks(page, size, search, null, null, null);
+    }
+
+    private Sort buildSort(String sort) {
+        if (sort == null || sort.isBlank()) {
+            return Sort.by(Sort.Direction.DESC, "id");
         }
-        return bookRepository.searchBooks(search.trim(), pageable);
+        String[] parts = sort.split(",");
+        String field = parts[0].trim();
+        Sort.Direction dir = (parts.length > 1 && "asc".equalsIgnoreCase(parts[1].trim()))
+                ? Sort.Direction.ASC : Sort.Direction.DESC;
+        return switch (field) {
+            case "title" -> Sort.by(dir, "title").and(Sort.by(Sort.Direction.ASC, "id"));
+            case "author" -> Sort.by(dir, "author").and(Sort.by(Sort.Direction.ASC, "id"));
+            case "bookCode" -> Sort.by(dir, "bookCode");
+            case "quantity" -> Sort.by(dir, "quantity").and(Sort.by(Sort.Direction.ASC, "id"));
+            case "status" -> Sort.by(dir, "status").and(Sort.by(Sort.Direction.ASC, "id"));
+            default -> Sort.by(Sort.Direction.DESC, "id");
+        };
+    }
+
+    private int clampSize(int size) {
+        if (size <= 0) {
+            return 5;
+        }
+        return Math.min(size, 50);
     }
 
     @Transactional(readOnly = true)
@@ -91,6 +128,8 @@ public class BookService {
         }
         book.setBookCode(code);
         book.setTitle(book.getTitle().trim());
+        book.setAuthor(trimToNull(book.getAuthor()));
+        book.setIsbn(trimToNull(book.getIsbn()));
         book.setCategory(resolveCategory(book));
         book.recalculateStatus();
         return bookRepository.save(book);
@@ -110,6 +149,7 @@ public class BookService {
         existing.setBookCode(code);
         existing.setTitle(incoming.getTitle().trim());
         existing.setAuthor(trimToNull(incoming.getAuthor()));
+        existing.setIsbn(trimToNull(incoming.getIsbn()));
         existing.setQuantity(incoming.getQuantity());
         existing.setCategory(resolveCategory(incoming));
         existing.recalculateStatus();

@@ -108,12 +108,12 @@ public class BorrowService {
 
     @Transactional(readOnly = true)
     public List<BorrowRecord> getRecordsForUser(Long userId) {
-        return borrowRecordRepository.findByUserIdOrderByIssueDateDesc(userId);
+        return borrowRecordRepository.findHistoryForUser(userId);
     }
 
     @Transactional(readOnly = true)
     public List<BorrowRecord> getActiveRecords() {
-        return borrowRecordRepository.findByStatusInOrderByDueDateAsc(ACTIVE_STATUSES);
+        return borrowRecordRepository.findActiveWithRelations(ACTIVE_STATUSES);
     }
 
     @Transactional(readOnly = true)

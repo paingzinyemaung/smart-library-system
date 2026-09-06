@@ -48,6 +48,26 @@ public class DigitalResourceController {
         return ResponseEntity.ok(list);
     }
 
+    /**
+     * Server-side paginated resource search with dynamic category + text filters.
+     * Powers the Digital Resources section's real-time search and pagination.
+     */
+    @GetMapping("/search")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Map<String, Object>> searchResources(@RequestParam(defaultValue = "1") int page,
+                                                               @RequestParam(defaultValue = "6") int size,
+                                                               @RequestParam(required = false) String search,
+                                                               @RequestParam(required = false) Long category) {
+        var result = resourceService.searchResourcesPaged(page, size, search, category);
+        Map<String, Object> body = new HashMap<>();
+        body.put("content", result.getContent().stream().map(this::toMap).toList());
+        body.put("page", page);
+        body.put("size", result.getSize());
+        body.put("totalPages", result.getTotalPages());
+        body.put("totalElements", result.getTotalElements());
+        return ResponseEntity.ok(body);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Map<String, Object>> getResource(@PathVariable Long id) {

@@ -2,18 +2,16 @@ package com.oodd.library.repository;
 
 import com.oodd.library.model.Book;
 import com.oodd.library.model.Category;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificationExecutor<Book> {
 
     Optional<Book> findByBookCode(String bookCode);
 
@@ -33,10 +31,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT COALESCE(SUM(b.quantity), 0) FROM Book b")
     long getTotalQuantity();
 
-    @Query("SELECT b FROM Book b LEFT JOIN b.category c WHERE " +
-           "LOWER(b.bookCode) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(b.title) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(COALESCE(b.author, '')) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
-           "LOWER(COALESCE(c.name, '')) LIKE LOWER(CONCAT('%', :search, '%'))")
-    Page<Book> searchBooks(@Param("search") String search, Pageable pageable);
+    /** Single-query fetch of the whole catalogue (avoids N+1 on category). */
+    @Query("SELECT b FROM Book b JOIN FETCH b.category ORDER BY b.id DESC")
+    List<Book> findAllWithCategory();
 }

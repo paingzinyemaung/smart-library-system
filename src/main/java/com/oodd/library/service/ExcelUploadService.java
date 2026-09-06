@@ -98,8 +98,8 @@ public class ExcelUploadService {
 
             Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
-                String[] columns = new String[5];
-                for (int col = 0; col < 5; col++) {
+                String[] columns = new String[6];
+                for (int col = 0; col < 6; col++) {
                     Cell cell = row.getCell(col);
                     columns[col] = cell == null ? null : formatter.formatCellValue(cell).trim();
                 }
@@ -116,8 +116,8 @@ public class ExcelUploadService {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] raw = line.split(",", -1);
-                String[] columns = new String[5];
-                for (int col = 0; col < 5; col++) {
+                String[] columns = new String[6];
+                for (int col = 0; col < 6; col++) {
                     columns[col] = col < raw.length ? stripQuotes(raw[col]).trim() : null;
                 }
                 rows.add(columns);
@@ -138,7 +138,7 @@ public class ExcelUploadService {
     }
 
     /**
-     * Column layout: A = Book Code, B = Title, C = Author, D = Category, E = Quantity.
+     * Column layout: A = Book Code, B = Title, C = Author, D = Category, E = Quantity, F = ISBN.
      */
     private Book parseBookFromRow(String[] columns) {
         String bookCode = columns[0];
@@ -158,6 +158,7 @@ public class ExcelUploadService {
         book.setBookCode(bookCode.trim());
         book.setTitle(title.trim());
         book.setAuthor(isBlank(columns[2]) ? null : columns[2].trim());
+        book.setIsbn(columns.length > 5 && !isBlank(columns[5]) ? columns[5].trim() : null);
 
         String category = isBlank(columns[3]) ? "Uncategorized" : columns[3].trim();
         Category cat = new Category();
@@ -190,6 +191,9 @@ public class ExcelUploadService {
             Book current = existing.get();
             current.setTitle(book.getTitle());
             current.setAuthor(book.getAuthor());
+            if (book.getIsbn() != null) {
+                current.setIsbn(book.getIsbn());
+            }
             current.setQuantity(book.getQuantity());
             current.setCategory(resolved);
             current.recalculateStatus();
@@ -208,7 +212,7 @@ public class ExcelUploadService {
             Sheet sheet = workbook.createSheet("Books Template");
 
             Row headerRow = sheet.createRow(0);
-            String[] headers = {"Book Code*", "Title*", "Author", "Category", "Quantity*"};
+            String[] headers = {"Book Code*", "Title*", "Author", "Category", "Quantity*", "ISBN"};
             CellStyle headerStyle = workbook.createCellStyle();
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);
@@ -221,14 +225,15 @@ public class ExcelUploadService {
             }
 
             String[] samples = {
-                    "B001", "The Silent Patient", "Alex Michaelides", "Thriller", "25",
-                    "B002", "Clean Code", "Robert C. Martin", "Programming", "4",
-                    "B003", "The Pragmatic Programmer", "Hunt & Thomas", "Programming", "0"
+                    "B001", "The Silent Patient", "Alex Michaelides", "Thriller", "25", "978-1250301697",
+                    "B002", "Clean Code", "Robert C. Martin", "Programming", "4", "978-0132350884",
+                    "B003", "The Pragmatic Programmer", "Hunt & Thomas", "Programming", "0", "978-0201616224"
             };
+            int cols = 6;
             for (int r = 0; r < 3; r++) {
                 Row sampleRow = sheet.createRow(r + 1);
-                for (int c = 0; c < 5; c++) {
-                    sampleRow.createCell(c).setCellValue(samples[r * 5 + c]);
+                for (int c = 0; c < cols; c++) {
+                    sampleRow.createCell(c).setCellValue(samples[r * cols + c]);
                 }
             }
 
