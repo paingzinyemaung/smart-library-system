@@ -112,6 +112,10 @@
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
                 Books
             </a>
+            <a href="#resources" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                Resources
+            </a>
             <a href="#circulation" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200" th:if="${isAdmin}">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
                 Circulation
@@ -574,6 +578,81 @@
                 </div>
             </div>
 
+            <!-- Digital Resources (PDF / E-Books) -->
+            <div id="resources" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
+                        <svg class="w-5 h-5 text-fuchsia-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                        Digital Resources
+                        <span class="inline-flex items-center rounded-full bg-fuchsia-500/25 ring-1 ring-fuchsia-300/40 px-2.5 py-0.5 text-[11px] font-bold text-fuchsia-100" th:text="${#lists.size(resources)}">0</span>
+                    </h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="glass-input rounded-xl flex items-center gap-2 px-3 py-2">
+                            <svg class="w-4 h-4 text-indigo-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+                            <input type="text" id="resourceSearch" placeholder="Search PDFs…" oninput="filterResources()"
+                                   class="bg-transparent outline-none text-xs sm:text-sm text-white placeholder-indigo-200/40 w-36 sm:w-48">
+                        </div>
+                        <button th:if="${isAdmin}" onclick="openUploadModal()"
+                                class="rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-2 text-xs sm:text-sm font-bold shadow-lg shadow-indigo-900/50 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-900/40 transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/></svg>
+                            Upload PDF
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Empty state -->
+                <div th:if="${#lists.isEmpty(resources)}" id="resourcesEmpty" class="rounded-2xl ring-1 ring-white/10 bg-white/5 px-4 py-12 text-center">
+                    <svg class="mx-auto w-12 h-12 text-indigo-300/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                    <p class="mt-3 font-semibold text-indigo-100">No digital resources yet</p>
+                    <p class="mt-1 text-xs text-indigo-300/70" th:text="${isAdmin} ? 'Upload PDF e-books with the “Upload PDF” button above.' : 'PDF e-books uploaded by the librarian will appear here.'"></p>
+                </div>
+
+                <!-- Resource cards -->
+                <div id="resourceGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
+                    <div th:each="res : ${resources}" class="resource-card glass rounded-2xl ring-1 ring-white/15 p-4 sm:p-5 flex flex-col hover:ring-fuchsia-300/40 hover:-translate-y-0.5 transition-all duration-300"
+                         th:attr="data-id=${res.id},data-title=${res.title},data-meta=${#strings.toLowerCase((res.title ?: '') + ' ' + (res.author ?: '') + ' ' + (res.description ?: '') + ' ' + (res.category != null ? res.category.name : 'uncategorized'))}">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-rose-400/90 to-red-600/90 ring-1 ring-white/25 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-bold text-white text-sm leading-snug line-clamp-2" th:text="${res.title}"></p>
+                                <p class="mt-0.5 text-[11px] text-indigo-200/70 truncate" th:text="${res.author != null and !#strings.isEmpty(res.author)} ? ${res.author} : 'Unknown author'"></p>
+                            </div>
+                            <span class="shrink-0 inline-flex items-center rounded-full bg-sky-500/20 ring-1 ring-sky-300/40 px-2 py-0.5 text-[10px] font-bold text-sky-100 whitespace-nowrap"
+                                  th:text="${res.category != null ? res.category.name : 'Uncategorized'}"></span>
+                        </div>
+                        <p th:if="${res.description != null and !#strings.isEmpty(res.description)}"
+                           class="mt-2.5 text-xs text-indigo-200/70 leading-relaxed line-clamp-2" th:text="${res.description}"></p>
+                        <div class="mt-3 flex items-center gap-2 text-[11px] text-indigo-300/70">
+                            <span>PDF</span><span class="text-indigo-300/30">·</span>
+                            <span th:text="${res.fileSize != null} ? ${#numbers.formatDecimal(res.fileSize / 1024.0, 1, 0)} + ' KB' : '—'"></span>
+                            <span class="text-indigo-300/30">·</span>
+                            <span th:text="${res.uploadDate != null} ? ${#temporals.format(res.uploadDate, 'MMM d, yyyy')} : '—'"></span>
+                        </div>
+                        <div class="mt-3.5 pt-3 border-t border-white/10 flex items-center gap-2">
+                            <button th:attr="data-id=${res.id},data-title=${res.title}" onclick="openPdfViewer(this.dataset.id, this.dataset.title)"
+                                    class="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-3 py-2 text-xs font-bold shadow-lg shadow-indigo-900/40 hover:-translate-y-0.5 transition-all">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+                                Read
+                            </button>
+                            <a th:href="@{'/api/resources/' + ${res.id} + '/download'}"
+                               class="inline-flex items-center gap-1.5 rounded-xl ring-1 ring-white/25 px-3 py-2 text-xs font-semibold text-indigo-100 hover:bg-white/10 hover:text-white transition">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                                Save
+                            </a>
+                            <button th:if="${isAdmin}" th:attr="data-id=${res.id},data-title=${res.title}" onclick="deleteResource(this.dataset.id, this.dataset.title)"
+                                    class="p-2 rounded-xl ring-1 ring-white/15 text-rose-200 hover:bg-rose-500/15 hover:text-rose-100 transition" title="Delete resource">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <p id="resourceNoMatch" class="hidden mt-4 rounded-2xl ring-1 ring-white/10 bg-white/5 px-4 py-6 text-center text-sm text-indigo-200/70">
+                    No PDF resources match your search.
+                </p>
+            </div>
+
             <!-- Footer -->
             <footer class="mt-8 pt-4 border-t border-white/10 text-center">
                 <p class="text-xs text-indigo-300/50">© 2026 Smart Library · Digital Resource Management System. All rights reserved.</p>
@@ -787,6 +866,117 @@
         </div>
     </div>
 
+    <!-- ============ UPLOAD PDF MODAL ============ -->
+    <div id="uploadResourceModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeUploadModal()"></div>
+        <div class="relative glass rounded-3xl ring-1 ring-white/15 shadow-2xl shadow-indigo-950/70 w-full max-w-lg p-5 sm:p-7 animate-modal-in max-h-[90dvh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="flex items-center gap-2 text-lg font-bold">
+                    <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/></svg>
+                    Upload PDF Resource
+                </h3>
+                <button type="button" onclick="closeUploadModal()" class="p-2 rounded-xl text-indigo-200 hover:bg-white/10 hover:text-white transition" aria-label="Close">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <form id="uploadResourceForm" onsubmit="uploadResource(event)" class="space-y-4">
+                <div>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80">PDF File *</label>
+                    <div class="glass-input rounded-2xl px-3 py-2.5">
+                        <input type="file" id="resourceFile" accept="application/pdf,.pdf" required
+                               class="w-full text-xs sm:text-sm text-indigo-100" onchange="syncResourceTitle()">
+                    </div>
+                    <p class="mt-1 text-[11px] text-indigo-300/60">Stored safely on the server · max 25 MB</p>
+                </div>
+                <div>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="resourceTitle">Title *</label>
+                    <div class="glass-input rounded-2xl">
+                        <input type="text" id="resourceTitle" required placeholder="e.g. Clean Code"
+                               class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="resourceAuthor">Author</label>
+                        <div class="glass-input rounded-2xl">
+                            <input type="text" id="resourceAuthor" placeholder="Author name"
+                                   class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="resourceCategory">Category</label>
+                        <div class="glass-input rounded-2xl">
+                            <select id="resourceCategory"
+                                    class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white [&>option]:text-slate-900">
+                                <option value="">Uncategorized</option>
+                                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="resourceDesc">Description</label>
+                    <div class="glass-input rounded-2xl">
+                        <textarea id="resourceDesc" rows="2" placeholder="Short summary (optional)"
+                                  class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40 resize-none"></textarea>
+                    </div>
+                </div>
+                <div id="resourceProgress" class="hidden">
+                    <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+                        <div id="resourceProgressBar" class="h-full w-0 rounded-full bg-gradient-to-r from-indigo-400 to-fuchsia-400 transition-all duration-300"></div>
+                    </div>
+                    <small id="resourceProgressText" class="mt-1.5 block text-xs text-indigo-200/70">Uploading…</small>
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-1">
+                    <button type="button" onclick="closeUploadModal()"
+                            class="rounded-2xl ring-1 ring-white/25 px-4 py-2 text-sm font-semibold text-indigo-100 hover:bg-white/10 transition">Cancel</button>
+                    <button type="submit" id="resourceSubmitBtn"
+                            class="rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-2 text-sm font-bold shadow-lg shadow-emerald-900/40 hover:-translate-y-0.5 transition-all">Upload PDF</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============ PDF VIEWER MODAL (in-browser reader) ============ -->
+    <div id="pdfViewerModal" class="fixed inset-0 z-[65] hidden items-center justify-center p-2 sm:p-6">
+        <div class="absolute inset-0 bg-black/75 backdrop-blur-md" onclick="closePdfViewer()"></div>
+        <div class="relative glass rounded-3xl ring-1 ring-white/15 shadow-2xl shadow-indigo-950/80 w-full max-w-6xl h-[92dvh] flex flex-col animate-modal-in overflow-hidden">
+            <div class="flex items-center justify-between gap-3 px-4 sm:px-6 py-3 border-b border-white/10 bg-white/5">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span class="w-9 h-9 shrink-0 rounded-xl bg-gradient-to-br from-rose-400/90 to-red-600/90 ring-1 ring-white/25 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                    </span>
+                    <div class="min-w-0">
+                        <p class="truncate text-sm sm:text-base font-bold text-white" id="pdfViewerTitle">PDF Reader</p>
+                        <p class="text-[11px] text-indigo-300/70">Smart Library · In-browser reader</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <a id="pdfNewTabLink" href="#" target="_blank" rel="noopener" title="Open in new tab"
+                       class="p-2 rounded-xl ring-1 ring-white/20 text-indigo-100 hover:bg-white/10 hover:text-white transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                    </a>
+                    <a id="pdfDownloadLink" href="#" title="Download PDF"
+                       class="p-2 rounded-xl ring-1 ring-white/20 text-indigo-100 hover:bg-white/10 hover:text-white transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                    </a>
+                    <button type="button" onclick="closePdfViewer()" class="p-2 rounded-xl text-indigo-200 hover:bg-white/10 hover:text-white transition" aria-label="Close reader">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="relative flex-1 bg-slate-950/40">
+                <div id="pdfLoading" class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 pointer-events-none">
+                    <div class="w-10 h-10 rounded-full border-2 border-indigo-300/30 border-t-fuchsia-300 animate-spin"></div>
+                    <p class="text-xs font-semibold text-indigo-200/80">Loading PDF…</p>
+                </div>
+                <iframe id="pdfFrame" title="PDF reader" src="about:blank"
+                        class="w-full h-full border-0 rounded-b-3xl" allow="autoplay"></iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script th:inline="javascript">
     /*<![CDATA[*/
@@ -904,7 +1094,7 @@
             document.body.style.overflow = '';
         }
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') { closeBookModal(); closeCategoryModal(); closeIssueModal(); closeReturnModal(); }
+            if (e.key === 'Escape') { closeBookModal(); closeCategoryModal(); closeIssueModal(); closeReturnModal(); closeUploadModal(); closePdfViewer(); }
         });
 
         // ===== Add / Edit Book modal =====
@@ -1254,6 +1444,133 @@
             if (!sel) return;
             const pages = Math.max(Math.ceil(circRows().length / parseInt(sel.value, 10)), 1);
             if (circPage < pages) { circPage++; circRender(); }
+        }
+
+        // ===== Digital Resources (PDF) =====
+        function openUploadModal() {
+            if (!isAdmin) { showToast('Only librarians (admins) can upload resources.', 'warning'); return; }
+            document.getElementById('uploadResourceForm').reset();
+            const prog = document.getElementById('resourceProgress');
+            if (prog) prog.classList.add('hidden');
+            showModal('uploadResourceModal');
+        }
+        function closeUploadModal() { hideModal('uploadResourceModal'); }
+
+        function syncResourceTitle() {
+            const fileInput = document.getElementById('resourceFile');
+            const titleInput = document.getElementById('resourceTitle');
+            if (fileInput.files.length && titleInput.value.trim() === '') {
+                titleInput.value = fileInput.files[0].name.replace(/\.pdf$/i, '').replace(/[_-]+/g, ' ').trim();
+            }
+        }
+
+        function uploadResource(event) {
+            event.preventDefault();
+            if (!isAdmin) { showToast('Only librarians (admins) can upload resources.', 'warning'); return; }
+            const fileInput = document.getElementById('resourceFile');
+            if (!fileInput.files.length) { showToast('Please choose a PDF file.', 'warning'); return; }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('title', document.getElementById('resourceTitle').value.trim());
+            formData.append('author', document.getElementById('resourceAuthor').value.trim());
+            formData.append('description', document.getElementById('resourceDesc').value.trim());
+            const cat = document.getElementById('resourceCategory').value;
+            if (cat) formData.append('categoryId', cat);
+
+            const btn = document.getElementById('resourceSubmitBtn');
+            const prog = document.getElementById('resourceProgress');
+            const bar = document.getElementById('resourceProgressBar');
+            const text = document.getElementById('resourceProgressText');
+            btn.disabled = true; btn.textContent = 'Uploading…';
+            prog.classList.remove('hidden');
+            bar.style.width = '0%';
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/api/resources/upload');
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    const pct = Math.round(e.loaded / e.total * 100);
+                    bar.style.width = pct + '%';
+                    text.textContent = 'Uploading… ' + pct + '%';
+                }
+            };
+            xhr.onload = function () {
+                btn.disabled = false; btn.textContent = 'Upload PDF';
+                let data = {};
+                try { data = JSON.parse(xhr.responseText); } catch (ignored) {}
+                if (xhr.status === 403) {
+                    bar.style.width = '100%'; text.textContent = 'Upload failed!';
+                    showToast('Access denied: only admins can upload resources.', 'error');
+                    return;
+                }
+                if (xhr.status >= 200 && xhr.status < 300 && data.success) {
+                    bar.style.width = '100%';
+                    bar.className = 'h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-300';
+                    text.textContent = 'Upload complete!';
+                    showToast(data.message, 'success');
+                    setTimeout(function () { window.location.reload(); }, 1200);
+                } else {
+                    bar.style.width = '100%';
+                    bar.className = 'h-full rounded-full bg-gradient-to-r from-rose-500 to-red-500 transition-all duration-300';
+                    text.textContent = 'Upload failed!';
+                    showToast(data.message || 'Error uploading PDF', 'error');
+                    setTimeout(function () { prog.classList.add('hidden'); }, 3000);
+                }
+            };
+            xhr.onerror = function () {
+                btn.disabled = false; btn.textContent = 'Upload PDF';
+                text.textContent = 'Upload failed!';
+                showToast('Network error while uploading the PDF.', 'error');
+            };
+            xhr.send(formData);
+        }
+
+        function openPdfViewer(id, title) {
+            const frame = document.getElementById('pdfFrame');
+            const loading = document.getElementById('pdfLoading');
+            document.getElementById('pdfViewerTitle').textContent = title || 'PDF Reader';
+            document.getElementById('pdfNewTabLink').href = '/api/resources/' + id + '/view';
+            document.getElementById('pdfDownloadLink').href = '/api/resources/' + id + '/download';
+            loading.style.display = '';
+            frame.onload = function () { loading.style.display = 'none'; };
+            frame.src = '/api/resources/' + id + '/view';
+            showModal('pdfViewerModal');
+        }
+        function closePdfViewer() {
+            const frame = document.getElementById('pdfFrame');
+            if (frame && frame.src !== 'about:blank') frame.src = 'about:blank';
+            hideModal('pdfViewerModal');
+        }
+
+        function filterResources() {
+            const q = document.getElementById('resourceSearch').value.trim().toLowerCase();
+            const cards = document.querySelectorAll('#resourceGrid .resource-card');
+            let visible = 0;
+            cards.forEach(function (card) {
+                const meta = card.getAttribute('data-meta') || '';
+                const show = !q || meta.indexOf(q) !== -1;
+                card.classList.toggle('hidden', !show);
+                if (show) visible++;
+            });
+            const noMatch = document.getElementById('resourceNoMatch');
+            if (noMatch) noMatch.classList.toggle('hidden', visible !== 0 || cards.length === 0);
+        }
+
+        function deleteResource(id, title) {
+            if (!isAdmin) { showToast('Only librarians (admins) can delete resources.', 'warning'); return; }
+            if (!confirm('Delete "' + title + '"? The stored PDF file will also be removed.')) return;
+            fetch('/api/resources/' + id, { method: 'DELETE' })
+            .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+            .then(function (res) {
+                if (res.ok && res.data.success) {
+                    showToast(res.data.message, 'success');
+                    setTimeout(function () { window.location.reload(); }, 1200);
+                } else {
+                    showToast(res.data.message || 'Something went wrong', 'error');
+                }
+            })
+            .catch(function (err) { showToast('Error deleting resource: ' + err.message, 'error'); });
         }
 
         // Refresh live stat values (null-safe; server-rendered values are the fallback)

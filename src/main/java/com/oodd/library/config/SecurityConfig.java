@@ -76,7 +76,10 @@ private final UserRepository userRepository;
                  .requestMatchers("/", "/register", "/api/register", "/login",
                     "/css/**", "/js/**", "/images/**").permitAll()
                  // RBAC: mutations are ADMIN only, ROLE_USER gets read-only access
-                 .requestMatchers(HttpMethod.GET, "/api/books/**", "/api/books", "/api/categories/**", "/api/categories").authenticated()
+                 .requestMatchers(HttpMethod.GET, "/api/books/**", "/api/books", "/api/categories/**", "/api/categories", "/api/resources", "/api/resources/**").authenticated()
+                 // Digital resources: members can browse / read / download PDFs; upload & delete stay ADMIN only
+                 .requestMatchers(HttpMethod.POST, "/api/resources/**").hasRole("ADMIN")
+                 .requestMatchers(HttpMethod.DELETE, "/api/resources/**").hasRole("ADMIN")
                  // RBAC: issuing / returning / loan management is ADMIN only
                  .requestMatchers(HttpMethod.GET, "/api/borrow/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.POST, "/api/books", "/api/books/**", "/api/categories", "/api/categories/**", "/api/upload-excel", "/api/borrow/**").hasRole("ADMIN")

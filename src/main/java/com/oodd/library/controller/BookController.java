@@ -8,6 +8,7 @@ import com.oodd.library.repository.UserRepository;
 import com.oodd.library.service.BookService;
 import com.oodd.library.service.BorrowService;
 import com.oodd.library.service.CategoryService;
+import com.oodd.library.service.DigitalResourceService;
 import com.oodd.library.service.ExcelUploadService;
 import jakarta.validation.Valid;
 import org.springframework.core.io.ByteArrayResource;
@@ -45,17 +46,20 @@ public class BookController {
     private final CategoryService categoryService;
     private final UserRepository userRepository;
     private final BorrowService borrowService;
+    private final DigitalResourceService digitalResourceService;
 
     public BookController(ExcelUploadService excelUploadService,
                           BookService bookService,
                           CategoryService categoryService,
                           UserRepository userRepository,
-                          BorrowService borrowService) {
+                          BorrowService borrowService,
+                          DigitalResourceService digitalResourceService) {
         this.excelUploadService = excelUploadService;
         this.bookService = bookService;
         this.categoryService = categoryService;
         this.userRepository = userRepository;
         this.borrowService = borrowService;
+        this.digitalResourceService = digitalResourceService;
     }
 
     private User currentUser() {
@@ -90,6 +94,9 @@ public class BookController {
 
         // Books by category for the chart
         model.addAttribute("categoryData", bookService.getBooksByCategory());
+
+        // Digital resources (PDF e-books) for the Resources section
+        model.addAttribute("resources", digitalResourceService.getAllResources());
 
         // Pagination + search
         Page<Book> bookPage = bookService.getBooksWithPagination(page, size, search);

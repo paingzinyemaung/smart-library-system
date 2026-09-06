@@ -44,10 +44,10 @@
 
 ## Phase 5: Digital Resources & PDF Reader Integration
 
-- [ ] Enable PDF/E-book file upload for books/resources.
-- [ ] Secure File Storage handling (Local directory or media storage).
-- [ ] In-browser PDF Viewer / Reader integration for students/members.
-- [ ] Download resource functionality with security checks.
+- [x] Enable PDF/E-book file upload for books/resources.
+- [x] Secure File Storage handling (Local directory or media storage).
+- [x] In-browser PDF Viewer / Reader integration for students/members.
+- [x] Download resource functionality with security checks.
 
 ## Phase 6: Advanced Search, Dynamic Filtering & Pagination
 
