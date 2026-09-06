@@ -31,15 +31,15 @@
 
 ## Phase 4: OODD Core Business Logic (Book Issuing, Returning & Fines)
 
-- [ ] Create `BorrowRecord` Entity & Repository (Track issue date, due date, return date, status).
-- [ ] Implement **Issue Book Logic**:
+- [x] Create `BorrowRecord` Entity & Repository (Track issue date, due date, return date, status).
+- [x] Implement **Issue Book Logic**:
   - Check user eligibility & book stock availability.
   - Automatically deduct book quantity by 1.
   - Create active record (`BORROWED`).
-- [ ] Implement **Return Book Logic**:
+- [x] Implement **Return Book Logic**:
   - Increase book stock quantity by 1.
   - Update status to `RETURNED` with actual return date.
-- [ ] Implement **Overdue & Fine Calculation**:
+- [x] Implement **Overdue & Fine Calculation**:
   - Automatically calculate fine amount for late returns based on overdue days.
 
 ## Phase 5: Digital Resources & PDF Reader Integration

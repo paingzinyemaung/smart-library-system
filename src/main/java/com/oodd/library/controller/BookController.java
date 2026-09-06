@@ -6,6 +6,7 @@ import com.oodd.library.model.Category;
 import com.oodd.library.model.User;
 import com.oodd.library.repository.UserRepository;
 import com.oodd.library.service.BookService;
+import com.oodd.library.service.BorrowService;
 import com.oodd.library.service.CategoryService;
 import com.oodd.library.service.ExcelUploadService;
 import jakarta.validation.Valid;
@@ -43,15 +44,18 @@ public class BookController {
     private final BookService bookService;
     private final CategoryService categoryService;
     private final UserRepository userRepository;
+    private final BorrowService borrowService;
 
     public BookController(ExcelUploadService excelUploadService,
                           BookService bookService,
                           CategoryService categoryService,
-                          UserRepository userRepository) {
+                          UserRepository userRepository,
+                          BorrowService borrowService) {
         this.excelUploadService = excelUploadService;
         this.bookService = bookService;
         this.categoryService = categoryService;
         this.userRepository = userRepository;
+        this.borrowService = borrowService;
     }
 
     private User currentUser() {
@@ -71,9 +75,18 @@ public class BookController {
         model.addAttribute("user", user);
         model.addAttribute("isAdmin", user != null && user.getRole() == User.UserRole.ADMIN);
 
+        // Flip past-due ISSUED records to OVERDUE before rendering
+        borrowService.refreshOverdueRecords();
+
         // Dashboard statistics (totalBooks, activeCategories, lowStockCount, ...)
         Map<String, Object> stats = bookService.getDashboardStatistics();
+        stats.put("activeBorrows", borrowService.countActiveBorrows());
+        stats.put("overdueCount", borrowService.getActiveRecords().stream()
+                .filter(r -> r.getStatus() == com.oodd.library.model.BorrowRecord.BorrowStatus.OVERDUE).count());
+        stats.put("totalFines", borrowService.getTotalCollectedFines());
         model.addAttribute("stats", stats);
+        model.addAttribute("activeBorrows", borrowService.getActiveRecords());
+        model.addAttribute("members", userRepository.findAll());
 
         // Books by category for the chart
         model.addAttribute("categoryData", bookService.getBooksByCategory());
@@ -104,7 +117,10 @@ public class BookController {
     @GetMapping("/api/books/stats")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getStats() {
-        return ResponseEntity.ok(bookService.getDashboardStatistics());
+        Map<String, Object> stats = bookService.getDashboardStatistics();
+        stats.put("activeBorrows", borrowService.countActiveBorrows());
+        stats.put("totalFines", borrowService.getTotalCollectedFines());
+        return ResponseEntity.ok(stats);
     }
 
     @GetMapping("/api/books/{id}")

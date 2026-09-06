@@ -1,6 +1,7 @@
 package com.oodd.library.controller;
 
 import com.oodd.library.model.User;
+import com.oodd.library.service.BorrowService;
 import com.oodd.library.service.UserService;
 
 import jakarta.validation.Valid;
@@ -20,6 +21,9 @@ public class AuthController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private BorrowService borrowService;
     
     // MVC Endpoints for Thymeleaf pages
     
@@ -46,9 +50,12 @@ public class AuthController {
     public String showProfilePage(java.security.Principal principal, Model model) {
         User user = principal == null ? null
                 : userService.findByEmail(principal.getName()).orElse(null);
+        borrowService.refreshOverdueRecords();
         model.addAttribute("user", user);
         model.addAttribute("isAdmin", user != null && user.getRole() == User.UserRole.ADMIN);
-        model.addAttribute("borrowHistory", java.util.List.of());
+        model.addAttribute("borrowHistory", user == null
+                ? java.util.List.of()
+                : borrowService.getRecordsForUser(user.getId()));
         return "profile";
     }
     

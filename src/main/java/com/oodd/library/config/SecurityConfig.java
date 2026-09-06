@@ -77,7 +77,9 @@ private final UserRepository userRepository;
                     "/css/**", "/js/**", "/images/**").permitAll()
                  // RBAC: mutations are ADMIN only, ROLE_USER gets read-only access
                  .requestMatchers(HttpMethod.GET, "/api/books/**", "/api/books", "/api/categories/**", "/api/categories").authenticated()
-                 .requestMatchers(HttpMethod.POST, "/api/books", "/api/books/**", "/api/categories", "/api/categories/**", "/api/upload-excel").hasRole("ADMIN")
+                 // RBAC: issuing / returning / loan management is ADMIN only
+                 .requestMatchers(HttpMethod.GET, "/api/borrow/**").hasRole("ADMIN")
+                 .requestMatchers(HttpMethod.POST, "/api/books", "/api/books/**", "/api/categories", "/api/categories/**", "/api/upload-excel", "/api/borrow/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.PUT, "/api/books/**", "/api/categories/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.DELETE, "/api/books/**", "/api/categories/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.GET, "/api/download-template").hasRole("ADMIN")

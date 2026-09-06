@@ -35,23 +35,23 @@
 
  :: Spring Boot ::                (v3.5.9)
 
-2026-09-05T23:43:26.588+06:30  INFO 19704 --- [library] [           main] com.oodd.library.LibraryApplication      : Starting LibraryApplication using Java 21.0.1 with PID 19704 (D:\Spring\library\target\classes started by Paing Zin Ye Maung in D:\Spring\library)
-2026-09-05T23:43:26.589+06:30  INFO 19704 --- [library] [           main] com.oodd.library.LibraryApplication      : No active profile set, falling back to 1 default profile: "default"
-2026-09-05T23:43:27.196+06:30  INFO 19704 --- [library] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-09-05T23:43:27.234+06:30  INFO 19704 --- [library] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 3 JPA repository interfaces.
-2026-09-05T23:43:27.626+06:30  INFO 19704 --- [library] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8585 (http)
-2026-09-05T23:43:27.635+06:30  INFO 19704 --- [library] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-09-05T23:43:27.635+06:30  INFO 19704 --- [library] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
-2026-09-05T23:43:27.685+06:30  INFO 19704 --- [library] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-09-05T23:43:27.686+06:30  INFO 19704 --- [library] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1071 ms
-2026-09-05T23:43:27.907+06:30  INFO 19704 --- [library] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-09-05T23:43:27.943+06:30  INFO 19704 --- [library] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
-2026-09-05T23:43:27.965+06:30  INFO 19704 --- [library] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-09-05T23:43:28.139+06:30  INFO 19704 --- [library] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-09-05T23:43:28.159+06:30  INFO 19704 --- [library] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-09-05T23:43:28.392+06:30  INFO 19704 --- [library] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@39f68aec
-2026-09-05T23:43:28.393+06:30  INFO 19704 --- [library] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-09-05T23:43:28.448+06:30  INFO 19704 --- [library] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-09-06T14:14:12.538+06:30  INFO 22952 --- [library] [           main] com.oodd.library.LibraryApplication      : Starting LibraryApplication using Java 21.0.1 with PID 22952 (D:\Spring\library\target\classes started by Paing Zin Ye Maung in D:\Spring\library)
+2026-09-06T14:14:12.540+06:30  INFO 22952 --- [library] [           main] com.oodd.library.LibraryApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-09-06T14:14:13.190+06:30  INFO 22952 --- [library] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-06T14:14:13.233+06:30  INFO 22952 --- [library] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 4 JPA repository interfaces.
+2026-09-06T14:14:13.668+06:30  INFO 22952 --- [library] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8585 (http)
+2026-09-06T14:14:13.689+06:30  INFO 22952 --- [library] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-06T14:14:13.689+06:30  INFO 22952 --- [library] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-09-06T14:14:13.742+06:30  INFO 22952 --- [library] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-06T14:14:13.743+06:30  INFO 22952 --- [library] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1175 ms
+2026-09-06T14:14:13.957+06:30  INFO 22952 --- [library] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-06T14:14:14.014+06:30  INFO 22952 --- [library] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.39.Final
+2026-09-06T14:14:14.046+06:30  INFO 22952 --- [library] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-09-06T14:14:14.287+06:30  INFO 22952 --- [library] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-06T14:14:14.316+06:30  INFO 22952 --- [library] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-06T14:14:14.664+06:30  INFO 22952 --- [library] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d190639
+2026-09-06T14:14:14.665+06:30  INFO 22952 --- [library] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-06T14:14:14.736+06:30  INFO 22952 --- [library] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0.41
@@ -59,54 +59,44 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-09-05T23:43:29.077+06:30  INFO 19704 --- [library] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-06T14:14:15.492+06:30  INFO 22952 --- [library] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 Hibernate: 
-    create table books (
+    alter table books 
+       modify column status enum ('AVAILABLE','LOW_STOCK','OUT_OF_STOCK')
+Hibernate: 
+    create table borrow_records (
         id bigint not null auto_increment,
-        author varchar(255),
-        book_code varchar(255) not null,
-        quantity integer not null check (quantity>=0),
-        status enum ('AVAILABLE','LOW_STOCK','OUT_OF_STOCK'),
-        title varchar(255) not null,
-        category_id bigint not null,
+        due_date date not null,
+        fine_amount float(53),
+        issue_date date not null,
+        return_date date,
+        status enum ('ISSUED','OVERDUE','RETURNED') not null,
+        book_id bigint not null,
+        user_id bigint not null,
         primary key (id)
     ) engine=InnoDB
 Hibernate: 
-    create table categories (
-        id bigint not null auto_increment,
-        description TEXT,
-        name varchar(255) not null,
-        primary key (id)
-    ) engine=InnoDB
+    alter table borrow_records 
+       add constraint FK9ep13xg9kn8vo3w0ntvd08tco 
+       foreign key (book_id) 
+       references books (id)
 Hibernate: 
-    alter table books 
-       drop index UK8osspp2iqw7t0nj1k35s7j98h
-Hibernate: 
-    alter table books 
-       add constraint UK8osspp2iqw7t0nj1k35s7j98h unique (book_code)
-Hibernate: 
-    alter table categories 
-       drop index UKt8o6pivur7nn124jehx7cygw5
-Hibernate: 
-    alter table categories 
-       add constraint UKt8o6pivur7nn124jehx7cygw5 unique (name)
-Hibernate: 
-    alter table books 
-       add constraint FKleqa3hhc0uhfvurq6mil47xk0 
-       foreign key (category_id) 
-       references categories (id)
-2026-09-05T23:43:29.536+06:30  INFO 19704 --- [library] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-09-05T23:43:29.704+06:30  INFO 19704 --- [library] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-09-05T23:43:30.488+06:30  WARN 19704 --- [library] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-09-05T23:43:30.517+06:30  INFO 19704 --- [library] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2026-09-05T23:43:30.749+06:30  INFO 19704 --- [library] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-09-05T23:43:30.793+06:30  INFO 19704 --- [library] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2026-09-05T23:43:30.793+06:30  WARN 19704 --- [library] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2026-09-05T23:43:31.218+06:30  INFO 19704 --- [library] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8585 (http) with context path '/'
-2026-09-05T23:43:31.227+06:30  INFO 19704 --- [library] [           main] com.oodd.library.LibraryApplication      : Started LibraryApplication in 4.953 seconds (process running for 5.191)
-2026-09-05T23:46:10.259+06:30  INFO 19704 --- [library] [nio-8585-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-09-05T23:46:10.259+06:30  INFO 19704 --- [library] [nio-8585-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-09-05T23:46:10.260+06:30  INFO 19704 --- [library] [nio-8585-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+    alter table borrow_records 
+       add constraint FKe5k0iaamaypstfhuluoa40yom 
+       foreign key (user_id) 
+       references users (id)
+2026-09-06T14:14:15.648+06:30  INFO 22952 --- [library] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-06T14:14:15.825+06:30  INFO 22952 --- [library] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-06T14:14:16.689+06:30  WARN 22952 --- [library] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-06T14:14:16.715+06:30  INFO 22952 --- [library] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2026-09-06T14:14:16.936+06:30  INFO 22952 --- [library] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-06T14:14:16.974+06:30  INFO 22952 --- [library] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-09-06T14:14:16.975+06:30  WARN 22952 --- [library] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-09-06T14:14:17.374+06:30  INFO 22952 --- [library] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8585 (http) with context path '/'
+2026-09-06T14:14:17.384+06:30  INFO 22952 --- [library] [           main] com.oodd.library.LibraryApplication      : Started LibraryApplication in 5.146 seconds (process running for 5.396)
+2026-09-06T14:15:20.714+06:30  INFO 22952 --- [library] [nio-8585-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-06T14:15:20.714+06:30  INFO 22952 --- [library] [nio-8585-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-06T14:15:20.715+06:30  INFO 22952 --- [library] [nio-8585-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 Hibernate: 
     select
         u1_0.id,
@@ -139,454 +129,6 @@ Hibernate:
         users u1_0 
     where
         u1_0.email=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        c1_0.id 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?) 
-    limit
-        ?
-Hibernate: 
-    insert 
-    into
-        categories
-        (description, name) 
-    values
-        (?, ?)
-Hibernate: 
-    select
-        c1_0.id 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?) 
-    limit
-        ?
-Hibernate: 
-    insert 
-    into
-        categories
-        (description, name) 
-    values
-        (?, ?)
-Hibernate: 
-    select
-        c1_0.id 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?) 
-    limit
-        ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        b1_0.id 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=? 
-    limit
-        ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    insert 
-    into
-        books
-        (author, book_code, category_id, quantity, status, title) 
-    values
-        (?, ?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        b1_0.id 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=? 
-    limit
-        ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    insert 
-    into
-        books
-        (author, book_code, category_id, quantity, status, title) 
-    values
-        (?, ?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        b1_0.id 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=? 
-    limit
-        ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    insert 
-    into
-        books
-        (author, book_code, category_id, quantity, status, title) 
-    values
-        (?, ?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        b1_0.id 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=? 
-    limit
-        ?
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        c1_0.id,
-        c1_0.description,
-        c1_0.name,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    where
-        b1_0.id=?
-Hibernate: 
-    select
-        b1_0.id 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=? 
-        and b1_0.id<>? 
-    limit
-        ?
-Hibernate: 
-    update
-        books 
-    set
-        author=?,
-        book_code=?,
-        category_id=?,
-        quantity=?,
-        status=?,
-        title=? 
-    where
-        id=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.category_id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.category_id=?
-Hibernate: 
-    delete 
-    from
-        categories 
-    where
-        id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?)
-Hibernate: 
-    insert 
-    into
-        categories
-        (description, name) 
-    values
-        (?, ?)
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=?
-Hibernate: 
-    insert 
-    into
-        books
-        (author, book_code, category_id, quantity, status, title) 
-    values
-        (?, ?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?)
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=?
-Hibernate: 
-    update
-        books 
-    set
-        author=?,
-        book_code=?,
-        category_id=?,
-        quantity=?,
-        status=?,
-        title=? 
-    where
-        id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?)
-Hibernate: 
-    insert 
-    into
-        categories
-        (description, name) 
-    values
-        (?, ?)
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?)
-Hibernate: 
-    update
-        books 
-    set
-        author=?,
-        book_code=?,
-        category_id=?,
-        quantity=?,
-        status=?,
-        title=? 
-    where
-        id=?
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?)
-Hibernate: 
-    update
-        books 
-    set
-        author=?,
-        book_code=?,
-        category_id=?,
-        quantity=?,
-        status=?,
-        title=? 
-    where
-        id=?
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=?
-Hibernate: 
-    update
-        books 
-    set
-        author=?,
-        book_code=?,
-        category_id=?,
-        quantity=?,
-        status=?,
-        title=? 
-    where
-        id=?
 Hibernate: 
     select
         case 
@@ -634,6 +176,22 @@ Hibernate:
         u1_0.email=?
 Hibernate: 
     select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    order by
+        u1_0.username
+Hibernate: 
+    select
         b1_0.id,
         b1_0.author,
         b1_0.book_code,
@@ -674,79 +232,6 @@ Hibernate:
         c1_0.id=?
 Hibernate: 
     select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
         c1_0.id,
         c1_0.description,
         c1_0.name 
@@ -754,33 +239,6 @@ Hibernate:
         categories c1_0 
     where
         c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
 Hibernate: 
     select
         u1_0.id,
@@ -796,1813 +254,7 @@ Hibernate:
     from
         users u1_0 
     where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
+        u1_0.id=?
 Hibernate: 
     select
         b1_0.id,
@@ -2624,33 +276,658 @@ Hibernate:
         b1_0.id=?
 Hibernate: 
     select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        c1_0.id,
-        c1_0.description,
-        c1_0.name,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
+        br1_0.id 
     from
-        books b1_0 
+        borrow_records br1_0 
     join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    where
-        b1_0.id=?
-Hibernate: 
-    select
-        b1_0.id 
-    from
+        users u1_0 
+            on u1_0.id=br1_0.user_id 
+    join
         books b1_0 
+            on b1_0.id=br1_0.book_id 
     where
-        b1_0.book_code=? 
-        and b1_0.id<>? 
+        u1_0.id=? 
+        and b1_0.id=? 
+        and br1_0.status in (?, ?) 
     limit
         ?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    join
+        users u1_0 
+            on u1_0.id=br1_0.user_id 
+    where
+        u1_0.id=? 
+        and br1_0.status in (?, ?) 
+    order by
+        br1_0.issue_date desc
+Hibernate: 
+    insert 
+    into
+        borrow_records
+        (book_id, due_date, fine_amount, issue_date, return_date, status, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    update
+        books 
+    set
+        author=?,
+        book_code=?,
+        category_id=?,
+        quantity=?,
+        status=?,
+        title=? 
+    where
+        id=?
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.author,
+        b1_0.book_code,
+        b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
+        b1_0.quantity,
+        b1_0.status,
+        b1_0.title 
+    from
+        books b1_0 
+    join
+        categories c1_0 
+            on c1_0.id=b1_0.category_id 
+    where
+        b1_0.id=?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    where
+        br1_0.status=? 
+        and br1_0.due_date<?
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.author,
+        b1_0.book_code,
+        b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
+        b1_0.quantity,
+        b1_0.status,
+        b1_0.title 
+    from
+        books b1_0 
+    join
+        categories c1_0 
+            on c1_0.id=b1_0.category_id 
+    where
+        b1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    update
+        borrow_records 
+    set
+        book_id=?,
+        due_date=?,
+        fine_amount=?,
+        issue_date=?,
+        return_date=?,
+        status=?,
+        user_id=? 
+    where
+        id=?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    where
+        br1_0.status in (?, ?) 
+    order by
+        br1_0.due_date
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        b1_0.id,
+        b1_0.author,
+        b1_0.book_code,
+        b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
+        b1_0.quantity,
+        b1_0.status,
+        b1_0.title,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        borrow_records br1_0 
+    join
+        books b1_0 
+            on b1_0.id=br1_0.book_id 
+    join
+        categories c1_0 
+            on c1_0.id=b1_0.category_id 
+    join
+        users u1_0 
+            on u1_0.id=br1_0.user_id 
+    where
+        br1_0.id=?
+Hibernate: 
+    update
+        books 
+    set
+        author=?,
+        book_code=?,
+        category_id=?,
+        quantity=?,
+        status=?,
+        title=? 
+    where
+        id=?
+Hibernate: 
+    update
+        borrow_records 
+    set
+        book_id=?,
+        due_date=?,
+        fine_amount=?,
+        issue_date=?,
+        return_date=?,
+        status=?,
+        user_id=? 
+    where
+        id=?
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.author,
+        b1_0.book_code,
+        b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
+        b1_0.quantity,
+        b1_0.status,
+        b1_0.title 
+    from
+        books b1_0 
+    join
+        categories c1_0 
+            on c1_0.id=b1_0.category_id 
+    where
+        b1_0.id=?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        b1_0.id,
+        b1_0.author,
+        b1_0.book_code,
+        b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
+        b1_0.quantity,
+        b1_0.status,
+        b1_0.title,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id,
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        borrow_records br1_0 
+    join
+        books b1_0 
+            on b1_0.id=br1_0.book_id 
+    join
+        categories c1_0 
+            on c1_0.id=b1_0.category_id 
+    join
+        users u1_0 
+            on u1_0.id=br1_0.user_id 
+    where
+        br1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        case 
+            when count(u1_0.id)>0 
+                then 1 
+            else 0 
+    end 
+from
+    users u1_0 
+where
+    u1_0.email=?
+Hibernate: 
+    select
+        case 
+            when count(u1_0.id)>0 
+                then 1 
+            else 0 
+    end 
+from
+    users u1_0 
+where
+    u1_0.username=?
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, enabled, first_name, last_name, password, role, updated_at, username) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    where
+        br1_0.status=? 
+        and br1_0.due_date<?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    join
+        users u1_0 
+            on u1_0.id=br1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        br1_0.issue_date desc
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    where
+        br1_0.status=? 
+        and br1_0.due_date<?
+Hibernate: 
+    select
+        count(*) 
+    from
+        books b1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        categories c1_0
+Hibernate: 
+    select
+        count(b1_0.id) 
+    from
+        books b1_0 
+    where
+        b1_0.status=?
+Hibernate: 
+    select
+        count(b1_0.id) 
+    from
+        books b1_0 
+    where
+        b1_0.status=?
+Hibernate: 
+    select
+        coalesce(sum(b1_0.quantity), 0) 
+    from
+        books b1_0
+Hibernate: 
+    select
+        count(br1_0.id) 
+    from
+        borrow_records br1_0 
+    where
+        br1_0.status in (?, ?)
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    where
+        br1_0.status in (?, ?) 
+    order by
+        br1_0.due_date
+Hibernate: 
+    select
+        coalesce(sum(br1_0.fine_amount), 0.0) 
+    from
+        borrow_records br1_0 
+    where
+        br1_0.status=?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    where
+        br1_0.status in (?, ?) 
+    order by
+        br1_0.due_date
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0
+Hibernate: 
+    select
+        coalesce(c1_0.name, 'Uncategorized'),
+        count(b1_0.id) 
+    from
+        books b1_0 
+    left join
+        categories c1_0 
+            on c1_0.id=b1_0.category_id 
+    group by
+        c1_0.name 
+    order by
+        count(b1_0.id) desc
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.author,
+        b1_0.book_code,
+        b1_0.category_id,
+        b1_0.quantity,
+        b1_0.status,
+        b1_0.title 
+    from
+        books b1_0 
+    order by
+        b1_0.id desc 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        count(b1_0.id) 
+    from
+        books b1_0
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.description,
+        c1_0.name 
+    from
+        categories c1_0 
+    order by
+        c1_0.name
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.role,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.author,
+        b1_0.book_code,
+        b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
+        b1_0.quantity,
+        b1_0.status,
+        b1_0.title 
+    from
+        books b1_0 
+    join
+        categories c1_0 
+            on c1_0.id=b1_0.category_id 
+    where
+        b1_0.id=?
+Hibernate: 
+    select
+        br1_0.id 
+    from
+        borrow_records br1_0 
+    join
+        users u1_0 
+            on u1_0.id=br1_0.user_id 
+    join
+        books b1_0 
+            on b1_0.id=br1_0.book_id 
+    where
+        u1_0.id=? 
+        and b1_0.id=? 
+        and br1_0.status in (?, ?) 
+    limit
+        ?
+Hibernate: 
+    select
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
+    from
+        borrow_records br1_0 
+    join
+        users u1_0 
+            on u1_0.id=br1_0.user_id 
+    where
+        u1_0.id=? 
+        and br1_0.status in (?, ?) 
+    order by
+        br1_0.issue_date desc
+Hibernate: 
+    insert 
+    into
+        borrow_records
+        (book_id, due_date, fine_amount, issue_date, return_date, status, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
 Hibernate: 
     update
         books 
@@ -2681,151 +958,57 @@ Hibernate:
         u1_0.email=?
 Hibernate: 
     select
-        count(*) 
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
     from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
+        borrow_records br1_0 
     where
-        b1_0.status=?
+        br1_0.status=? 
+        and br1_0.due_date<?
 Hibernate: 
     select
-        count(b1_0.id) 
+        br1_0.id,
+        br1_0.book_id,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id 
     from
-        books b1_0 
+        borrow_records br1_0 
+    join
+        users u1_0 
+            on u1_0.id=br1_0.user_id 
     where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
+        u1_0.id=? 
     order by
-        count(b1_0.id) desc
+        br1_0.issue_date desc
 Hibernate: 
     select
         b1_0.id,
         b1_0.author,
         b1_0.book_code,
         b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
         b1_0.quantity,
         b1_0.status,
         b1_0.title 
     from
         books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
+    join
         categories c1_0 
+            on c1_0.id=b1_0.category_id 
     where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        b1_0.id 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=? 
-    limit
-        ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    insert 
-    into
-        books
-        (author, book_code, category_id, quantity, status, title) 
-    values
-        (?, ?, ?, ?, ?, ?)
+        b1_0.id=?
 Hibernate: 
     select
         u1_0.id,
@@ -2844,149 +1027,24 @@ Hibernate:
         u1_0.email=?
 Hibernate: 
     select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
+        br1_0.id,
+        br1_0.book_id,
         b1_0.id,
         b1_0.author,
         b1_0.book_code,
         b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
         b1_0.quantity,
         b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?) 
-    limit
-        ?
-Hibernate: 
-    insert 
-    into
-        categories
-        (description, name) 
-    values
-        (?, ?)
-Hibernate: 
-    select
+        b1_0.title,
+        br1_0.due_date,
+        br1_0.fine_amount,
+        br1_0.issue_date,
+        br1_0.return_date,
+        br1_0.status,
+        br1_0.user_id,
         u1_0.id,
         u1_0.created_at,
         u1_0.email,
@@ -2998,355 +1056,18 @@ Hibernate:
         u1_0.updated_at,
         u1_0.username 
     from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
+        borrow_records br1_0 
+    join
         books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
+            on b1_0.id=br1_0.book_id 
+    join
         categories c1_0 
             on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        b1_0.id 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=? 
-    limit
-        ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    insert 
-    into
-        books
-        (author, book_code, category_id, quantity, status, title) 
-    values
-        (?, ?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
+    join
         users u1_0 
+            on u1_0.id=br1_0.user_id 
     where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?)
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=?
-Hibernate: 
-    insert 
-    into
-        books
-        (author, book_code, category_id, quantity, status, title) 
-    values
-        (?, ?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        upper(c1_0.name)=upper(?)
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    where
-        b1_0.book_code=?
+        br1_0.id=?
 Hibernate: 
     update
         books 
@@ -3360,1178 +1081,34 @@ Hibernate:
     where
         id=?
 Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
+    update
+        borrow_records 
+    set
+        book_id=?,
+        due_date=?,
+        fine_amount=?,
+        issue_date=?,
+        return_date=?,
+        status=?,
+        user_id=? 
     where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
+        id=?
 Hibernate: 
     select
         b1_0.id,
         b1_0.author,
         b1_0.book_code,
         b1_0.category_id,
+        c1_0.id,
+        c1_0.description,
+        c1_0.name,
         b1_0.quantity,
         b1_0.status,
         b1_0.title 
     from
         books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
+    join
         categories c1_0 
             on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
     where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.enabled,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.role,
-        u1_0.updated_at,
-        u1_0.username 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        coalesce(c1_0.name, 'Uncategorized'),
-        count(b1_0.id) 
-    from
-        books b1_0 
-    left join
-        categories c1_0 
-            on c1_0.id=b1_0.category_id 
-    group by
-        c1_0.name 
-    order by
-        count(b1_0.id) desc
-Hibernate: 
-    select
-        b1_0.id,
-        b1_0.author,
-        b1_0.book_code,
-        b1_0.category_id,
-        b1_0.quantity,
-        b1_0.status,
-        b1_0.title 
-    from
-        books b1_0 
-    order by
-        b1_0.id desc 
-    limit
-        ?, ?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    where
-        c1_0.id=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        c1_0.id,
-        c1_0.description,
-        c1_0.name 
-    from
-        categories c1_0 
-    order by
-        c1_0.name
-Hibernate: 
-    select
-        count(*) 
-    from
-        books b1_0
-Hibernate: 
-    select
-        count(*) 
-    from
-        categories c1_0
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        count(b1_0.id) 
-    from
-        books b1_0 
-    where
-        b1_0.status=?
-Hibernate: 
-    select
-        coalesce(sum(b1_0.quantity), 0) 
-    from
-        books b1_0
+        b1_0.id=?

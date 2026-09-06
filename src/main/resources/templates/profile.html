@@ -152,10 +152,16 @@
                         <h2 class="text-lg sm:text-xl font-bold">Borrowing History</h2>
                         <p class="text-xs sm:text-sm text-indigo-200/70 mt-0.5">Books you have borrowed from the library</p>
                     </div>
-                    <span class="inline-flex items-center gap-1.5 rounded-full ring-1 ring-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-indigo-100">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                        <span th:text="${#lists.size(borrowHistory)}">0</span> records
-                    </span>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="inline-flex items-center gap-1.5 rounded-full ring-1 ring-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-indigo-100">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            <span th:text="${#lists.size(borrowHistory)}">0</span> records
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 rounded-full ring-1 ring-rose-300/30 bg-rose-500/10 px-3 py-1.5 text-xs font-semibold text-rose-100">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            Total fines: $<span th:text="${#numbers.formatDecimal(#lists.isEmpty(borrowHistory) ? 0.0 : #aggregates.sum(borrowHistory.![accruedFine]), 1, 2)}">0.00</span>
+                        </span>
+                    </div>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -181,17 +187,30 @@
                                     <p class="mt-1 text-xs sm:text-sm text-indigo-300/70">Borrowing records will appear here once you issue your first book.</p>
                                 </td>
                             </tr>
-                            <tr th:each="rec, iter : ${borrowHistory}" class="border-b border-white/5 hover:bg-white/5 transition">
+                            <tr th:each="rec, iter : ${borrowHistory}" class="border-b border-white/5 hover:bg-white/5 transition"
+                                th:classappend="${rec.status.name() == 'OVERDUE'} ? 'bg-rose-500/10' : ''">
                                 <td class="px-5 sm:px-8 py-3.5 text-indigo-300/70" th:text="${iter.count}">1</td>
-                                    <td class="px-4 py-3.5 font-semibold text-white" th:text="${rec.book?.title}">Book</td>
-                                <td class="px-4 py-3.5 text-indigo-200/80" th:text="${rec.issueDate}">Issue</td>
-                                <td class="px-4 py-3.5 text-indigo-200/80" th:text="${rec.dueDate}">Due</td>
-                                <td class="px-4 py-3.5 text-indigo-200/80" th:text="${rec.returnDate}">Return</td>
-                                <td class="px-4 py-3.5">
-                                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-bold uppercase ring-1"
-                                          th:text="${rec.status}">STATUS</span>
+                                <td class="px-4 py-3.5 font-semibold text-white">
+                                    <span th:text="${rec.book?.title}">Book</span>
+                                    <span class="block font-mono text-[11px] font-normal text-indigo-300/70" th:text="${rec.book?.bookCode}"></span>
                                 </td>
-                                <td class="px-5 sm:px-8 py-3.5 text-right font-semibold" th:text="${rec.fineAmount}">0.00</td>
+                                <td class="px-4 py-3.5 text-indigo-200/80" th:text="${rec.issueDate}">Issue</td>
+                                <td class="px-4 py-3.5 text-indigo-200/80 whitespace-nowrap">
+                                    <span th:text="${rec.dueDate}">Due</span>
+                                    <span th:if="${rec.status.name() != 'RETURNED' and rec.getOverdueDays() > 0}"
+                                          class="ml-1.5 inline-flex items-center rounded-full bg-rose-500/20 ring-1 ring-rose-300/40 px-2 py-0.5 text-[10px] font-bold text-rose-100"
+                                          th:text="'+' + ${rec.getOverdueDays()} + 'd'">+0d</span>
+                                </td>
+                                <td class="px-4 py-3.5 text-indigo-200/80" th:text="${rec.returnDate != null} ? ${rec.returnDate} : '—'">Return</td>
+                                <td class="px-4 py-3.5" th:switch="${rec.status.name()}">
+                                    <span th:case="'ISSUED'" class="inline-flex items-center gap-1.5 rounded-full bg-sky-500/20 ring-1 ring-sky-300/40 px-2.5 py-0.5 text-[11px] font-bold uppercase text-sky-100 whitespace-nowrap">● ISSUED</span>
+                                    <span th:case="'OVERDUE'" class="inline-flex items-center gap-1.5 rounded-full bg-rose-500/20 ring-1 ring-rose-300/40 px-2.5 py-0.5 text-[11px] font-bold uppercase text-rose-100 whitespace-nowrap animate-pulse">⚠ OVERDUE</span>
+                                    <span th:case="'RETURNED'" class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 ring-1 ring-emerald-300/40 px-2.5 py-0.5 text-[11px] font-bold uppercase text-emerald-100 whitespace-nowrap">✓ RETURNED</span>
+                                    <span th:case="*" class="inline-flex items-center rounded-full bg-slate-500/20 ring-1 ring-slate-300/40 px-2.5 py-0.5 text-[11px] font-bold uppercase text-slate-100" th:text="${rec.status}"></span>
+                                </td>
+                                <td class="px-5 sm:px-8 py-3.5 text-right font-semibold"
+                                    th:classappend="${rec.getAccruedFine() > 0} ? 'text-rose-300' : 'text-indigo-200/60'"
+                                    th:text="'$' + ${#numbers.formatDecimal(rec.getAccruedFine(), 1, 2)}">0.00</td>
                             </tr>
                         </tbody>
                     </table>
