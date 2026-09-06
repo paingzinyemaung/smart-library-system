@@ -100,6 +100,10 @@ private final UserRepository userRepository;
                 .logoutSuccessUrl("/login?logout=true")
                 .permitAll()
             )
+            // Allow same-origin framing so the in-browser PDF reader <iframe> renders
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())
+            )
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers("/api/**") // Allow API calls without CSRF
             );
