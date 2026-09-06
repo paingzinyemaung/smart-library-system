@@ -91,6 +91,8 @@ public class DigitalResourceService {
             throw new IllegalArgumentException("Invalid storage path resolved for the uploaded file");
         }
         try {
+            // Re-create the storage directory on demand in case it was deleted after startup
+            Files.createDirectories(storageRoot);
             Files.copy(file.getInputStream(), target);
         } catch (IOException e) {
             throw new RuntimeException("Failed to store PDF file: " + e.getMessage(), e);
@@ -125,10 +127,15 @@ public class DigitalResourceService {
     @Transactional
     public void deleteResource(Long id) {
         DigitalResource resource = getResourceById(id);
+        // Best-effort file removal: never block deleting the record if the file is
+        // already missing (manual cleanup, disk loss), and never touch paths outside storage.
         try {
-            Files.deleteIfExists(resolveStoredFile(resource));
+            Path path = Paths.get(resource.getFilePath()).toAbsolutePath().normalize();
+            if (path.startsWith(storageRoot)) {
+                Files.deleteIfExists(path);
+            }
         } catch (IOException e) {
-            throw new RuntimeException("Failed to delete stored PDF file: " + e.getMessage(), e);
+            System.err.println("Could not delete stored PDF for resource " + id + ": " + e.getMessage());
         }
         resourceRepository.deleteById(id);
     }

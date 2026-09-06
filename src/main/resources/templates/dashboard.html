@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:if="${_csrf != null}" th:content="${_csrf.headerName}">
     <title>Library Dashboard · Smart Library</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -887,7 +889,7 @@
                         <input type="file" id="resourceFile" accept="application/pdf,.pdf" required
                                class="w-full text-xs sm:text-sm text-indigo-100" onchange="syncResourceTitle()">
                     </div>
-                    <p class="mt-1 text-[11px] text-indigo-300/60">Stored safely on the server · max 25 MB</p>
+                    <p class="mt-1 text-[11px] text-indigo-300/60">Stored safely on the server · max 100 MB</p>
                 </div>
                 <div>
                     <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="resourceTitle">Title *</label>
@@ -1464,19 +1466,41 @@
             }
         }
 
+        const MAX_UPLOAD_MB = 100;
+
+        function csrfHeaders() {
+            const tokenMeta = document.querySelector('meta[name="_csrf"]');
+            const headerMeta = document.querySelector('meta[name="_csrf_header"]');
+            const headers = {};
+            if (tokenMeta && tokenMeta.content) {
+                headers[(headerMeta && headerMeta.content) ? headerMeta.content : 'X-CSRF-TOKEN'] = tokenMeta.content;
+            }
+            return headers;
+        }
+
         function uploadResource(event) {
             event.preventDefault();
             if (!isAdmin) { showToast('Only librarians (admins) can upload resources.', 'warning'); return; }
             const fileInput = document.getElementById('resourceFile');
             if (!fileInput.files.length) { showToast('Please choose a PDF file.', 'warning'); return; }
 
+            const file = fileInput.files[0];
+            if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+                showToast('"' + file.name + '" is ' + (file.size / (1024 * 1024)).toFixed(1)
+                        + ' MB — the maximum upload size is ' + MAX_UPLOAD_MB + ' MB.', 'error');
+                return;
+            }
+
+            // Field names intentionally mirror @RequestParam on DigitalResourceController#upload
             const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
+            formData.append('file', file);
             formData.append('title', document.getElementById('resourceTitle').value.trim());
             formData.append('author', document.getElementById('resourceAuthor').value.trim());
             formData.append('description', document.getElementById('resourceDesc').value.trim());
             const cat = document.getElementById('resourceCategory').value;
             if (cat) formData.append('categoryId', cat);
+
+            const csrf = csrfHeaders();
 
             const btn = document.getElementById('resourceSubmitBtn');
             const prog = document.getElementById('resourceProgress');
@@ -1484,10 +1508,23 @@
             const text = document.getElementById('resourceProgressText');
             btn.disabled = true; btn.textContent = 'Uploading…';
             prog.classList.remove('hidden');
+            bar.className = 'h-full w-0 rounded-full bg-gradient-to-r from-indigo-400 to-fuchsia-400 transition-all duration-300';
             bar.style.width = '0%';
+            text.textContent = 'Uploading…';
+
+            const fail = function (message) {
+                btn.disabled = false; btn.textContent = 'Upload PDF';
+                bar.style.width = '100%';
+                bar.className = 'h-full rounded-full bg-gradient-to-r from-rose-500 to-red-500 transition-all duration-300';
+                text.textContent = 'Upload failed!';
+                showToast(message, 'error');
+                setTimeout(function () { prog.classList.add('hidden'); }, 4000);
+            };
 
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/resources/upload');
+            Object.keys(csrf).forEach(function (h) { xhr.setRequestHeader(h, csrf[h]); });
+            xhr.timeout = 10 * 60 * 1000; // 10 minutes for large e-books
             xhr.upload.onprogress = function (e) {
                 if (e.lengthComputable) {
                     const pct = Math.round(e.loaded / e.total * 100);
@@ -1499,9 +1536,13 @@
                 btn.disabled = false; btn.textContent = 'Upload PDF';
                 let data = {};
                 try { data = JSON.parse(xhr.responseText); } catch (ignored) {}
+                console.log('[PDF upload] HTTP ' + xhr.status + ' ' + xhr.statusText);
                 if (xhr.status === 403) {
-                    bar.style.width = '100%'; text.textContent = 'Upload failed!';
-                    showToast('Access denied: only admins can upload resources.', 'error');
+                    fail('Access denied (HTTP 403): only admins can upload resources.');
+                    return;
+                }
+                if (xhr.status === 401) {
+                    fail('Session expired (HTTP 401). Please sign in again.');
                     return;
                 }
                 if (xhr.status >= 200 && xhr.status < 300 && data.success) {
@@ -1511,18 +1552,24 @@
                     showToast(data.message, 'success');
                     setTimeout(function () { window.location.reload(); }, 1200);
                 } else {
-                    bar.style.width = '100%';
-                    bar.className = 'h-full rounded-full bg-gradient-to-r from-rose-500 to-red-500 transition-all duration-300';
-                    text.textContent = 'Upload failed!';
-                    showToast(data.message || 'Error uploading PDF', 'error');
-                    setTimeout(function () { prog.classList.add('hidden'); }, 3000);
+                    const detail = data.message
+                        ? data.message
+                        : 'Upload failed — server responded HTTP ' + xhr.status
+                          + (xhr.responseText && xhr.responseText.length < 160 ? ' (' + xhr.responseText.trim().slice(0, 140) + ')' : '');
+                    fail(detail);
+                    if (!data.message) console.error('[PDF upload] unexpected response:', xhr.status, xhr.responseText);
                 }
             };
-            xhr.onerror = function () {
-                btn.disabled = false; btn.textContent = 'Upload PDF';
-                text.textContent = 'Upload failed!';
-                showToast('Network error while uploading the PDF.', 'error');
+            xhr.ontimeout = function () {
+                console.error('[PDF upload] request timed out after ' + (xhr.timeout / 60000) + ' minutes');
+                fail('Upload timed out. Try a smaller PDF or check the server connection.');
             };
+            xhr.onerror = function () {
+                console.error('[PDF upload] transport error — status', xhr.status, '(0 = connection dropped). File size:', file.size, 'bytes');
+                fail('Could not reach the server while uploading (HTTP ' + (xhr.status || 0) + ' — connection dropped).'
+                    + ' Verify the app on :8585 is running and the PDF is under ' + MAX_UPLOAD_MB + ' MB, then check server.log.');
+            };
+            xhr.onabort = function () { fail('Upload was aborted.'); };
             xhr.send(formData);
         }
 
