@@ -338,7 +338,7 @@
                         <span class="inline-flex items-center rounded-full bg-violet-500/25 ring-1 ring-violet-300/40 px-2.5 py-0.5 text-[11px] font-bold text-violet-100" th:text="${#lists.size(activeBorrows)}">0</span>
                     </h3>
                     <div class="flex items-center gap-2">
-                        <select id="circPageSize" class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 [&>option]:text-slate-900">
+                        <select id="circPageSize" aria-label="Active loans per page" class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 [&>option]:text-slate-900">
                             <option value="10">10 / page</option>
                             <option value="25">25 / page</option>
                         </select>
@@ -436,7 +436,7 @@
 
                     <form id="uploadForm" enctype="multipart/form-data" class="w-full max-w-sm">
                         <div class="glass-input rounded-2xl px-3 py-2.5 mb-1 text-left">
-                            <input type="file" id="excelFile" accept=".xlsx,.xls,.csv" class="w-full text-xs sm:text-sm text-indigo-100 file:mr-3">
+                            <input type="file" id="excelFile" aria-label="Upload Excel File" accept=".xlsx,.xls,.csv" class="w-full text-xs sm:text-sm text-indigo-100 file:mr-3">
                         </div>
                         <p class="text-[11px] text-indigo-300/60 mb-4">Supported formats: .xlsx, .xls, .csv</p>
 
@@ -572,7 +572,7 @@
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
                         </a>
                     </div>
-                    <select class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 [&>option]:text-slate-900"
+                    <select aria-label="Books per page" class="glass-input outline-none rounded-xl px-3 py-2 text-xs sm:text-sm font-medium text-indigo-100 [&>option]:text-slate-900"
                             onchange="location.href='/dashboard?page=1&size=' + this.value">
                         <option value="5" th:selected="${pageSize == 5}">5 per page</option>
                         <option value="10" th:selected="${pageSize == 10}">10 per page</option>
@@ -591,7 +591,7 @@
                     <div class="flex flex-wrap items-center gap-2">
                         <div class="glass-input rounded-xl flex items-center gap-2 px-3 py-2">
                             <svg class="w-4 h-4 text-indigo-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
-                            <input type="text" id="resourceSearch" placeholder="Search PDFs…" oninput="filterResources()"
+                            <input type="text" id="resourceSearch" aria-label="Search PDF resources" placeholder="Search PDFs…" oninput="filterResources()"
                                    class="bg-transparent outline-none text-xs sm:text-sm text-white placeholder-indigo-200/40 w-36 sm:w-48">
                         </div>
                         <button th:if="${isAdmin}" onclick="openUploadModal()"
@@ -745,11 +745,11 @@
             <form id="categoryForm" onsubmit="saveCategory(event)" class="space-y-3 mb-5">
                 <input type="hidden" id="categoryId">
                 <div class="glass-input rounded-2xl">
-                    <input type="text" id="categoryName" required placeholder="Category name (e.g. Programming)"
+                    <input type="text" id="categoryName" aria-label="Category name" required placeholder="Category name (e.g. Programming)"
                            class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
                 </div>
                 <div class="glass-input rounded-2xl">
-                    <input type="text" id="categoryDescription" placeholder="Short description (optional)"
+                    <input type="text" id="categoryDescription" aria-label="Category description (optional)" placeholder="Short description (optional)"
                            class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white placeholder-indigo-200/40">
                 </div>
                 <div class="flex items-center justify-end gap-2">
@@ -800,7 +800,7 @@
             <form id="issueForm" onsubmit="confirmIssue(event)" class="space-y-4">
                 <input type="hidden" id="issueBookId">
                 <div>
-                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="issueBook">Book</label>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="issueBookTitle">Book</label>
                     <div class="glass-input rounded-2xl">
                         <input type="text" id="issueBookTitle" readonly
                                class="w-full bg-transparent outline-none rounded-2xl px-4 py-2.5 text-sm text-white">
@@ -884,7 +884,7 @@
 
             <form id="uploadResourceForm" onsubmit="uploadResource(event)" class="space-y-4">
                 <div>
-                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80">PDF File *</label>
+                    <label class="block mb-1.5 text-xs font-bold uppercase tracking-wider text-indigo-300/80" for="resourceFile">PDF File *</label>
                     <div class="glass-input rounded-2xl px-3 py-2.5">
                         <input type="file" id="resourceFile" accept="application/pdf,.pdf" required
                                class="w-full text-xs sm:text-sm text-indigo-100" onchange="syncResourceTitle()">
