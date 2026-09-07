@@ -227,7 +227,7 @@
         </header>
 
         <!-- ============ MAIN CONTENT ============ -->
-        <main id="dashboard" class="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-5 sm:py-8 animate-fade-up">
+        <main id="dashboard" class="scroll-mt-24 flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-5 sm:py-8 animate-fade-up">
 
             <!-- Welcome Section -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5 sm:mb-8">
@@ -330,7 +330,7 @@
             </div>
 
             <!-- Active Circulation (Issue / Return) - Admin only -->
-            <div id="circulation" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mb-5 sm:mb-8" th:if="${isAdmin}">
+            <div id="circulation" class="scroll-mt-24 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mb-5 sm:mb-8" th:if="${isAdmin}">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-violet-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
@@ -414,7 +414,7 @@
             </div>
 
             <!-- Charts and Upload Section (Admin only) -->
-            <div id="analytics" class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-8" th:if="${isAdmin}">
+            <div id="analytics" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-8" th:if="${isAdmin}">
                 <!-- Pie Chart -->
                 <div class="glass rounded-3xl ring-1 ring-white/15 p-5 sm:p-6">
                     <h3 class="mb-4 flex items-center gap-2 text-base sm:text-lg font-bold">
@@ -524,7 +524,7 @@
             </div>
 
             <!-- Books Table -->
-            <div id="books" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6" th:if="${showBooks}">
+            <div id="books" class="scroll-mt-24 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6" th:if="${showBooks}">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
@@ -546,7 +546,7 @@
                 </div>
 
                 <!-- Catalogue filter toolbar (server-side search + dynamic filters) -->
-                <form method="get" action="/dashboard" id="bookFilterForm" class="mb-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-3">
+                <form method="get" action="/dashboard#books" id="bookFilterForm" class="mb-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-3">
                     <input type="hidden" name="type" th:value="${catalogType}">
                     <input type="hidden" name="rsize" th:value="${rPageSize}">
                     <div class="lg:col-span-5 sm:col-span-2">
@@ -692,7 +692,7 @@
             </div>
 
             <!-- Digital Resources (PDF / E-Books) -->
-            <div id="resources" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8" th:if="${showResources}">
+            <div id="resources" class="scroll-mt-24 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8" th:if="${showResources}">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-fuchsia-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
@@ -1955,7 +1955,7 @@
                 else params.set(k, v);
             });
             params.delete('rpage'); // reset resource page on filter change
-            return '/dashboard?' + params.toString();
+            return '/dashboard?' + params.toString() + '#resources';
         }
 
         function applyResourceFilters() {
@@ -2042,9 +2042,28 @@
             });
         }
 
+        // ===== Restore view to the active section after a search/filter reload =====
+        function restoreActiveSection() {
+            const hash = window.location.hash.replace('#', '');
+            const params = new URLSearchParams(window.location.search);
+            const bookFiltersActive = Boolean(params.get('search') || params.get('category') || params.get('status'));
+            const resourceFiltersActive = Boolean(params.get('rsearch') || params.get('rcategory'));
+            let target = (hash === 'books' || hash === 'resources') ? document.getElementById(hash) : null;
+            if (!target) {
+                if (resourceFiltersActive && !bookFiltersActive) target = document.getElementById('resources');
+                else if (bookFiltersActive && !resourceFiltersActive) target = document.getElementById('books');
+            }
+            if (target) {
+                setTimeout(function () {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 650);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             updateDashboardStats();
             wireCatalogFilters();
+            restoreActiveSection();
             const circSel = document.getElementById('circPageSize');
             if (circSel) circSel.addEventListener('change', function () { circPage = 1; circRender(); });
             circRender();
