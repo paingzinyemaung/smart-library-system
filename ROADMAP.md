@@ -59,5 +59,5 @@
 
 - [x] Dashboard Charts (Visual statistics for most borrowed books, active members).
 - [x] Export Borrow History & Book inventory to Excel/PDF reports.
-- [ ] Global Exception Handling (Custom 404, 500 error pages).
-- [ ] Complete End-to-End Testing & Bug fixes.
+- [x] Global Exception Handling (Custom 404, 500 error pages).
+- [x] Complete End-to-End Testing & Bug fixes.

@@ -1,5 +1,6 @@
 package com.oodd.library.service;
 
+import com.oodd.library.exception.ResourceNotFoundException;
 import com.oodd.library.model.Category;
 import com.oodd.library.repository.BookRepository;
 import com.oodd.library.repository.CategoryRepository;
@@ -42,7 +43,7 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public Category getCategoryById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Category not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Category", id));
     }
 
     @Transactional

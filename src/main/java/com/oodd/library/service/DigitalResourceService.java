@@ -1,5 +1,6 @@
 package com.oodd.library.service;
 
+import com.oodd.library.exception.ResourceNotFoundException;
 import com.oodd.library.model.Category;
 import com.oodd.library.model.DigitalResource;
 import com.oodd.library.repository.CategoryRepository;
@@ -81,7 +82,7 @@ public class DigitalResourceService {
     @Transactional(readOnly = true)
     public DigitalResource getResourceById(Long id) {
         return resourceRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Digital resource not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Digital resource", id));
     }
 
     @Transactional

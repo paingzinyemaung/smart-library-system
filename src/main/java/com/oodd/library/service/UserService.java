@@ -1,5 +1,6 @@
 package com.oodd.library.service;
 
+import com.oodd.library.exception.ResourceNotFoundException;
 import com.oodd.library.model.User;
 import com.oodd.library.repository.UserRepository;
 
@@ -54,7 +55,7 @@ public class UserService {
 	                    user.setUpdatedAt(LocalDateTime.now());
 	                    return userRepository.save(user);
 	                })
-	                .orElseThrow(() -> new RuntimeException("User not found"));
+	                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 	    }
 	    
 	    public boolean existsByEmail(String email) {

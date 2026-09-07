@@ -1,5 +1,6 @@
 package com.oodd.library.service;
 
+import com.oodd.library.exception.ResourceNotFoundException;
 import com.oodd.library.model.Book;
 import com.oodd.library.model.Category;
 import com.oodd.library.repository.BookRepository;
@@ -36,7 +37,7 @@ public class BookService {
     @Transactional(readOnly = true)
     public Book getBookById(Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Book not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Book", id));
     }
 
     /**
@@ -159,7 +160,7 @@ public class BookService {
     @Transactional
     public void deleteBook(Long id) {
         if (!bookRepository.existsById(id)) {
-            throw new IllegalArgumentException("Book not found with id: " + id);
+            throw new ResourceNotFoundException("Book", id);
         }
         bookRepository.deleteById(id);
     }

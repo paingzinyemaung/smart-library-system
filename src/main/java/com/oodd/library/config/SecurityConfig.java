@@ -1,8 +1,12 @@
 package com.oodd.library.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oodd.library.dto.ErrorResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -70,7 +74,7 @@ private final UserRepository userRepository;
     }
     
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, ObjectMapper objectMapper) throws Exception {
         http
          .authorizeHttpRequests(authz -> authz
                  .requestMatchers("/", "/register", "/api/register", "/login",
@@ -99,11 +103,36 @@ private final UserRepository userRepository;
                 .failureUrl("/login?error=true")
                 .permitAll()
             )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .permitAll()
-            )
+             .logout(logout -> logout
+                 .logoutUrl("/logout")
+                 .logoutSuccessUrl("/login?logout=true")
+                 .permitAll()
+             )
+             // Filter-level 403s get the same standardized JSON for API callers;
+             // browsers fall through to the themed templates/error/403.html page
+             .exceptionHandling(ex -> ex
+                 .accessDeniedHandler((request, response, e) -> {
+                     String uri = request.getRequestURI();
+                     String accept = request.getHeader("Accept");
+                     boolean wantsJson = uri != null && uri.startsWith("/api")
+                             || (accept != null && accept.contains(MediaType.APPLICATION_JSON_VALUE)
+                                     && !accept.contains(MediaType.TEXT_HTML_VALUE));
+                     if (wantsJson) {
+                         ErrorResponse body = new ErrorResponse(
+                                 java.time.LocalDateTime.now().toString(),
+                                 HttpServletResponse.SC_FORBIDDEN,
+                                 "Forbidden",
+                                 "You do not have permission to access this resource. Librarian (admin) role required.",
+                                 uri, null);
+                         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                         response.setCharacterEncoding("UTF-8");
+                         response.getWriter().write(objectMapper.writeValueAsString(body));
+                     } else {
+                         response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                     }
+                 })
+             )
             // Allow same-origin framing so the in-browser PDF reader <iframe> renders
             .headers(headers -> headers
                 .frameOptions(frame -> frame.sameOrigin())

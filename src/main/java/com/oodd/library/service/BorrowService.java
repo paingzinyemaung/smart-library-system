@@ -1,5 +1,6 @@
 package com.oodd.library.service;
 
+import com.oodd.library.exception.ResourceNotFoundException;
 import com.oodd.library.model.Book;
 import com.oodd.library.model.BorrowRecord;
 import com.oodd.library.model.User;
@@ -35,13 +36,13 @@ public class BorrowService {
     @Transactional
     public BorrowRecord issueBook(Long userId, Long bookId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Member not found with id: " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException("Member", userId));
         if (!user.isEnabled()) {
             throw new IllegalArgumentException("Member account is disabled: " + user.getUsername());
         }
 
         Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new IllegalArgumentException("Book not found with id: " + bookId));
+                .orElseThrow(() -> new ResourceNotFoundException("Book", bookId));
         if (book.getQuantity() == null || book.getQuantity() <= 0) {
             throw new IllegalArgumentException("\"" + book.getTitle() + "\" is out of stock (quantity: 0)");
         }
@@ -74,7 +75,7 @@ public class BorrowService {
     @Transactional
     public BorrowRecord returnBook(Long recordId) {
         BorrowRecord record = borrowRecordRepository.findById(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("Borrow record not found with id: " + recordId));
+                .orElseThrow(() -> new ResourceNotFoundException("Borrow record", recordId));
         if (record.getStatus() == BorrowRecord.BorrowStatus.RETURNED) {
             throw new IllegalArgumentException("This book has already been returned");
         }
@@ -129,6 +130,6 @@ public class BorrowService {
     @Transactional(readOnly = true)
     public BorrowRecord getRecordById(Long id) {
         return borrowRecordRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Borrow record not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Borrow record", id));
     }
 }

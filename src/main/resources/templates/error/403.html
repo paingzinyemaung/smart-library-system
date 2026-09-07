@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>403 · Access Denied — Smart Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+                    animation: { 'fade-up': 'fadeUp .6s cubic-bezier(.22,1,.36,1) both' },
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(24px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(24px) saturate(160%);
+            -webkit-backdrop-filter: blur(24px) saturate(160%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-dvh bg-gradient-to-br from-indigo-950 via-violet-900 to-rose-950">
+
+    <div aria-hidden="true" class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-amber-500/25 blur-3xl"></div>
+        <div class="absolute top-1/3 -right-24 w-[28rem] h-[28rem] rounded-full bg-fuchsia-500/25 blur-3xl"></div>
+        <div class="absolute -bottom-40 left-1/4 w-[26rem] h-[26rem] rounded-full bg-indigo-600/30 blur-3xl"></div>
+        <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 28px 28px;"></div>
+    </div>
+
+    <div class="relative z-10 min-h-dvh flex items-center justify-center px-4 sm:px-6 py-8">
+        <main class="w-full max-w-lg animate-fade-up text-center" th:with="msg=${message != null and !#strings.isEmpty(message)} ? ${message} : 'You do not have permission to access this area. Librarian (admin) role required.'">
+            <div class="glass rounded-[2rem] p-8 sm:p-12 shadow-2xl shadow-indigo-950/60 ring-1 ring-white/15">
+                <div class="mx-auto w-16 h-16 rounded-3xl bg-gradient-to-br from-amber-400 to-rose-500 shadow-lg shadow-rose-900/50 flex items-center justify-center ring-1 ring-white/25 mb-6">
+                    <svg class="w-9 h-9 text-white" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
+                    </svg>
+                </div>
+
+                <p class="text-7xl sm:text-8xl font-black tracking-tight bg-gradient-to-r from-amber-300 via-rose-300 to-fuchsia-300 bg-clip-text text-transparent leading-none"
+                   th:text="${status != null} ? ${status} : '403'">403</p>
+
+                <h1 class="mt-4 text-xl sm:text-2xl font-extrabold text-white">Access Denied</h1>
+                <p class="mt-2 text-sm text-indigo-200/80 leading-relaxed" th:text="${msg}">
+                    You do not have permission to access this area.
+                </p>
+                <p th:if="${path != null and !#strings.isEmpty(path)}"
+                   class="mt-3 inline-block max-w-full truncate rounded-xl ring-1 ring-white/15 bg-white/5 px-3 py-1 text-[11px] font-mono text-indigo-300/80"
+                   th:text="${path}">/restricted</p>
+
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <a th:href="@{/dashboard}"
+                       class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-900/50 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-900/40 active:scale-[0.99] transition-all duration-200">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/></svg>
+                        Back to Dashboard
+                    </a>
+                    <form th:action="@{/logout}" method="post" class="contents">
+                        <button type="submit"
+                                class="w-full inline-flex items-center justify-center gap-2 rounded-2xl ring-1 ring-white/25 px-5 py-3 text-sm font-semibold text-indigo-100 hover:bg-white/10 hover:text-white active:scale-[0.99] transition-all duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"/></svg>
+                            Sign In Differently
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <p class="mt-6 text-[11px] text-indigo-300/50">© 2026 Smart Library · Digital Resource Management System</p>
+        </main>
+    </div>
+</body>
+</html>
