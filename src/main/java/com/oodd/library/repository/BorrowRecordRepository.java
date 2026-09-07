@@ -1,6 +1,7 @@
 package com.oodd.library.repository;
 
 import com.oodd.library.model.BorrowRecord;
+import org.springframework.data.domain.Limit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,4 +40,20 @@ public interface BorrowRecordRepository extends JpaRepository<BorrowRecord, Long
 
     @Query("SELECT b.book.id, COUNT(b) FROM BorrowRecord b GROUP BY b.book.id ORDER BY COUNT(b) DESC")
     List<Object[]> countBorrowsByBook();
+
+    /** Top-N most borrowed titles with their lifetime loan counts. */
+    @Query("SELECT b.book.title, COUNT(b) FROM BorrowRecord b "
+            + "GROUP BY b.book.id, b.book.title ORDER BY COUNT(b) DESC, b.book.title ASC")
+    List<Object[]> findTopBorrowedBooks(Limit limit);
+
+    /** Loan counts grouped by calendar month (yyyy-MM), most recent months first. */
+    @Query(value = "SELECT DATE_FORMAT(issue_date, '%Y-%m') AS ym, COUNT(*) "
+            + "FROM borrow_records "
+            + "WHERE issue_date >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-01'), INTERVAL :months MONTH) "
+            + "GROUP BY ym ORDER BY ym ASC", nativeQuery = true)
+    List<Object[]> findMonthlyLoanCounts(@Param("months") int months);
+
+    /** Distribution helper: loans currently out (ISSUED + OVERDUE) counted in one query. */
+    @Query("SELECT COUNT(b) FROM BorrowRecord b WHERE b.status IN :statuses")
+    long countActiveLoans(@Param("statuses") List<BorrowRecord.BorrowStatus> statuses);
 }

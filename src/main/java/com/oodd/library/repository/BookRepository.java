@@ -31,6 +31,13 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
     @Query("SELECT COALESCE(SUM(b.quantity), 0) FROM Book b")
     long getTotalQuantity();
 
+    /** Titles with at least one physical copy on the shelf. */
+    long countByQuantityGreaterThan(Integer quantity);
+
+    /** Physical copies currently on the shelf (available for lending). */
+    @Query("SELECT COALESCE(SUM(b.quantity), 0) FROM Book b WHERE b.quantity > 0")
+    long getAvailableCopies();
+
     /** Single-query fetch of the whole catalogue (avoids N+1 on category). */
     @Query("SELECT b FROM Book b JOIN FETCH b.category ORDER BY b.id DESC")
     List<Book> findAllWithCategory();

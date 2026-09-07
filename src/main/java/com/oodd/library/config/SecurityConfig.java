@@ -77,6 +77,8 @@ private final UserRepository userRepository;
                     "/css/**", "/js/**", "/images/**").permitAll()
                  // RBAC: mutations are ADMIN only, ROLE_USER gets read-only access
                  .requestMatchers(HttpMethod.GET, "/api/books/**", "/api/books", "/api/categories/**", "/api/categories", "/api/resources", "/api/resources/**").authenticated()
+                 // Analytics charts feed the admin-only dashboard section
+                 .requestMatchers(HttpMethod.GET, "/api/analytics").hasRole("ADMIN")
                  // Digital resources: members can browse / read / download PDFs; upload & delete stay ADMIN only
                  .requestMatchers(HttpMethod.POST, "/api/resources/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.DELETE, "/api/resources/**").hasRole("ADMIN")
