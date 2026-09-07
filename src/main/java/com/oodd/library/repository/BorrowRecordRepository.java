@@ -56,4 +56,13 @@ public interface BorrowRecordRepository extends JpaRepository<BorrowRecord, Long
     /** Distribution helper: loans currently out (ISSUED + OVERDUE) counted in one query. */
     @Query("SELECT COUNT(b) FROM BorrowRecord b WHERE b.status IN :statuses")
     long countActiveLoans(@Param("statuses") List<BorrowRecord.BorrowStatus> statuses);
+
+    /** Full borrow history for admin reports: single query with user + book joined (no N+1). */
+    @Query("SELECT br FROM BorrowRecord br JOIN FETCH br.user JOIN FETCH br.book "
+            + "ORDER BY br.issueDate DESC, br.id DESC")
+    List<BorrowRecord> findAllWithRelations();
+
+    /** Active (unreturned) loan counts per book, used to derive total copies in reports. */
+    @Query("SELECT b.book.id, COUNT(b) FROM BorrowRecord b WHERE b.status IN :statuses GROUP BY b.book.id")
+    List<Object[]> countActiveLoansByBook(@Param("statuses") List<BorrowRecord.BorrowStatus> statuses);
 }

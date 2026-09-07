@@ -58,6 +58,6 @@
 ## Phase 7: Analytics, Reports & Final System Polish
 
 - [x] Dashboard Charts (Visual statistics for most borrowed books, active members).
-- [ ] Export Borrow History & Book inventory to Excel/PDF reports.
+- [x] Export Borrow History & Book inventory to Excel/PDF reports.
 - [ ] Global Exception Handling (Custom 404, 500 error pages).
 - [ ] Complete End-to-End Testing & Bug fixes.

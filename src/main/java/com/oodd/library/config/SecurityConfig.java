@@ -79,6 +79,8 @@ private final UserRepository userRepository;
                  .requestMatchers(HttpMethod.GET, "/api/books/**", "/api/books", "/api/categories/**", "/api/categories", "/api/resources", "/api/resources/**").authenticated()
                  // Analytics charts feed the admin-only dashboard section
                  .requestMatchers(HttpMethod.GET, "/api/analytics").hasRole("ADMIN")
+                 // Excel / PDF report downloads are ADMIN only
+                 .requestMatchers(HttpMethod.GET, "/api/reports/**").hasRole("ADMIN")
                  // Digital resources: members can browse / read / download PDFs; upload & delete stay ADMIN only
                  .requestMatchers(HttpMethod.POST, "/api/resources/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.DELETE, "/api/resources/**").hasRole("ADMIN")
