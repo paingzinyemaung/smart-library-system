@@ -227,7 +227,7 @@
         </header>
 
         <!-- ============ MAIN CONTENT ============ -->
-        <main id="dashboard" class="scroll-mt-24 flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-5 sm:py-8 animate-fade-up">
+        <main id="dashboard" class="scroll-mt-32 flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-5 sm:py-8 animate-fade-up">
 
             <!-- Welcome Section -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5 sm:mb-8">
@@ -330,7 +330,7 @@
             </div>
 
             <!-- Active Circulation (Issue / Return) - Admin only -->
-            <div id="circulation" class="scroll-mt-24 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mb-5 sm:mb-8" th:if="${isAdmin}">
+            <div id="circulation" class="scroll-mt-32 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mb-5 sm:mb-8" th:if="${isAdmin}">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-violet-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
@@ -414,7 +414,7 @@
             </div>
 
             <!-- Charts and Upload Section (Admin only) -->
-            <div id="analytics" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-8" th:if="${isAdmin}">
+            <div id="analytics" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-8" th:if="${isAdmin}">
                 <!-- Pie Chart -->
                 <div class="glass rounded-3xl ring-1 ring-white/15 p-5 sm:p-6">
                     <h3 class="mb-4 flex items-center gap-2 text-base sm:text-lg font-bold">
@@ -499,6 +499,8 @@
                 </div>
             </div>
 
+            <!-- Books section wrapper: All / Physical / Digital filter tabs + catalogue table -->
+            <div id="books" class="scroll-mt-32">
             <!-- Catalog view toggle (Physical books vs Digital resources) -->
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <div class="glass inline-flex items-center rounded-2xl ring-1 ring-white/15 p-1 gap-1" role="tablist" aria-label="Catalogue view">
@@ -524,12 +526,12 @@
             </div>
 
             <!-- Books Table -->
-            <div id="books" class="scroll-mt-24 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6" th:if="${showBooks}">
+            <div class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6" th:if="${showBooks}">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
                         Book Catalogue
-                        <span class="inline-flex items-center rounded-full bg-indigo-500/25 ring-1 ring-indigo-300/40 px-2.5 py-0.5 text-[11px] font-bold text-indigo-100" th:text="${totalBooks}">0</span>
+                        <span id="booksTotalBadge" class="inline-flex items-center rounded-full bg-indigo-500/25 ring-1 ring-indigo-300/40 px-2.5 py-0.5 text-[11px] font-bold text-indigo-100" th:text="${totalBooks}">0</span>
                     </h3>
                     <div class="flex items-center gap-2">
                         <button th:if="${isAdmin}" onclick="openCategoryModal()"
@@ -546,7 +548,7 @@
                 </div>
 
                 <!-- Catalogue filter toolbar (server-side search + dynamic filters) -->
-                <form method="get" action="/dashboard#books" id="bookFilterForm" class="mb-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-3">
+                <form method="get" action="/dashboard#books" id="bookFilterForm" class="mb-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-3" autocomplete="off">
                     <input type="hidden" name="type" th:value="${catalogType}">
                     <input type="hidden" name="rsize" th:value="${rPageSize}">
                     <div class="lg:col-span-5 sm:col-span-2">
@@ -592,7 +594,8 @@
                                 class="flex-1 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-3 py-2 text-xs font-bold shadow-lg shadow-indigo-900/40 hover:-translate-y-0.5 transition-all">
                             Go
                         </button>
-                        <a th:if="${bookFiltersActive}" href="/dashboard" aria-label="Clear all catalogue filters"
+                        <a id="clearBookFiltersBtn" href="/dashboard" data-action="clear-book-filters" aria-label="Clear all catalogue filters"
+                           th:classappend="${bookFiltersActive} ? '' : 'hidden'"
                            class="rounded-xl ring-1 ring-white/20 px-2.5 py-2 text-xs font-semibold text-indigo-100 hover:bg-white/10 transition" title="Clear filters">✕</a>
                     </div>
                 </form>
@@ -612,13 +615,16 @@
                                 <th class="px-3 py-3 font-bold">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="books-table-body">
                             <!-- If no books -->
                             <tr th:if="${books.empty}">
                                 <td colspan="9" class="px-3 py-12 text-center">
                                     <svg class="mx-auto w-12 h-12 text-indigo-300/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.94c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.94m16.5 0a2.25 2.25 0 0 0-1.872-2.181 48.058 48.058 0 0 0-6.606-.419 48.058 48.058 0 0 0-6.606.419A2.25 2.25 0 0 0 3.75 14.15m16.5 0v-2.157"/></svg>
-                                    <p class="mt-3 font-semibold text-indigo-100">No books found</p>
-                                    <p class="mt-1 text-xs text-indigo-300/70">Upload an Excel file or add books to get started.</p>
+                                    <p class="mt-3 font-semibold text-indigo-100" th:text="${bookFiltersActive} ? 'No books match your filters' : 'No books found'">No books found</p>
+                                    <p class="mt-1 text-xs text-indigo-300/70">
+                                        <span th:if="${bookFiltersActive}">Try a different search term, category or status — or <a href="/dashboard" data-action="clear-book-filters" class="underline hover:text-indigo-100">clear the filters</a>.</span>
+                                        <span th:unless="${bookFiltersActive}">Upload an Excel file or add books to get started.</span>
+                                    </p>
                                 </td>
                             </tr>
 
@@ -666,43 +672,48 @@
                     </table>
                 </div>
 
-                <!-- Pagination (numbered, dynamic) -->
-                <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+                <!-- Pagination (numbered, dynamic — swapped via AJAX, clicks intercepted client-side) -->
+                <div id="books-pagination" class="mt-4 flex flex-wrap items-center justify-between gap-3">
                     <p class="text-[11px] sm:text-xs text-indigo-300/70">
                         Showing <b class="text-indigo-100" th:text="${#lists.isEmpty(books)} ? 0 : ${(currentPage - 1) * pageSize + 1}">1</b>–<b class="text-indigo-100" th:text="${(currentPage - 1) * pageSize + #lists.size(books)}">5</b>
                         of <b class="text-indigo-100" th:text="${totalBooks}">0</b> books
                     </p>
                     <div th:if="${totalPages > 1}" class="inline-flex flex-wrap items-center rounded-2xl ring-1 ring-white/15 bg-white/5 p-1 gap-0.5">
                         <a th:href="@{/dashboard(page=${currentPage - 1},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},type=${catalogType})}"
+                           th:attr="data-page=${currentPage - 1}"
                            class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
                            th:classappend="${currentPage <= 1} ? 'opacity-40 pointer-events-none' : ''" aria-label="Previous page">‹</a>
                         <th:block th:each="p : ${pageNumbers}">
                             <span th:if="${p == 0}" class="px-2 py-1.5 text-xs text-indigo-300/50">…</span>
                             <a th:unless="${p == 0}"
                                th:href="@{/dashboard(page=${p},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},type=${catalogType})}"
+                               th:attr="data-page=${p}"
                                th:text="${p}"
                                class="min-w-[2rem] text-center px-2 py-1.5 text-xs font-bold rounded-xl transition"
                                th:classappend="${p == currentPage} ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow' : 'text-indigo-100 hover:bg-white/10'"></a>
                         </th:block>
                         <a th:href="@{/dashboard(page=${currentPage + 1},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},type=${catalogType})}"
+                           th:attr="data-page=${currentPage + 1}"
                            class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
                            th:classappend="${currentPage >= totalPages} ? 'opacity-40 pointer-events-none' : ''" aria-label="Next page">›</a>
                     </div>
                 </div>
             </div>
+            </div>
+            <!-- /Books section wrapper -->
 
             <!-- Digital Resources (PDF / E-Books) -->
-            <div id="resources" class="scroll-mt-24 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8" th:if="${showResources}">
+            <div id="resources" class="scroll-mt-32 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8" th:if="${showResources}">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-fuchsia-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
                         Digital Resources
-                        <span class="inline-flex items-center rounded-full bg-fuchsia-500/25 ring-1 ring-fuchsia-300/40 px-2.5 py-0.5 text-[11px] font-bold text-fuchsia-100" th:text="${rTotalElements}">0</span>
+                        <span id="resourcesTotalBadge" class="inline-flex items-center rounded-full bg-fuchsia-500/25 ring-1 ring-fuchsia-300/40 px-2.5 py-0.5 text-[11px] font-bold text-fuchsia-100" th:text="${rTotalElements}">0</span>
                     </h3>
                     <div class="flex flex-wrap items-center gap-2">
                         <div class="glass-input rounded-xl flex items-center gap-2 px-3 py-2">
                             <svg class="w-4 h-4 text-indigo-300 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
-                            <input type="text" id="resourceSearch" aria-label="Search PDF resources" th:value="${rSearch}"
+                            <input type="text" id="rsearch" name="rsearch" aria-label="Search PDF resources" th:value="${rSearch}"
                                    placeholder="Search PDFs…" autocomplete="off"
                                    class="bg-transparent outline-none text-xs sm:text-sm text-white placeholder-indigo-200/40 w-36 sm:w-48">
                         </div>
@@ -726,18 +737,16 @@
                     </div>
                 </div>
 
-                <!-- Empty state -->
-                <div th:if="${#lists.isEmpty(resources)}" id="resourcesEmpty" class="rounded-2xl ring-1 ring-white/10 bg-white/5 px-4 py-12 text-center">
-                    <svg class="mx-auto w-12 h-12 text-indigo-300/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
-                    <p class="mt-3 font-semibold text-indigo-100" th:text="${rFiltersActive} ? 'No PDF resources match your filters' : 'No digital resources yet'">No digital resources yet</p>
-                    <p class="mt-1 text-xs text-indigo-300/70">
-                        <span th:if="${rFiltersActive}">Try a different search term or <a href="/dashboard" class="underline hover:text-indigo-100">clear the filters</a>.</span>
-                        <span th:unless="${rFiltersActive}" th:text="${isAdmin} ? 'Upload PDF e-books with the “Upload PDF” button above.' : 'PDF e-books uploaded by the librarian will appear here.'"></span>
-                    </p>
-                </div>
-
-                <!-- Resource cards -->
-                <div id="resourceGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
+                <!-- Resource cards (server-rendered first paint, then swapped via AJAX) -->
+                <div id="resources-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
+                    <div th:if="${#lists.isEmpty(resources)}" id="resourcesEmpty" class="col-span-full rounded-2xl ring-1 ring-white/10 bg-white/5 px-4 py-12 text-center">
+                        <svg class="mx-auto w-12 h-12 text-indigo-300/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                        <p class="mt-3 font-semibold text-indigo-100" th:text="${rFiltersActive} ? 'No PDF resources match your filters' : 'No digital resources yet'">No digital resources yet</p>
+                        <p class="mt-1 text-xs text-indigo-300/70">
+                            <span th:if="${rFiltersActive}">Try a different search term or <a href="/dashboard" data-action="clear-resource-filters" class="underline hover:text-indigo-100">clear the filters</a>.</span>
+                            <span th:unless="${rFiltersActive}" th:text="${isAdmin} ? 'Upload PDF e-books with the “Upload PDF” button above.' : 'PDF e-books uploaded by the librarian will appear here.'"></span>
+                        </p>
+                    </div>
                     <div th:each="res : ${resources}" class="resource-card glass rounded-2xl ring-1 ring-white/15 p-4 sm:p-5 flex flex-col hover:ring-fuchsia-300/40 hover:-translate-y-0.5 transition-all duration-300"
                          th:attr="data-id=${res.id},data-title=${res.title},data-meta=${#strings.toLowerCase((res.title ?: '') + ' ' + (res.author ?: '') + ' ' + (res.description ?: '') + ' ' + (res.category != null ? res.category.name : 'uncategorized'))}">
                         <div class="flex items-start gap-3">
@@ -777,25 +786,28 @@
                         </div>
                     </div>
                 </div>
-                <!-- Resource pagination (numbered, server-side) -->
-                <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+                <!-- Resource pagination (numbered, dynamic — swapped via AJAX, clicks intercepted client-side) -->
+                <div id="resources-pagination" class="mt-5 flex flex-wrap items-center justify-between gap-3">
                     <p class="text-[11px] sm:text-xs text-indigo-300/70">
-                        Page <b class="text-indigo-100" th:text="${rCurrentPage}">1</b> of <b class="text-indigo-100" th:text="${rTotalPages}">1</b>
-                        · <b class="text-indigo-100" th:text="${rTotalElements}">0</b> PDF(s)
+                        Page <b class="text-indigo-100" id="rCurrentPageLabel" th:text="${rCurrentPage}">1</b> of <b class="text-indigo-100" id="rTotalPagesLabel" th:text="${rTotalPages}">1</b>
+                        · <b class="text-indigo-100" id="rTotalElementsLabel" th:text="${rTotalElements}">0</b> PDF(s)
                     </p>
                     <div th:if="${rTotalPages > 1}" class="inline-flex flex-wrap items-center rounded-2xl ring-1 ring-white/15 bg-white/5 p-1 gap-0.5">
                         <a th:href="@{/dashboard(type=${catalogType},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rpage=${rCurrentPage - 1},rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
+                           th:attr="data-page=${rCurrentPage - 1}"
                            class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
                            th:classappend="${rCurrentPage <= 1} ? 'opacity-40 pointer-events-none' : ''" aria-label="Previous page">‹</a>
                         <th:block th:each="p : ${rPageNumbers}">
                             <span th:if="${p == 0}" class="px-2 py-1.5 text-xs text-indigo-300/50">…</span>
                             <a th:unless="${p == 0}"
                                th:href="@{/dashboard(type=${catalogType},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rpage=${p},rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
+                               th:attr="data-page=${p}"
                                th:text="${p}"
                                class="min-w-[2rem] text-center px-2 py-1.5 text-xs font-bold rounded-xl transition"
                                th:classappend="${p == rCurrentPage} ? 'bg-gradient-to-r from-fuchsia-500 to-rose-500 text-white shadow' : 'text-indigo-100 hover:bg-white/10'"></a>
                         </th:block>
                         <a th:href="@{/dashboard(type=${catalogType},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rpage=${rCurrentPage + 1},rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
+                           th:attr="data-page=${rCurrentPage + 1}"
                            class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
                            th:classappend="${rCurrentPage >= rTotalPages} ? 'opacity-40 pointer-events-none' : ''" aria-label="Next page">›</a>
                     </div>
@@ -803,7 +815,7 @@
             </div>
 
             <!-- Reports & Exports (Excel / PDF downloads) -->
-            <div id="reports" class="mt-5 sm:mt-8 scroll-mt-24" th:if="${isAdmin}">
+            <div id="reports" class="mt-5 sm:mt-8 scroll-mt-32" th:if="${isAdmin}">
                 <h3 class="mb-4 flex items-center gap-2 text-base sm:text-lg font-bold">
                     <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
                     Reports &amp; Exports
@@ -1946,28 +1958,346 @@
             hideModal('pdfViewerModal');
         }
 
-        // ===== Server-driven resource filtering (keeps book filters intact) =====
-        function buildDashboardUrl(overrides) {
-            const params = new URLSearchParams(window.location.search);
-            Object.keys(overrides).forEach(function (k) {
-                const v = overrides[k];
-                if (v === '' || v === null || v === undefined) params.delete(k);
-                else params.set(k, v);
-            });
-            params.delete('rpage'); // reset resource page on filter change
-            return '/dashboard?' + params.toString() + '#resources';
+        // ================= SPA search & filtering (no full page reloads) =================
+        // Async Fetch-based rendering for the Books table + Digital Resources grid.
+
+        function debounce(fn, wait) {
+            let timer;
+            const debounced = function () {
+                const args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function () { fn.apply(null, args); }, wait || 300);
+            };
+            debounced.cancel = function () { clearTimeout(timer); };
+            return debounced;
         }
 
-        function applyResourceFilters() {
-            const search = document.getElementById('resourceSearch');
-            const cat = document.getElementById('resourceCategoryFilter');
-            const size = document.getElementById('resourceSizeFilter');
-            window.location.href = buildDashboardUrl({
-                rsearch: search ? search.value.trim() : '',
-                rcategory: cat ? cat.value : '',
-                rsize: size ? size.value : '6'
-            });
+        function esc(value) {
+            if (value === null || value === undefined) return '';
+            return String(value)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
         }
+
+        // Silent URL state sync: update query params without a reload or scroll jump
+        function syncUrlParams(updates, fallbackHash) {
+            const params = new URLSearchParams(window.location.search);
+            Object.keys(updates).forEach(function (k) {
+                const v = updates[k];
+                if (v === '' || v === null || v === undefined) params.delete(k);
+                else params.set(k, String(v));
+            });
+            const hash = window.location.hash || (fallbackHash ? '#' + fallbackHash : '');
+            const qs = params.toString();
+            window.history.replaceState(null, '', '/dashboard' + (qs ? '?' + qs : '') + hash);
+            return params;
+        }
+
+        // Mirror of the server-side pageWindow() helper: 0 marks an ellipsis gap
+        function pageWindow(current, totalPages) {
+            const pages = [];
+            if (totalPages <= 0) return pages;
+            const windowSize = 2;
+            const start = Math.max(1, current - windowSize);
+            const end = Math.min(totalPages, current + windowSize);
+            pages.push(1);
+            if (start > 2) pages.push(0);
+            for (let p = Math.max(2, start); p <= Math.min(totalPages - 1, end); p++) pages.push(p);
+            if (end < totalPages - 1) pages.push(0);
+            if (totalPages > 1) pages.push(totalPages);
+            return pages;
+        }
+
+        function paginationNav(params, pageKey, current, totalPages, activeGradient) {
+            if (totalPages <= 1) return '';
+            const hrefFor = function (n) {
+                const clone = new URLSearchParams(params);
+                clone.set(pageKey, String(n));
+                return '/dashboard?' + clone.toString();
+            };
+            const anchor = function (n, label, extraCls, attrs) {
+                return '<a href="' + hrefFor(n) + '" data-page="' + n + '" class="' + extraCls + '" ' + (attrs || '') + '>' + label + '</a>';
+            };
+            let out = '<div class="inline-flex flex-wrap items-center rounded-2xl ring-1 ring-white/15 bg-white/5 p-1 gap-0.5">';
+            out += anchor(current - 1, '‹',
+                'px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition' + (current <= 1 ? ' opacity-40 pointer-events-none' : ''),
+                'aria-label="Previous page"');
+            pageWindow(current, totalPages).forEach(function (p) {
+                if (p === 0) {
+                    out += '<span class="px-2 py-1.5 text-xs text-indigo-300/50">…</span>';
+                } else {
+                    out += anchor(p, p,
+                        'min-w-[2rem] text-center px-2 py-1.5 text-xs font-bold rounded-xl transition ' +
+                        (p === current ? 'bg-gradient-to-r ' + activeGradient + ' text-white shadow' : 'text-indigo-100 hover:bg-white/10'));
+                }
+            });
+            out += anchor(current + 1, '›',
+                'px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition' + (current >= totalPages ? ' opacity-40 pointer-events-none' : ''),
+                'aria-label="Next page"');
+            out += '</div>';
+            return out;
+        }
+
+        const TRASH_ICON = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg>';
+
+        // ---------------- Books catalogue (AJAX table body + pagination) ----------------
+        const bookState = { page: Math.max(parseInt(new URLSearchParams(window.location.search).get('page'), 10) || 1, 1) };
+        let booksRequestSeq = 0;
+
+        function bookParams() {
+            const search = document.getElementById('search');
+            const category = document.getElementById('category');
+            const status = document.getElementById('status');
+            const size = document.getElementById('size');
+            return {
+                search: search ? search.value.trim() : '',
+                category: category ? category.value : '',
+                status: status ? status.value : '',
+                size: size ? size.value : '5',
+                page: bookState.page
+            };
+        }
+
+        function bookRowHtml(book, index, p) {
+            const st = book.status || '';
+            const tint = st === 'LOW_STOCK' ? ' bg-amber-500/10' : (st === 'OUT_OF_STOCK' ? ' bg-rose-500/10' : '');
+            const qtyCls = st === 'LOW_STOCK' ? 'text-amber-300' : (st === 'OUT_OF_STOCK' ? 'text-rose-300' : 'text-indigo-100');
+            let badge;
+            if (st === 'AVAILABLE') {
+                badge = '<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 ring-1 ring-emerald-300/40 px-2.5 py-0.5 text-[11px] font-bold text-emerald-100 whitespace-nowrap">● AVAILABLE</span>';
+            } else if (st === 'LOW_STOCK') {
+                badge = '<span class="inline-flex items-center gap-1.5 rounded-full bg-amber-500/25 ring-1 ring-amber-300/50 px-2.5 py-0.5 text-[11px] font-bold text-amber-100 whitespace-nowrap animate-pulse">⚠ LOW STOCK</span>';
+            } else if (st === 'OUT_OF_STOCK') {
+                badge = '<span class="inline-flex items-center gap-1.5 rounded-full bg-rose-500/20 ring-1 ring-rose-300/40 px-2.5 py-0.5 text-[11px] font-bold text-rose-100 whitespace-nowrap">✕ OUT OF STOCK</span>';
+            } else {
+                badge = '<span class="inline-flex items-center gap-1.5 rounded-full bg-slate-500/20 ring-1 ring-slate-300/40 px-2.5 py-0.5 text-[11px] font-bold text-slate-100 whitespace-nowrap">' + esc(st) + '</span>';
+            }
+            let actions;
+            if (isAdmin) {
+                actions =
+                    '<button data-id="' + book.id + '" data-title="' + esc(book.title) + '"' + ((book.quantity == null || book.quantity <= 0) ? ' disabled' : '') + ' onclick="openIssueModal(this.dataset.id, this.dataset.title)"' +
+                    ' class="p-2 rounded-xl ring-1 ring-white/15 text-emerald-200 hover:bg-emerald-500/15 hover:text-emerald-100 transition disabled:opacity-30 disabled:pointer-events-none" title="Issue to member">' +
+                    '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></button>' +
+                    '<button data-id="' + book.id + '" onclick="openBookModal(this.dataset.id)" class="p-2 rounded-xl ring-1 ring-white/15 text-amber-200 hover:bg-amber-500/15 hover:text-amber-100 transition" title="Edit">' +
+                    '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"/></svg></button>' +
+                    '<button data-id="' + book.id + '" onclick="deleteBook(this.dataset.id)" class="p-2 rounded-xl ring-1 ring-white/15 text-rose-200 hover:bg-rose-500/15 hover:text-rose-100 transition" title="Delete">' + TRASH_ICON + '</button>';
+            } else {
+                actions = '<span class="inline-flex items-center rounded-full bg-slate-500/15 ring-1 ring-slate-300/25 px-2.5 py-0.5 text-[11px] font-semibold text-slate-300">read-only</span>';
+            }
+            return '<tr class="border-b border-white/5 hover:bg-white/5 transition-colors' + tint + '">' +
+                '<td class="px-3 py-3.5 text-indigo-300/70">' + (index + 1 + (p.page - 1) * parseInt(p.size, 10)) + '</td>' +
+                '<td class="px-3 py-3.5 whitespace-nowrap"><span class="font-mono text-xs font-bold rounded-lg bg-indigo-500/20 ring-1 ring-indigo-300/30 px-2 py-1 text-indigo-100">' + esc(book.bookCode) + '</span></td>' +
+                '<td class="px-3 py-3.5 font-semibold text-white max-w-56 truncate" title="' + esc(book.title) + '">' + esc(book.title) + '</td>' +
+                '<td class="px-3 py-3.5 text-indigo-200/80 max-w-44 truncate" title="' + esc(book.author) + '">' + esc(book.author) + '</td>' +
+                '<td class="px-3 py-3.5 whitespace-nowrap font-mono text-[11px] text-indigo-200/70">' + (book.isbn ? esc(book.isbn) : '—') + '</td>' +
+                '<td class="px-3 py-3.5"><span class="inline-flex items-center rounded-full bg-sky-500/20 ring-1 ring-sky-300/40 px-2.5 py-0.5 text-[11px] font-bold text-sky-100 whitespace-nowrap">' + esc(book.category) + '</span></td>' +
+                '<td class="px-3 py-3.5 font-semibold ' + qtyCls + '">' + (book.quantity != null ? book.quantity : 0) + '</td>' +
+                '<td class="px-3 py-3.5">' + badge + '</td>' +
+                '<td class="px-3 py-3.5 whitespace-nowrap">' + actions + '</td></tr>';
+        }
+
+        function bookEmptyRowHtml(filtersActive) {
+            return '<tr><td colspan="9" class="px-3 py-12 text-center">' +
+                '<svg class="mx-auto w-12 h-12 text-indigo-300/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.94c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.94m16.5 0a2.25 2.25 0 0 0-1.872-2.181 48.058 48.058 0 0 0-6.606-.419 48.058 48.058 0 0 0-6.606.419A2.25 2.25 0 0 0 3.75 14.15m16.5 0v-2.157"/></svg>' +
+                '<p class="mt-3 font-semibold text-indigo-100">' + (filtersActive ? 'No books match your filters' : 'No books found') + '</p>' +
+                '<p class="mt-1 text-xs text-indigo-300/70">' + (filtersActive
+                    ? 'Try a different search term, category or status — or <a href="/dashboard" data-action="clear-book-filters" class="underline hover:text-indigo-100">clear the filters</a>.'
+                    : 'Upload an Excel file or add books to get started.') + '</p></td></tr>';
+        }
+
+        async function fetchBooks() {
+            const tbody = document.getElementById('books-table-body');
+            if (!tbody) return;
+            const p = bookParams();
+            const query = new URLSearchParams();
+            query.set('page', p.page);
+            query.set('size', p.size);
+            if (p.search) query.set('search', p.search);
+            if (p.category) query.set('category', p.category);
+            if (p.status) query.set('status', p.status);
+
+            const seq = ++booksRequestSeq;
+            tbody.style.opacity = '0.5';
+            try {
+                const response = await fetch('/api/books/search?' + query.toString(), { headers: { 'Accept': 'application/json' } });
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const data = await response.json();
+                if (seq !== booksRequestSeq) return; // a newer request already won the race
+
+                const filtersActive = Boolean(p.search || p.category || p.status);
+                tbody.innerHTML = data.content.length
+                    ? data.content.map(function (b, i) { return bookRowHtml(b, i, p); }).join('')
+                    : bookEmptyRowHtml(filtersActive);
+
+                const from = data.content.length ? (data.page - 1) * data.size + 1 : 0;
+                const to = (data.page - 1) * data.size + data.content.length;
+                const params = syncUrlParams({
+                    search: p.search, category: p.category, status: p.status,
+                    size: p.size === '5' ? '' : p.size,
+                    page: data.page > 1 ? data.page : ''
+                }, 'books');
+                bookState.page = data.page;
+
+                const pagination = document.getElementById('books-pagination');
+                if (pagination) {
+                    pagination.innerHTML =
+                        '<p class="text-[11px] sm:text-xs text-indigo-300/70">Showing <b class="text-indigo-100">' + from + '</b>–<b class="text-indigo-100">' + to + '</b> of <b class="text-indigo-100">' + data.totalElements + '</b> books</p>' +
+                        paginationNav(params, 'page', data.page, data.totalPages, 'from-indigo-500 to-fuchsia-500');
+                }
+                const badge = document.getElementById('booksTotalBadge');
+                if (badge) badge.textContent = data.totalElements;
+                const clearBtn = document.getElementById('clearBookFiltersBtn');
+                if (clearBtn) clearBtn.classList.toggle('hidden', !filtersActive);
+            } catch (err) {
+                if (seq === booksRequestSeq) {
+                    console.error('Book search failed:', err);
+                    showToast('Could not refresh the book catalogue.', 'error');
+                }
+            } finally {
+                if (seq === booksRequestSeq) tbody.style.opacity = '';
+            }
+        }
+
+        function clearBookFilters() {
+            const search = document.getElementById('search');
+            const category = document.getElementById('category');
+            const status = document.getElementById('status');
+            if (search) search.value = '';
+            if (category) category.value = '';
+            if (status) status.value = '';
+            bookState.page = 1;
+            fetchBooks();
+        }
+
+        // ---------------- Digital resources (AJAX grid + pagination) ----------------
+        const resourceState = { page: Math.max(parseInt(new URLSearchParams(window.location.search).get('rpage'), 10) || 1, 1) };
+        let resourcesRequestSeq = 0;
+
+        function resourceParams() {
+            const search = document.getElementById('rsearch');
+            const category = document.getElementById('resourceCategoryFilter');
+            const size = document.getElementById('resourceSizeFilter');
+            return {
+                search: search ? search.value.trim() : '',
+                category: category ? category.value : '',
+                size: size ? size.value : '6',
+                page: resourceState.page
+            };
+        }
+
+        function resourceCardHtml(res) {
+            return '<div class="resource-card glass rounded-2xl ring-1 ring-white/15 p-4 sm:p-5 flex flex-col hover:ring-fuchsia-300/40 hover:-translate-y-0.5 transition-all duration-300" data-id="' + res.id + '" data-title="' + esc(res.title) + '">' +
+                '<div class="flex items-start gap-3">' +
+                '<div class="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br from-rose-400/90 to-red-600/90 ring-1 ring-white/25 flex items-center justify-center">' +
+                '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg></div>' +
+                '<div class="min-w-0 flex-1">' +
+                '<p class="font-bold text-white text-sm leading-snug line-clamp-2">' + esc(res.title) + '</p>' +
+                '<p class="mt-0.5 text-[11px] text-indigo-200/70 truncate">' + (res.author ? esc(res.author) : 'Unknown author') + '</p></div>' +
+                '<span class="shrink-0 inline-flex items-center rounded-full bg-sky-500/20 ring-1 ring-sky-300/40 px-2 py-0.5 text-[10px] font-bold text-sky-100 whitespace-nowrap">' + esc(res.category) + '</span></div>' +
+                (res.description ? '<p class="mt-2.5 text-xs text-indigo-200/70 leading-relaxed line-clamp-2">' + esc(res.description) + '</p>' : '') +
+                '<div class="mt-3 flex items-center gap-2 text-[11px] text-indigo-300/70"><span>PDF</span><span class="text-indigo-300/30">·</span><span>' + esc(res.sizeLabel || '—') + '</span><span class="text-indigo-300/30">·</span><span>' + esc(res.uploadDate || '—') + '</span></div>' +
+                '<div class="mt-3.5 pt-3 border-t border-white/10 flex items-center gap-2">' +
+                '<button data-id="' + res.id + '" data-title="' + esc(res.title) + '" onclick="openPdfViewer(this.dataset.id, this.dataset.title)" class="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-3 py-2 text-xs font-bold shadow-lg shadow-indigo-900/40 hover:-translate-y-0.5 transition-all">' +
+                '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg> Read</button>' +
+                '<a href="' + esc(res.downloadUrl || ('/api/resources/' + res.id + '/download')) + '" class="inline-flex items-center gap-1.5 rounded-xl ring-1 ring-white/25 px-3 py-2 text-xs font-semibold text-indigo-100 hover:bg-white/10 hover:text-white transition">' +
+                '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg> Save</a>' +
+                (isAdmin ? '<button data-id="' + res.id + '" data-title="' + esc(res.title) + '" onclick="deleteResource(this.dataset.id, this.dataset.title)" class="p-2 rounded-xl ring-1 ring-white/15 text-rose-200 hover:bg-rose-500/15 hover:text-rose-100 transition" title="Delete resource">' + TRASH_ICON + '</button>' : '') +
+                '</div></div>';
+        }
+
+        function resourceEmptyHtml(filtersActive) {
+            return '<div id="resourcesEmpty" class="col-span-full rounded-2xl ring-1 ring-white/10 bg-white/5 px-4 py-12 text-center">' +
+                '<svg class="mx-auto w-12 h-12 text-indigo-300/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>' +
+                '<p class="mt-3 font-semibold text-indigo-100">' + (filtersActive ? 'No PDF resources match your filters' : 'No digital resources yet') + '</p>' +
+                (filtersActive
+                    ? '<p class="mt-1 text-xs text-indigo-300/70">Try a different search term or <a href="/dashboard" data-action="clear-resource-filters" class="underline hover:text-indigo-100">clear the filters</a>.</p>'
+                    : '<p class="mt-1 text-xs text-indigo-300/70">' + (isAdmin ? 'Upload PDF e-books with the “Upload PDF” button above.' : 'PDF e-books uploaded by the librarian will appear here.') + '</p>') +
+                '</div>';
+        }
+
+        async function fetchResources() {
+            const grid = document.getElementById('resources-grid');
+            if (!grid) return;
+            const p = resourceParams();
+            const query = new URLSearchParams();
+            query.set('page', p.page);
+            query.set('size', p.size);
+            if (p.search) query.set('search', p.search);
+            if (p.category) query.set('category', p.category);
+
+            const seq = ++resourcesRequestSeq;
+            grid.style.opacity = '0.5';
+            try {
+                const response = await fetch('/api/resources/search?' + query.toString(), { headers: { 'Accept': 'application/json' } });
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const data = await response.json();
+                if (seq !== resourcesRequestSeq) return; // stale response
+
+                const filtersActive = Boolean(p.search || p.category);
+                grid.innerHTML = data.content.length
+                    ? data.content.map(resourceCardHtml).join('')
+                    : resourceEmptyHtml(filtersActive);
+
+                const params = syncUrlParams({
+                    rsearch: p.search, rcategory: p.category,
+                    rsize: p.size === '6' ? '' : p.size,
+                    rpage: data.page > 1 ? data.page : ''
+                }, 'resources');
+                resourceState.page = data.page;
+
+                const pagination = document.getElementById('resources-pagination');
+                if (pagination) {
+                    pagination.innerHTML =
+                        '<p class="text-[11px] sm:text-xs text-indigo-300/70">Page <b class="text-indigo-100">' + data.page + '</b> of <b class="text-indigo-100">' + data.totalPages + '</b> · <b class="text-indigo-100">' + data.totalElements + '</b> PDF(s)</p>' +
+                        paginationNav(params, 'rpage', data.page, data.totalPages, 'from-fuchsia-500 to-rose-500');
+                }
+                const badge = document.getElementById('resourcesTotalBadge');
+                if (badge) badge.textContent = data.totalElements;
+            } catch (err) {
+                if (seq === resourcesRequestSeq) {
+                    console.error('Resource search failed:', err);
+                    showToast('Could not refresh the digital resources.', 'error');
+                }
+            } finally {
+                if (seq === resourcesRequestSeq) grid.style.opacity = '';
+            }
+        }
+
+        function clearResourceFilters() {
+            const search = document.getElementById('rsearch');
+            const category = document.getElementById('resourceCategoryFilter');
+            if (search) search.value = '';
+            if (category) category.value = '';
+            resourceState.page = 1;
+            fetchResources();
+        }
+
+        // Pagination + clear-filter clicks intercepted globally (works for server- and JS-rendered markup)
+        document.addEventListener('click', function (e) {
+            const bookPageLink = e.target.closest('#books-pagination a[data-page]');
+            if (bookPageLink) {
+                e.preventDefault();
+                bookState.page = Math.max(parseInt(bookPageLink.dataset.page, 10) || 1, 1);
+                fetchBooks();
+                return;
+            }
+            const resPageLink = e.target.closest('#resources-pagination a[data-page]');
+            if (resPageLink) {
+                e.preventDefault();
+                resourceState.page = Math.max(parseInt(resPageLink.dataset.page, 10) || 1, 1);
+                fetchResources();
+                return;
+            }
+            if (e.target.closest('[data-action="clear-book-filters"]')) {
+                e.preventDefault();
+                clearBookFilters();
+                return;
+            }
+            if (e.target.closest('[data-action="clear-resource-filters"]')) {
+                e.preventDefault();
+                clearResourceFilters();
+            }
+        });
 
         function deleteResource(id, title) {
             if (!isAdmin) { showToast('Only librarians (admins) can delete resources.', 'warning'); return; }
@@ -2007,38 +2337,55 @@
             }
         }
 
-        // Wire real-time (debounced) search + auto-submit filter controls
+        // Wire async search & filter controls: debounced typing, instant selects, intercepted form submit
         function wireCatalogFilters() {
             const bookForm = document.getElementById('bookFilterForm');
             if (bookForm) {
+                bookForm.addEventListener('submit', function (e) {
+                    e.preventDefault(); // stop the GET form submission that would reload the page
+                    bookState.page = 1;
+                    fetchBooks();
+                });
                 const bookSearch = document.getElementById('search');
-                let bookTimer;
                 if (bookSearch) {
-                    bookSearch.addEventListener('input', function () {
-                        clearTimeout(bookTimer);
-                        bookTimer = setTimeout(function () { bookForm.submit(); }, 600);
-                    });
+                    // 300 ms debounce: the caret stays in the box, the fetch fires once typing stops
+                    const queueBookSearch = debounce(function () {
+                        bookState.page = 1;
+                        fetchBooks();
+                    }, 300);
+                    bookSearch.addEventListener('input', queueBookSearch);
                 }
                 ['category', 'status', 'size'].forEach(function (id) {
                     const el = document.getElementById(id);
-                    if (el) el.addEventListener('change', function () { bookForm.submit(); });
+                    if (el) el.addEventListener('change', function () {
+                        bookState.page = 1;
+                        fetchBooks();
+                    });
                 });
             }
 
-            const resSearch = document.getElementById('resourceSearch');
-            let resTimer;
+            const resSearch = document.getElementById('rsearch');
             if (resSearch) {
-                resSearch.addEventListener('input', function () {
-                    clearTimeout(resTimer);
-                    resTimer = setTimeout(applyResourceFilters, 600);
-                });
+                const queueResourceSearch = debounce(function () {
+                    resourceState.page = 1;
+                    fetchResources();
+                }, 300);
+                resSearch.addEventListener('input', queueResourceSearch);
                 resSearch.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter') { e.preventDefault(); applyResourceFilters(); }
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        queueResourceSearch.cancel();
+                        resourceState.page = 1;
+                        fetchResources();
+                    }
                 });
             }
             ['resourceCategoryFilter', 'resourceSizeFilter'].forEach(function (id) {
                 const el = document.getElementById(id);
-                if (el) el.addEventListener('change', applyResourceFilters);
+                if (el) el.addEventListener('change', function () {
+                    resourceState.page = 1;
+                    fetchResources();
+                });
             });
         }
 
@@ -2055,7 +2402,10 @@
             }
             if (target) {
                 setTimeout(function () {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Match the scroll-mt-32 anchor margin (8rem = 128px) so the tab bar clears the sticky navbar
+                    const anchorMargin = parseFloat(getComputedStyle(target).scrollMarginTop) || 128;
+                    const top = Math.max(target.getBoundingClientRect().top + window.pageYOffset - anchorMargin, 0);
+                    window.scrollTo({ top: top, behavior: 'smooth' });
                 }, 650);
             }
         }
