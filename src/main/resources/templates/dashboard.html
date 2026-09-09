@@ -503,20 +503,23 @@
             <div id="books" class="scroll-mt-32">
             <!-- Catalog view toggle (Physical books vs Digital resources) -->
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-                <div class="glass inline-flex items-center rounded-2xl ring-1 ring-white/15 p-1 gap-1" role="tablist" aria-label="Catalogue view">
-                    <a th:href="@{/dashboard(size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rsize=${rPageSize})}"
+                <div id="catalogTabs" class="glass inline-flex items-center rounded-2xl ring-1 ring-white/15 p-1 gap-1" role="tablist" aria-label="Catalogue view">
+                    <a th:href="@{/dashboard(type='all',size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rsize=${rPageSize})}"
+                       data-type="all"
                        role="tab" th:aria-selected="${catalogType == 'all'}" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold rounded-xl transition flex items-center gap-1.5"
                        th:classappend="${catalogType == 'all'} ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-900/40' : 'text-indigo-100 hover:bg-white/10'">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
                         All
                     </a>
                     <a th:href="@{/dashboard(type='physical',size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus})}"
+                       data-type="physical"
                        role="tab" th:aria-selected="${catalogType == 'physical'}" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold rounded-xl transition flex items-center gap-1.5"
                        th:classappend="${catalogType == 'physical'} ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-900/40' : 'text-indigo-100 hover:bg-white/10'">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
                         Physical
                     </a>
                     <a th:href="@{/dashboard(type='digital',rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
+                       data-type="digital"
                        role="tab" th:aria-selected="${catalogType == 'digital'}" class="px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-bold rounded-xl transition flex items-center gap-1.5"
                        th:classappend="${catalogType == 'digital'} ? 'bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-900/40' : 'text-indigo-100 hover:bg-white/10'">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
@@ -526,7 +529,7 @@
             </div>
 
             <!-- Books Table -->
-            <div class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6" th:if="${showBooks}">
+            <div id="books-card" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6" th:classappend="${showBooks} ? '' : 'hidden'">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
@@ -703,7 +706,7 @@
             <!-- /Books section wrapper -->
 
             <!-- Digital Resources (PDF / E-Books) -->
-            <div id="resources" class="scroll-mt-32 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8" th:if="${showResources}">
+            <div id="resources" class="scroll-mt-32 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8" th:classappend="${showResources} ? '' : 'hidden'">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-fuchsia-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
@@ -2169,6 +2172,58 @@
             fetchBooks();
         }
 
+        // ---------------- Catalog type tabs (All / Physical / Digital) ----------------
+        // The tabs are real <a href> links for no-JS fallback; with JS each click is
+        // intercepted (preventDefault) so the catalogue re-renders in place instead of
+        // triggering a full GET page reload that also jumps back to the top.
+        const CATALOG_TAB_ACTIVE = ['bg-gradient-to-r', 'from-indigo-500', 'to-fuchsia-500', 'text-white', 'shadow-lg', 'shadow-indigo-900/40'];
+        const CATALOG_TAB_IDLE = ['text-indigo-100', 'hover:bg-white/10'];
+
+        function normalizeCatalogType(type) {
+            const t = String(type || 'all').toLowerCase();
+            return (t === 'physical' || t === 'digital') ? t : 'all';
+        }
+
+        const catalogState = { type: normalizeCatalogType(new URLSearchParams(window.location.search).get('type')) };
+
+        function setCatalogTab(type) {
+            catalogState.type = normalizeCatalogType(type);
+            const t = catalogState.type;
+
+            // Active tab styling
+            document.querySelectorAll('#catalogTabs a[data-type]').forEach(function (tab) {
+                const active = tab.dataset.type === t;
+                tab.setAttribute('aria-selected', active ? 'true' : 'false');
+                tab.classList.remove(...CATALOG_TAB_ACTIVE, ...CATALOG_TAB_IDLE);
+                tab.classList.add(...(active ? CATALOG_TAB_ACTIVE : CATALOG_TAB_IDLE));
+            });
+
+            // Swap sections in place: physical hides resources, digital hides the books table
+            const booksCard = document.getElementById('books-card');
+            if (booksCard) booksCard.classList.toggle('hidden', t === 'digital');
+            const resourcesSection = document.getElementById('resources');
+            if (resourcesSection) resourcesSection.classList.toggle('hidden', t === 'physical');
+
+            const typeInput = document.querySelector('#bookFilterForm input[name="type"]');
+            if (typeInput) typeInput.value = t;
+
+            // Silent URL state sync: ?type=all | ?type=physical | ?type=digital (no reload)
+            syncUrlParams({ type: t });
+
+            // AJAX refresh of the visible sections without touching scroll position
+            if (t !== 'digital') fetchBooks();
+            if (t !== 'physical') fetchResources();
+        }
+
+        function wireCatalogTabs() {
+            document.querySelectorAll('#catalogTabs a[data-type]').forEach(function (tab) {
+                tab.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    setCatalogTab(tab.dataset.type);
+                });
+            });
+        }
+
         // ---------------- Digital resources (AJAX grid + pagination) ----------------
         const resourceState = { page: Math.max(parseInt(new URLSearchParams(window.location.search).get('rpage'), 10) || 1, 1) };
         let resourcesRequestSeq = 0;
@@ -2413,6 +2468,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             updateDashboardStats();
             wireCatalogFilters();
+            wireCatalogTabs();
             restoreActiveSection();
             const circSel = document.getElementById('circPageSize');
             if (circSel) circSel.addEventListener('change', function () { circPage = 1; circRender(); });
