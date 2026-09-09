@@ -117,20 +117,20 @@
                 <!-- Stats strip -->
                 <div class="mt-10 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
                     <div class="glass rounded-2xl sm:rounded-3xl ring-1 ring-white/15 px-4 py-5 sm:px-6 sm:py-6">
-                        <p class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent">10k+</p>
+                        <p class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent"><span th:text="${totalBooks}">0</span></p>
                         <p class="mt-1 text-[11px] sm:text-xs font-medium text-indigo-100/70 uppercase tracking-wider">Books catalogued</p>
                     </div>
                     <div class="glass rounded-2xl sm:rounded-3xl ring-1 ring-white/15 px-4 py-5 sm:px-6 sm:py-6">
-                        <p class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent">PDF</p>
-                        <p class="mt-1 text-[11px] sm:text-xs font-medium text-indigo-100/70 uppercase tracking-wider">In-browser reader</p>
+                        <p class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent"><span th:text="${totalResources}">0</span></p>
+                        <p class="mt-1 text-[11px] sm:text-xs font-medium text-indigo-100/70 uppercase tracking-wider">Digital resources</p>
                     </div>
                     <div class="glass rounded-2xl sm:rounded-3xl ring-1 ring-white/15 px-4 py-5 sm:px-6 sm:py-6">
-                        <p class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent">Auto</p>
-                        <p class="mt-1 text-[11px] sm:text-xs font-medium text-indigo-100/70 uppercase tracking-wider">Fine calculation</p>
+                        <p class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent"><span th:text="${totalCategories}">0</span></p>
+                        <p class="mt-1 text-[11px] sm:text-xs font-medium text-indigo-100/70 uppercase tracking-wider">Categories</p>
                     </div>
                     <div class="glass rounded-2xl sm:rounded-3xl ring-1 ring-white/15 px-4 py-5 sm:px-6 sm:py-6">
-                        <p class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent">24/7</p>
-                        <p class="mt-1 text-[11px] sm:text-xs font-medium text-indigo-100/70 uppercase tracking-wider">Catalogue access</p>
+                        <p class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-transparent"><span th:text="${totalMembers}">0</span></p>
+                        <p class="mt-1 text-[11px] sm:text-xs font-medium text-indigo-100/70 uppercase tracking-wider">Members</p>
                     </div>
                 </div>
             </section>
