@@ -5,6 +5,7 @@ import com.oodd.library.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,4 +42,8 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
     /** Single-query fetch of the whole catalogue (avoids N+1 on category). */
     @Query("SELECT b FROM Book b JOIN FETCH b.category ORDER BY b.id DESC")
     List<Book> findAllWithCategory();
+
+    /** Eagerly initialised category so the entity serialises cleanly to JSON. */
+    @Query("SELECT b FROM Book b JOIN FETCH b.category WHERE b.id = :id")
+    Optional<Book> findByIdWithCategory(@Param("id") Long id);
 }

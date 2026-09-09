@@ -1,6 +1,7 @@
 package com.oodd.library.controller;
 
 import com.oodd.library.dto.BookRequest;
+import com.oodd.library.exception.ResourceNotFoundException;
 import com.oodd.library.model.Book;
 import com.oodd.library.model.Category;
 import com.oodd.library.model.DigitalResource;
@@ -250,7 +251,7 @@ public class BookController {
     public ResponseEntity<Book> getBook(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(bookService.getBookById(id));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }

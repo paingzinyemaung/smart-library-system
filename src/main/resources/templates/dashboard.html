@@ -105,28 +105,28 @@
         </div>
 
         <p class="px-3 mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-300/70">Menu</p>
-        <nav class="space-y-1">
-            <a href="#dashboard" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-semibold bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-900/40">
+        <nav id="sidebarNav" class="space-y-1">
+            <a href="#dashboard" data-view="dashboard" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-semibold bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-900/40">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
                 Dashboard
             </a>
-            <a href="#books" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200">
+            <a href="#books" data-view="books" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
                 Books
             </a>
-            <a href="#resources" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200">
+            <a href="#resources" data-view="resources" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
                 Resources
             </a>
-            <a href="#circulation" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200" th:if="${isAdmin}">
+            <a href="#circulation" data-view="circulation" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200" th:if="${isAdmin}">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
                 Circulation
             </a>
-            <a href="#analytics" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200" th:if="${isAdmin}">
+            <a href="#analytics" data-view="analytics" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200" th:if="${isAdmin}">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
                 Analytics
             </a>
-            <a href="#reports" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200" th:if="${isAdmin}">
+            <a href="#reports" data-view="reports" class="flex items-center gap-3 px-4 py-2.5 rounded-2xl text-sm font-medium text-indigo-100/80 hover:bg-white/10 hover:text-white hover:translate-x-1 transition-all duration-200" th:if="${isAdmin}">
                 <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
                 Reports
             </a>
@@ -167,7 +167,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
                     </button>
                     <h2 class="truncate text-sm sm:text-base font-bold tracking-tight">
-                        <span class="hidden sm:inline text-indigo-200/60 font-medium">Dashboard · </span>Library Overview
+                        <span class="hidden sm:inline text-indigo-200/60 font-medium">Dashboard · </span><span id="viewTitle">Library Overview</span>
                     </h2>
                 </div>
                 <div class="flex items-center gap-2 sm:gap-3">
@@ -226,8 +226,11 @@
             </nav>
         </header>
 
-        <!-- ============ MAIN CONTENT ============ -->
-        <main id="dashboard" class="scroll-mt-32 flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-5 sm:py-8 animate-fade-up">
+        <!-- ============ MAIN CONTENT (SPA shell: only one .app-view visible at a time) ============ -->
+        <main class="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 py-5 sm:py-8">
+
+        <!-- ============ VIEW: Dashboard ============ -->
+        <section id="dashboard" class="app-view animate-fade-up">
 
             <!-- Welcome Section -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5 sm:mb-8">
@@ -329,8 +332,12 @@
                 </div>
             </div>
 
-            <!-- Active Circulation (Issue / Return) - Admin only -->
-            <div id="circulation" class="scroll-mt-32 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mb-5 sm:mb-8" th:if="${isAdmin}">
+        </section>
+        <!-- ============ /VIEW: Dashboard ============ -->
+
+        <!-- ============ VIEW: Circulation (admin only) ============ -->
+        <section id="circulation" class="app-view hidden" th:if="${isAdmin}">
+            <div class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-violet-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
@@ -412,9 +419,12 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <!-- ============ /VIEW: Circulation ============ -->
 
-            <!-- Charts and Upload Section (Admin only) -->
-            <div id="analytics" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-8" th:if="${isAdmin}">
+        <!-- ============ VIEW: Analytics (admin only) ============ -->
+        <section id="analytics" class="app-view hidden" th:if="${isAdmin}">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
                 <!-- Pie Chart -->
                 <div class="glass rounded-3xl ring-1 ring-white/15 p-5 sm:p-6">
                     <h3 class="mb-4 flex items-center gap-2 text-base sm:text-lg font-bold">
@@ -498,10 +508,11 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <!-- ============ /VIEW: Analytics ============ -->
 
-            <!-- Books section wrapper: All / Physical / Digital filter tabs + catalogue table -->
-            <div id="books" class="scroll-mt-32">
-            <!-- Catalog view toggle (Physical books vs Digital resources) -->
+        <!-- Catalog view toggle (All / Physical / Digital) — shared header strip for Books & Resources views -->
+        <div id="catalogTabsBar" class="app-view hidden">
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                 <div id="catalogTabs" class="glass inline-flex items-center rounded-2xl ring-1 ring-white/15 p-1 gap-1" role="tablist" aria-label="Catalogue view">
                     <a th:href="@{/dashboard(type='all',size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rsize=${rPageSize})}"
@@ -527,9 +538,13 @@
                     </a>
                 </div>
             </div>
+        </div>
+        <!-- /catalogTabsBar -->
 
+        <!-- ============ VIEW: Books ============ -->
+        <section id="books" class="app-view hidden">
             <!-- Books Table -->
-            <div id="books-card" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6" th:classappend="${showBooks} ? '' : 'hidden'">
+            <div id="books-card" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
@@ -702,11 +717,12 @@
                     </div>
                 </div>
             </div>
-            </div>
-            <!-- /Books section wrapper -->
+        </section>
+        <!-- ============ /VIEW: Books ============ -->
 
-            <!-- Digital Resources (PDF / E-Books) -->
-            <div id="resources" class="scroll-mt-32 glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6 mt-5 sm:mt-8" th:classappend="${showResources} ? '' : 'hidden'">
+        <!-- ============ VIEW: Resources ============ -->
+        <section id="resources" class="app-view hidden">
+            <div id="resources-card" class="glass rounded-3xl ring-1 ring-white/15 p-4 sm:p-6">
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
                     <h3 class="flex items-center gap-2 text-base sm:text-lg font-bold">
                         <svg class="w-5 h-5 text-fuchsia-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
@@ -812,13 +828,16 @@
                         <a th:href="@{/dashboard(type=${catalogType},size=${pageSize},search=${search},category=${filterCategory},status=${filterStatus},rpage=${rCurrentPage + 1},rsize=${rPageSize},rsearch=${rSearch},rcategory=${rFilterCategory})}"
                            th:attr="data-page=${rCurrentPage + 1}"
                            class="px-2.5 py-1.5 text-xs font-semibold rounded-xl text-indigo-100 hover:bg-white/10 transition"
-                           th:classappend="${rCurrentPage >= rTotalPages} ? 'opacity-40 pointer-events-none' : ''" aria-label="Next page">›</a>
-                    </div>
-                </div>
-            </div>
+                            th:classappend="${rCurrentPage >= rTotalPages} ? 'opacity-40 pointer-events-none' : ''" aria-label="Next page">›</a>
+                     </div>
+                 </div>
+             </div>
+        </section>
+        <!-- ============ /VIEW: Resources ============ -->
 
-            <!-- Reports & Exports (Excel / PDF downloads) -->
-            <div id="reports" class="mt-5 sm:mt-8 scroll-mt-32" th:if="${isAdmin}">
+        <!-- ============ VIEW: Reports (admin only) ============ -->
+        <section id="reports" class="app-view hidden" th:if="${isAdmin}">
+            <div>
                 <h3 class="mb-4 flex items-center gap-2 text-base sm:text-lg font-bold">
                     <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
                     Reports &amp; Exports
@@ -898,6 +917,8 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <!-- ============ /VIEW: Reports ============ -->
 
             <!-- Footer -->
             <footer class="mt-8 pt-4 border-t border-white/10 text-center">
@@ -1275,9 +1296,10 @@
             if (wrap && menu && !menu.classList.contains('hidden') && !wrap.contains(e.target)) toggleUserMenu();
         });
 
-        // ===== Category pie chart (admin only) =====
-        const categoryCanvas = document.getElementById('categoryChart');
-        if (categoryCanvas) {
+        // ===== Category pie chart (admin only, built when the Analytics view first opens) =====
+        function renderCategoryChart() {
+            const categoryCanvas = document.getElementById('categoryChart');
+            if (!categoryCanvas) return;
             Chart.defaults.color = '#a5b4fc';
             new Chart(categoryCanvas.getContext('2d'), {
                 type: 'pie',
@@ -1417,10 +1439,23 @@
             }
         }
 
+        // Build analytics charts lazily — canvases need a visible container to size correctly
+        let analyticsData = null, analyticsPromise = null, analyticsRendered = false;
+        function initAnalyticsOnce() {
+            if (analyticsRendered) return;
+            renderCategoryChart();
+            if (!isAdmin) { analyticsRendered = true; return; }
+            const draw = function (data) {
+                if (!analyticsRendered && data) { analyticsRendered = true; renderAnalyticsCharts(data); }
+            };
+            if (analyticsData) draw(analyticsData);
+            else if (analyticsPromise) analyticsPromise.then(draw);
+        }
+
         if (isAdmin) {
-            fetch('/api/analytics')
+            analyticsPromise = fetch('/api/analytics')
                 .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-                .then(renderAnalyticsCharts)
+                .then(function (data) { analyticsData = data; return data; })
                 .catch(function (err) { console.error('Analytics load failed:', err); });
         }
 
@@ -1495,7 +1530,12 @@
 
             if (bookId) {
                 fetch('/api/books/' + bookId)
-                    .then(function (r) { if (!r.ok) throw new Error('Book not found'); return r.json(); })
+                    .then(function (r) {
+                        if (r.status === 404) throw new Error('Book not found');
+                        if (r.status === 401 || r.status === 403) throw new Error('Not authorised — please sign in again');
+                        if (!r.ok) throw new Error('HTTP ' + r.status);
+                        return r.json();
+                    })
                     .then(function (b) {
                         document.getElementById('bookId').value = b.id;
                         document.getElementById('bookCode').value = b.bookCode || '';
@@ -2186,41 +2226,148 @@
 
         const catalogState = { type: normalizeCatalogType(new URLSearchParams(window.location.search).get('type')) };
 
-        function setCatalogTab(type) {
-            catalogState.type = normalizeCatalogType(type);
-            const t = catalogState.type;
-
-            // Active tab styling
+        function applyTabStyles(type) {
+            const t = normalizeCatalogType(type);
             document.querySelectorAll('#catalogTabs a[data-type]').forEach(function (tab) {
                 const active = tab.dataset.type === t;
                 tab.setAttribute('aria-selected', active ? 'true' : 'false');
                 tab.classList.remove(...CATALOG_TAB_ACTIVE, ...CATALOG_TAB_IDLE);
                 tab.classList.add(...(active ? CATALOG_TAB_ACTIVE : CATALOG_TAB_IDLE));
             });
+        }
 
-            // Swap sections in place: physical hides resources, digital hides the books table
-            const booksCard = document.getElementById('books-card');
-            if (booksCard) booksCard.classList.toggle('hidden', t === 'digital');
-            const resourcesSection = document.getElementById('resources');
-            if (resourcesSection) resourcesSection.classList.toggle('hidden', t === 'physical');
+        function setCatalogTab(type) {
+            catalogState.type = normalizeCatalogType(type);
+            applyTabStyles(catalogState.type);
 
             const typeInput = document.querySelector('#bookFilterForm input[name="type"]');
-            if (typeInput) typeInput.value = t;
+            if (typeInput) typeInput.value = catalogState.type;
 
             // Silent URL state sync: ?type=all | ?type=physical | ?type=digital (no reload)
-            syncUrlParams({ type: t });
+            syncUrlParams({ type: catalogState.type });
 
-            // AJAX refresh of the visible sections without touching scroll position
-            if (t !== 'digital') fetchBooks();
-            if (t !== 'physical') fetchResources();
+            // AJAX refresh without touching scroll position
+            if (catalogState.type !== 'digital') fetchBooks();
+            else fetchResources();
         }
 
         function wireCatalogTabs() {
             document.querySelectorAll('#catalogTabs a[data-type]').forEach(function (tab) {
                 tab.addEventListener('click', function (e) {
                     e.preventDefault();
-                    setCatalogTab(tab.dataset.type);
+                    if (tab.dataset.type === 'digital') {
+                        // Digital lives in its own SPA view now
+                        catalogState.type = 'digital';
+                        syncUrlParams({ type: 'digital' });
+                        applyTabStyles('digital');
+                        activateView('resources');
+                    } else {
+                        setCatalogTab(tab.dataset.type);
+                        activateView('books');
+                    }
                 });
+            });
+        }
+
+        // ================= SPA view switching (sidebar <-> URL hash) =================
+        // Only one .app-view container is visible at a time; the catalog tab strip is a
+        // shared header shown for the Books and Resources views only.
+        const VIEW_IDS = ['dashboard', 'books', 'resources', 'circulation', 'analytics', 'reports'];
+        const VIEW_TITLES = {
+            dashboard: 'Library Overview',
+            books: 'Book Catalogue',
+            resources: 'Digital Resources',
+            circulation: 'Active Loans',
+            analytics: 'Analytics & Charts',
+            reports: 'Reports & Exports'
+        };
+        const NAV_ACTIVE = ['bg-gradient-to-r', 'from-indigo-500', 'to-fuchsia-500', 'text-white', 'shadow-lg', 'shadow-indigo-900/40', 'font-semibold'];
+        const NAV_IDLE = ['font-medium', 'text-indigo-100/80'];
+
+        let activeView = 'dashboard';
+
+        function normalizeViewName(raw) {
+            const v = String(raw || '').replace(/^#/, '').toLowerCase();
+            return VIEW_IDS.indexOf(v) !== -1 ? v : null;
+        }
+        function viewExists(view) { return document.getElementById(view) !== null; }
+
+        // Resolve the view to show on first paint: explicit hash wins, then filter state
+        function initialView() {
+            const fromHash = normalizeViewName(window.location.hash);
+            if (fromHash) return viewExists(fromHash) ? fromHash : 'dashboard';
+            const p = new URLSearchParams(window.location.search);
+            if (String(p.get('type') || '').toLowerCase() === 'digital') return 'resources';
+            if (p.get('rsearch') || p.get('rcategory')) return viewExists('resources') ? 'resources' : 'dashboard';
+            if (p.get('search') || p.get('category') || p.get('status')) return viewExists('books') ? 'books' : 'dashboard';
+            return 'dashboard';
+        }
+
+        function setNavActive(view) {
+            document.querySelectorAll('#sidebarNav a[data-view]').forEach(function (link) {
+                const active = link.dataset.view === view;
+                link.classList.remove(...NAV_ACTIVE, ...NAV_IDLE);
+                link.classList.add(...(active ? NAV_ACTIVE : NAV_IDLE));
+            });
+        }
+
+        function activateView(view, opts) {
+            opts = opts || {};
+            if (!viewExists(view)) view = 'dashboard';
+            activeView = view;
+
+            VIEW_IDS.forEach(function (v) {
+                const el = document.getElementById(v);
+                if (!el) return;
+                const show = v === view;
+                el.classList.toggle('hidden', !show);
+                if (show) {
+                    el.classList.remove('animate-fade-up');
+                    void el.offsetWidth; // restart the entrance animation
+                    el.classList.add('animate-fade-up');
+                }
+            });
+
+            const bar = document.getElementById('catalogTabsBar');
+            if (bar) bar.classList.toggle('hidden', view !== 'books' && view !== 'resources');
+
+            if (view === 'resources') {
+                applyTabStyles('digital');
+            } else if (view === 'books') {
+                if (catalogState.type === 'digital') catalogState.type = 'all';
+                applyTabStyles(catalogState.type);
+            }
+
+            setNavActive(view);
+
+            const title = document.getElementById('viewTitle');
+            if (title) title.textContent = VIEW_TITLES[view] || 'Library Overview';
+
+            if (view === 'analytics') initAnalyticsOnce();
+
+            const target = '#' + view;
+            if (window.location.hash !== target) {
+                const url = window.location.pathname + window.location.search + target;
+                if (opts.replace) history.replaceState(null, '', url);
+                else history.pushState(null, '', url);
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function wireSpaNav() {
+            document.querySelectorAll('#sidebarNav a[data-view]').forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const view = link.dataset.view;
+                    if (view === activeView) window.scrollTo(0, 0);
+                    else activateView(view);
+                    if (window.innerWidth < 1024) closeSidebar();
+                });
+            });
+            window.addEventListener('popstate', function () {
+                const v = normalizeViewName(window.location.hash);
+                if (v) activateView(v, { replace: true });
             });
         }
 
@@ -2444,36 +2591,18 @@
             });
         }
 
-        // ===== Restore view to the active section after a search/filter reload =====
-        function restoreActiveSection() {
-            const hash = window.location.hash.replace('#', '');
-            const params = new URLSearchParams(window.location.search);
-            const bookFiltersActive = Boolean(params.get('search') || params.get('category') || params.get('status'));
-            const resourceFiltersActive = Boolean(params.get('rsearch') || params.get('rcategory'));
-            let target = (hash === 'books' || hash === 'resources') ? document.getElementById(hash) : null;
-            if (!target) {
-                if (resourceFiltersActive && !bookFiltersActive) target = document.getElementById('resources');
-                else if (bookFiltersActive && !resourceFiltersActive) target = document.getElementById('books');
-            }
-            if (target) {
-                setTimeout(function () {
-                    // Match the scroll-mt-32 anchor margin (8rem = 128px) so the tab bar clears the sticky navbar
-                    const anchorMargin = parseFloat(getComputedStyle(target).scrollMarginTop) || 128;
-                    const top = Math.max(target.getBoundingClientRect().top + window.pageYOffset - anchorMargin, 0);
-                    window.scrollTo({ top: top, behavior: 'smooth' });
-                }, 650);
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
             updateDashboardStats();
             wireCatalogFilters();
             wireCatalogTabs();
-            restoreActiveSection();
+            wireSpaNav();
             const circSel = document.getElementById('circPageSize');
             if (circSel) circSel.addEventListener('change', function () { circPage = 1; circRender(); });
             circRender();
         });
+
+        // ===== Initial SPA route: sync visible view with URL hash (runs before first paint) =====
+        activateView(initialView(), { replace: true });
     </script>
 </body>
 </html>

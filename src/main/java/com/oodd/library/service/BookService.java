@@ -36,7 +36,8 @@ public class BookService {
 
     @Transactional(readOnly = true)
     public Book getBookById(Long id) {
-        return bookRepository.findById(id)
+        // JOIN FETCH keeps category initialised so the entity serialises to JSON
+        return bookRepository.findByIdWithCategory(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Book", id));
     }
 
