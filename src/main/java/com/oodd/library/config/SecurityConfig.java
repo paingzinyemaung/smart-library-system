@@ -96,7 +96,8 @@ private final UserRepository userRepository;
                  .requestMatchers(HttpMethod.GET, "/api/download-template").hasRole("ADMIN")
                  // User management console is ADMIN only
                  .requestMatchers("/admin/**").hasRole("ADMIN")
-                 .requestMatchers("/dashboard", "/profile", "/profile/update", "/settings", "/settings/update").authenticated()
+                 .requestMatchers("/settings", "/settings/update").hasRole("ADMIN")
+                 .requestMatchers("/dashboard", "/profile", "/profile/update").authenticated()
                  .anyRequest().authenticated()
             ).formLogin(form -> form
                 .loginPage("/login")
