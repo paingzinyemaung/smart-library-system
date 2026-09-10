@@ -58,6 +58,21 @@ public class UserService {
 	                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 	    }
 	    
+	    public User updateProfileInfo(Long userId, String firstName, String lastName, String email) {
+	        return userRepository.findById(userId)
+	                .map(user -> {
+	                    if (!user.getEmail().equalsIgnoreCase(email) && userRepository.existsByEmail(email)) {
+	                        throw new RuntimeException("Email already registered");
+	                    }
+	                    user.setFirstName(firstName);
+	                    user.setLastName(lastName);
+	                    user.setEmail(email);
+	                    user.setUpdatedAt(LocalDateTime.now());
+	                    return userRepository.save(user);
+	                })
+	                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+	    }
+	    
 	    public boolean existsByEmail(String email) {
 	        return userRepository.existsByEmail(email);
 	    }

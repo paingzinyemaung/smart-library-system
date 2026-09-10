@@ -59,6 +59,31 @@ public class AuthController {
         return "profile";
     }
     
+    @PostMapping("/profile/update")
+    public String updateProfile(@RequestParam("firstName") String firstName,
+                                @RequestParam("lastName") String lastName,
+                                @RequestParam("email") String email,
+                                java.security.Principal principal) {
+        User user = principal == null ? null
+                : userService.findByEmail(principal.getName()).orElse(null);
+        if (user == null) {
+            return "redirect:/login";
+        }
+        
+        String newEmail = email == null ? "" : email.trim();
+        if (firstName == null || firstName.isBlank() || lastName == null || lastName.isBlank()
+                || newEmail.isBlank() || !newEmail.contains("@")) {
+            return "redirect:/profile?error=invalid";
+        }
+        
+        try {
+            userService.updateProfileInfo(user.getId(), firstName.trim(), lastName.trim(), newEmail);
+        } catch (RuntimeException e) {
+            return "redirect:/profile?error=email";
+        }
+        return "redirect:/profile?success";
+    }
+    
 	/*
 	 * @GetMapping("/dashboard") public String showDashboard() { return "dashboard";
 	 * }

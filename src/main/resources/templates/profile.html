@@ -72,6 +72,20 @@
 
         <main class="flex-1 w-full max-w-5xl mx-auto px-3 sm:px-6 py-6 sm:py-10 animate-fade-up">
 
+            <!-- Status banners -->
+            <div th:if="${param.success}" class="mb-5 flex items-center gap-3 rounded-2xl bg-emerald-500/15 ring-1 ring-emerald-300/40 px-5 py-3.5 text-sm font-semibold text-emerald-100">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                Profile updated successfully.
+            </div>
+            <div th:if="${param.error != null and param.error[0] == 'email'}" class="mb-5 flex items-center gap-3 rounded-2xl bg-rose-500/15 ring-1 ring-rose-300/40 px-5 py-3.5 text-sm font-semibold text-rose-100">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008Zm9-2.25a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                Could not update profile — that email address is already taken.
+            </div>
+            <div th:if="${param.error != null and param.error[0] == 'invalid'}" class="mb-5 flex items-center gap-3 rounded-2xl bg-rose-500/15 ring-1 ring-rose-300/40 px-5 py-3.5 text-sm font-semibold text-rose-100">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008Zm9-2.25a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                Could not update profile — please complete all fields with a valid email.
+            </div>
+
             <!-- Profile hero card -->
             <section class="glass rounded-3xl sm:rounded-[2rem] ring-1 ring-white/15 shadow-2xl shadow-indigo-950/60 p-5 sm:p-8">
                 <div class="flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
@@ -117,32 +131,47 @@
                     </div>
                 </div>
 
-                <!-- Detail tiles -->
-                <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                    <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">First name</p>
-                        <p class="mt-1 text-base font-semibold truncate" th:text="${!#strings.isEmpty(user.firstName)} ? ${user.firstName} : '—'">John</p>
+                <!-- Account details (editable) -->
+                <form th:action="@{/profile/update}" method="POST" class="mt-6 sm:mt-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                        <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4">
+                            <label for="firstName" class="block text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">First name</label>
+                            <input id="firstName" type="text" name="firstName" required maxlength="50"
+                                   placeholder="John" th:value="${user.firstName}"
+                                   class="mt-1 w-full rounded-xl bg-indigo-950/40 ring-1 ring-white/15 px-3.5 py-2.5 text-base font-semibold text-white placeholder-indigo-300/40 outline-none transition focus:bg-indigo-950/60 focus:ring-2 focus:ring-fuchsia-300/60">
+                        </div>
+                        <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4">
+                            <label for="lastName" class="block text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Last name</label>
+                            <input id="lastName" type="text" name="lastName" required maxlength="50"
+                                   placeholder="Doe" th:value="${user.lastName}"
+                                   class="mt-1 w-full rounded-xl bg-indigo-950/40 ring-1 ring-white/15 px-3.5 py-2.5 text-base font-semibold text-white placeholder-indigo-300/40 outline-none transition focus:bg-indigo-950/60 focus:ring-2 focus:ring-fuchsia-300/60">
+                        </div>
+                        <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4">
+                            <label for="username" class="block text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Username</label>
+                            <input id="username" type="text" th:value="${user.username}" disabled aria-readonly="true"
+                                   class="mt-1 w-full rounded-xl bg-indigo-950/20 ring-1 ring-white/10 px-3.5 py-2.5 text-base font-semibold text-indigo-200/60 cursor-not-allowed select-none outline-none">
+                        </div>
+                        <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4 sm:col-span-2">
+                            <label for="email" class="block text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Email address</label>
+                            <input id="email" type="email" name="email" required maxlength="100"
+                                   placeholder="john@example.com" th:value="${user.email}"
+                                   class="mt-1 w-full rounded-xl bg-indigo-950/40 ring-1 ring-white/15 px-3.5 py-2.5 text-base font-semibold text-white placeholder-indigo-300/40 outline-none transition focus:bg-indigo-950/60 focus:ring-2 focus:ring-fuchsia-300/60">
+                        </div>
+                        <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4">
+                            <label for="role" class="block text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Role</label>
+                            <input id="role" type="text" th:value="${user.role}" disabled aria-readonly="true"
+                                   class="mt-1 w-full rounded-xl bg-indigo-950/20 ring-1 ring-white/10 px-3.5 py-2.5 text-base font-semibold text-indigo-200/60 cursor-not-allowed select-none outline-none">
+                        </div>
                     </div>
-                    <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Last name</p>
-                        <p class="mt-1 text-base font-semibold truncate" th:text="${!#strings.isEmpty(user.lastName)} ? ${user.lastName} : '—'">Doe</p>
+                    <div class="mt-5 flex items-center justify-between gap-3 flex-wrap">
+                        <p class="text-[11px] text-indigo-300/60">Username and role can only be changed by an administrator.</p>
+                        <button type="submit"
+                                class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-6 py-2.5 text-sm font-bold shadow-lg shadow-indigo-900/50 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-900/40 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Save Changes
+                        </button>
                     </div>
-                    <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Username</p>
-                        <p class="mt-1 text-base font-semibold truncate">@<span th:text="${user.username}">johndoe</span></p>
-                    </div>
-                    <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4 sm:col-span-2">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Email address</p>
-                        <p class="mt-1 text-base font-semibold truncate" th:text="${user.email}">john@example.com</p>
-                    </div>
-                    <div class="glass rounded-2xl ring-1 ring-white/15 px-5 py-4">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Role</p>
-                        <p class="mt-1 text-base font-semibold">
-                            <span th:if="${isAdmin}" class="inline-flex items-center rounded-full border border-amber-300/40 bg-amber-400/15 px-2.5 py-0.5 text-xs font-bold text-amber-200">ADMIN</span>
-                            <span th:unless="${isAdmin}" class="inline-flex items-center rounded-full border border-sky-300/40 bg-sky-400/15 px-2.5 py-0.5 text-xs font-bold text-sky-200" th:text="${user.role}">USER</span>
-                        </p>
-                    </div>
-                </div>
+                </form>
             </section>
 
             <!-- Borrowing history -->

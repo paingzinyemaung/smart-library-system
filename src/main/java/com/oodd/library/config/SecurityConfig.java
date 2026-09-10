@@ -94,7 +94,9 @@ private final UserRepository userRepository;
                  .requestMatchers(HttpMethod.PUT, "/api/books/**", "/api/categories/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.DELETE, "/api/books/**", "/api/categories/**").hasRole("ADMIN")
                  .requestMatchers(HttpMethod.GET, "/api/download-template").hasRole("ADMIN")
-                 .requestMatchers("/dashboard", "/profile").authenticated()
+                 // User management console is ADMIN only
+                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                 .requestMatchers("/dashboard", "/profile", "/profile/update", "/settings", "/settings/update").authenticated()
                  .anyRequest().authenticated()
             ).formLogin(form -> form
                 .loginPage("/login")
