@@ -13,9 +13,6 @@ import java.time.temporal.ChronoUnit;
 @Setter
 public class BorrowRecord {
 
-    public static final int LOAN_PERIOD_DAYS = 14;
-    public static final double FINE_PER_DAY = 1.00;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,6 +41,13 @@ public class BorrowRecord {
     @Column(name = "fine_amount")
     private Double fineAmount = 0.0;
 
+    /**
+     * Fine rate per day loaded from SystemSettings. Not persisted; populated by
+     * the service layer so overdue fines can be displayed live at the current rate.
+     */
+    @Transient
+    private double fineRatePerDay;
+
     public enum BorrowStatus {
         ISSUED, RETURNED, OVERDUE
     }
@@ -70,6 +74,6 @@ public class BorrowRecord {
         if (status == BorrowStatus.RETURNED) {
             return fineAmount == null ? 0.0 : fineAmount;
         }
-        return getOverdueDays() * FINE_PER_DAY;
+        return getOverdueDays() * fineRatePerDay;
     }
 }

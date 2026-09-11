@@ -68,10 +68,14 @@ public class ReportService {
 
     private final BookRepository bookRepository;
     private final BorrowRecordRepository borrowRecordRepository;
+    private final SystemSettingsService systemSettingsService;
 
-    public ReportService(BookRepository bookRepository, BorrowRecordRepository borrowRecordRepository) {
+    public ReportService(BookRepository bookRepository,
+                         BorrowRecordRepository borrowRecordRepository,
+                         SystemSettingsService systemSettingsService) {
         this.bookRepository = bookRepository;
         this.borrowRecordRepository = borrowRecordRepository;
+        this.systemSettingsService = systemSettingsService;
     }
 
     // ------------------------------------------------------------------ rows
@@ -102,7 +106,9 @@ public class ReportService {
     /** Member Name, Book Title, Issue Date, Due Date, Status, Fine Amount. */
     @Transactional(readOnly = true)
     public List<Object[]> borrowHistoryRows() {
+        double fineRate = systemSettingsService.getSettings().getFineRate();
         return borrowRecordRepository.findAllWithRelations().stream()
+                .peek(r -> r.setFineRatePerDay(fineRate))
                 .map(r -> new Object[]{
                         memberName(r.getUser()),
                         r.getBook().getTitle(),

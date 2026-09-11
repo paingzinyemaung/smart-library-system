@@ -3,6 +3,7 @@ package com.oodd.library.service;
 import com.oodd.library.exception.ResourceNotFoundException;
 import com.oodd.library.model.Book;
 import com.oodd.library.model.BorrowRecord;
+import com.oodd.library.model.SystemSettings;
 import com.oodd.library.model.User;
 import com.oodd.library.repository.BookRepository;
 import com.oodd.library.repository.BorrowRecordRepository;
@@ -16,21 +17,38 @@ import java.util.List;
 @Service
 public class BorrowService {
 
-    public static final int MAX_ACTIVE_BORROWS = 3;
-
     private static final List<BorrowRecord.BorrowStatus> ACTIVE_STATUSES =
             List.of(BorrowRecord.BorrowStatus.ISSUED, BorrowRecord.BorrowStatus.OVERDUE);
 
     private final BorrowRecordRepository borrowRecordRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
+    private final SystemSettingsService systemSettingsService;
 
     public BorrowService(BorrowRecordRepository borrowRecordRepository,
                          BookRepository bookRepository,
-                         UserRepository userRepository) {
+                         UserRepository userRepository,
+                         SystemSettingsService systemSettingsService) {
         this.borrowRecordRepository = borrowRecordRepository;
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
+        this.systemSettingsService = systemSettingsService;
+    }
+
+    @Transactional(readOnly = true)
+    public SystemSettings getSettings() {
+        return systemSettingsService.getSettings();
+    }
+
+    private <T extends BorrowRecord> T withFineRate(T record) {
+        record.setFineRatePerDay(systemSettingsService.getSettings().getFineRate());
+        return record;
+    }
+
+    private List<BorrowRecord> withFineRate(List<BorrowRecord> records) {
+        double rate = systemSettingsService.getSettings().getFineRate();
+        records.forEach(r -> r.setFineRatePerDay(rate));
+        return records;
     }
 
     @Transactional
@@ -49,10 +67,11 @@ public class BorrowService {
         if (borrowRecordRepository.existsByUserIdAndBookIdAndStatusIn(userId, bookId, ACTIVE_STATUSES)) {
             throw new IllegalArgumentException(user.getUsername() + " already has this book on loan");
         }
+        SystemSettings settings = systemSettingsService.getSettings();
         long activeCount = borrowRecordRepository
                 .findByUserIdAndStatusInOrderByIssueDateDesc(userId, ACTIVE_STATUSES).size();
-        if (activeCount >= MAX_ACTIVE_BORROWS) {
-            throw new IllegalArgumentException("Member already has " + MAX_ACTIVE_BORROWS
+        if (activeCount >= settings.getMaxBorrowLimit()) {
+            throw new IllegalArgumentException("Member already has " + settings.getMaxBorrowLimit()
                     + " active borrows (limit reached)");
         }
 
@@ -61,9 +80,10 @@ public class BorrowService {
         record.setUser(user);
         record.setBook(book);
         record.setIssueDate(today);
-        record.setDueDate(today.plusDays(BorrowRecord.LOAN_PERIOD_DAYS));
+        record.setDueDate(today.plusDays(settings.getMaxLoanDays()));
         record.setStatus(BorrowRecord.BorrowStatus.ISSUED);
         record.setFineAmount(0.0);
+        record.setFineRatePerDay(settings.getFineRate());
 
         book.setQuantity(book.getQuantity() - 1);
         book.recalculateStatus();
@@ -81,8 +101,10 @@ public class BorrowService {
         }
 
         LocalDate today = LocalDate.now();
+        double fineRate = systemSettingsService.getSettings().getFineRate();
         record.setReturnDate(today);
-        record.setFineAmount(record.getOverdueDays() * BorrowRecord.FINE_PER_DAY);
+        record.setFineAmount(record.getOverdueDays() * fineRate);
+        record.setFineRatePerDay(fineRate);
         record.setStatus(BorrowRecord.BorrowStatus.RETURNED);
 
         Book book = record.getBook();
@@ -109,12 +131,12 @@ public class BorrowService {
 
     @Transactional(readOnly = true)
     public List<BorrowRecord> getRecordsForUser(Long userId) {
-        return borrowRecordRepository.findHistoryForUser(userId);
+        return withFineRate(borrowRecordRepository.findHistoryForUser(userId));
     }
 
     @Transactional(readOnly = true)
     public List<BorrowRecord> getActiveRecords() {
-        return borrowRecordRepository.findActiveWithRelations(ACTIVE_STATUSES);
+        return withFineRate(borrowRecordRepository.findActiveWithRelations(ACTIVE_STATUSES));
     }
 
     @Transactional(readOnly = true)
@@ -129,7 +151,7 @@ public class BorrowService {
 
     @Transactional(readOnly = true)
     public BorrowRecord getRecordById(Long id) {
-        return borrowRecordRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Borrow record", id));
+        return withFineRate(borrowRecordRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Borrow record", id)));
     }
 }

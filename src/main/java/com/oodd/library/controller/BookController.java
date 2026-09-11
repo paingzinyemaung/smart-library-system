@@ -103,6 +103,7 @@ public class BookController {
         model.addAttribute("stats", stats);
         model.addAttribute("activeBorrows", borrowService.getActiveRecords());
         model.addAttribute("members", userRepository.findAll());
+        model.addAttribute("settings", borrowService.getSettings());
 
         // Books by category for the chart
         model.addAttribute("categoryData", bookService.getBooksByCategory());

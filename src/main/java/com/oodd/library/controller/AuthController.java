@@ -4,10 +4,17 @@ import com.oodd.library.model.User;
 import com.oodd.library.service.BorrowService;
 import com.oodd.library.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -63,7 +70,8 @@ public class AuthController {
     public String updateProfile(@RequestParam("firstName") String firstName,
                                 @RequestParam("lastName") String lastName,
                                 @RequestParam("email") String email,
-                                java.security.Principal principal) {
+                                java.security.Principal principal,
+                                HttpServletRequest request) {
         User user = principal == null ? null
                 : userService.findByEmail(principal.getName()).orElse(null);
         if (user == null) {
@@ -76,12 +84,45 @@ public class AuthController {
             return "redirect:/profile?error=invalid";
         }
         
+        User updated;
         try {
-            userService.updateProfileInfo(user.getId(), firstName.trim(), lastName.trim(), newEmail);
+            updated = userService.updateProfileInfo(user.getId(), firstName.trim(), lastName.trim(), newEmail);
         } catch (RuntimeException e) {
             return "redirect:/profile?error=email";
         }
+        
+        refreshSecurityContext(updated, request);
         return "redirect:/profile?success";
+    }
+    
+    private void refreshSecurityContext(User updated, HttpServletRequest request) {
+        Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
+        if (currentAuth == null) {
+            return;
+        }
+        
+        Object credentials = currentAuth.getCredentials();
+        Object details = currentAuth.getDetails();
+        
+        UsernamePasswordAuthenticationToken refreshed = new UsernamePasswordAuthenticationToken(
+                new org.springframework.security.core.userdetails.User(
+                        updated.getEmail(),
+                        updated.getPassword() == null ? "" : updated.getPassword(),
+                        updated.isEnabled(),
+                        true, true, true,
+                        currentAuth.getAuthorities()),
+                credentials,
+                currentAuth.getAuthorities());
+        refreshed.setDetails(details);
+        
+        SecurityContext context = SecurityContextHolder.getContext();
+        context.setAuthentication(refreshed);
+        
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.setAttribute(
+                    HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
+        }
     }
     
 	/*
