@@ -40,7 +40,7 @@ public class BorrowService {
         return systemSettingsService.getSettings();
     }
 
-    private <T extends BorrowRecord> T withFineRate(T record) {
+    private BorrowRecord withFineRate(BorrowRecord record) {
         record.setFineRatePerDay(systemSettingsService.getSettings().getFineRate());
         return record;
     }

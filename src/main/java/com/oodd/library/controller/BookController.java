@@ -12,6 +12,7 @@ import com.oodd.library.service.BorrowService;
 import com.oodd.library.service.CategoryService;
 import com.oodd.library.service.DigitalResourceService;
 import com.oodd.library.service.ExcelUploadService;
+import com.oodd.library.service.SystemSettingsService;
 import jakarta.validation.Valid;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -50,19 +51,22 @@ public class BookController {
     private final UserRepository userRepository;
     private final BorrowService borrowService;
     private final DigitalResourceService digitalResourceService;
+    private final SystemSettingsService systemSettingsService;
 
     public BookController(ExcelUploadService excelUploadService,
                           BookService bookService,
                           CategoryService categoryService,
                           UserRepository userRepository,
                           BorrowService borrowService,
-                          DigitalResourceService digitalResourceService) {
+                          DigitalResourceService digitalResourceService,
+                          SystemSettingsService systemSettingsService) {
         this.excelUploadService = excelUploadService;
         this.bookService = bookService;
         this.categoryService = categoryService;
         this.userRepository = userRepository;
         this.borrowService = borrowService;
         this.digitalResourceService = digitalResourceService;
+        this.systemSettingsService = systemSettingsService;
     }
 
     private User currentUser() {
@@ -103,7 +107,7 @@ public class BookController {
         model.addAttribute("stats", stats);
         model.addAttribute("activeBorrows", borrowService.getActiveRecords());
         model.addAttribute("members", userRepository.findAll());
-        model.addAttribute("settings", borrowService.getSettings());
+        model.addAttribute("settings", systemSettingsService.getSettings());
 
         // Books by category for the chart
         model.addAttribute("categoryData", bookService.getBooksByCategory());

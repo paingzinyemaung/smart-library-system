@@ -326,7 +326,8 @@
                             <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-300/80">Fines Collected</p>
                             <p class="mt-1 text-2xl sm:text-3xl font-black" id="statFines" th:text="'$' + ${#numbers.formatDecimal(stats.totalFines, 1, 2)}">$0.00</p>
                             <p class="mt-1 text-[11px] font-medium text-teal-300"
-                               th:text="'$' + ${#numbers.formatDecimal(settings.fineRate, 1, 2)} + '/day after ' + ${settings.maxLoanDays} + '-day limit'">$1.00/day after 14-day limit</p>
+                                th:text="'$' + ${#numbers.formatDecimal(settings?.fineRate ?: 1.00, 1, 2)} + '/day after ' + ${settings?.maxLoanDays ?: 14} + '-day limit'">$1.00/day after 14-day limit</p>
+
                         </div>
                         <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-teal-400/90 to-emerald-600/90 ring-1 ring-white/25 flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 7.756a4.5 4.5 0 1 0 0 8.488M7.5 10.5h6m-6 3h6m7.5-6v10.5a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18.75V6a2.25 2.25 0 0 1 2.25-2.25h13.125c.62 0 1.125.504 1.125 1.125Z"/></svg>
@@ -1094,7 +1095,7 @@
                 </div>
                 <div class="rounded-2xl ring-1 ring-indigo-300/25 bg-indigo-500/10 px-4 py-3 text-xs text-indigo-100 flex items-center gap-2">
                     <svg class="w-4 h-4 shrink-0 text-indigo-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                    Loan period is <b th:text="${settings.maxLoanDays} + ' days'">14 days</b>. Due date: <b id="issueDueDate">—</b> · Fine <b th:text="'$' + ${#numbers.formatDecimal(settings.fineRate, 1, 2)} + '/day'">$1.00/day</b> after due date.
+                    Loan period is <b th:text="${settings?.maxLoanDays ?: 14} + ' days'">14 days</b>. Due date: <b id="issueDueDate">—</b> · Fine <b th:text="'$' + ${#numbers.formatDecimal(settings?.fineRate ?: 1.00, 1, 2)} + '/day'">$1.00/day</b> after due date.
                 </div>
                 <div class="flex items-center justify-end gap-2 pt-1">
                     <button type="button" onclick="closeIssueModal()"
@@ -1259,7 +1260,7 @@
     /*<![CDATA[*/
         const categoryData = /*[[${categoryData}]]*/ {};
         const isAdmin = /*[[${isAdmin}]]*/ false;
-        const loanPeriodDays = /*[[${settings.maxLoanDays}]]*/ 14;
+        const loanPeriodDays = /*[[${settings?.maxLoanDays ?: 14}]]*/ 14;
     /*]]>*/
     </script>
 
